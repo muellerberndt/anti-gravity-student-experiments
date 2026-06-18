@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Anti-gravity student run manifest",
+  "type": "object",
+  "required": [
+    "run_id",
+    "date_local",
+    "run_directory",
+    "repository",
+    "device",
+    "geometry",
+    "measurement",
+    "drive",
+    "states",
+    "controls",
+    "analysis",
+    "claims"
+  ],
+  "properties": {
+    "run_id": { "type": "string" },
+    "date_local": { "type": "string" },
+    "run_directory": { "type": "string" },
+    "repository": {
+      "type": "object",
+      "required": ["package_repo_url", "package_commit_hash"],
+      "properties": {
+        "package_repo_url": { "type": "string" },
+        "package_commit_hash": { "type": ["string", "null"] },
+        "analysis_repo_commit_hash": { "type": ["string", "null"] }
+      }
+    },
+    "device": {
+      "type": "object",
+      "required": ["device_id", "device_type", "firmware_hash", "body_geometry_hash", "wiring_map_hash", "transducers"],
+      "properties": {
+        "device_id": { "type": ["string", "null"] },
+        "device_type": { "type": ["string", "null"] },
+        "firmware_hash": { "type": ["string", "null"] },
+        "body_geometry_hash": { "type": ["string", "null"] },
+        "wiring_map_hash": { "type": ["string", "null"] },
+        "transducers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["port_id", "face_or_zone"],
+            "properties": {
+              "port_id": { "type": ["string", "null"] },
+              "face_or_zone": { "type": ["string", "null"] }
+            }
+          }
+        }
+      }
+    },
+    "geometry": {
+      "type": "object",
+      "required": ["mode", "force_axis", "zone_definition", "oph_vertical_scalar_claim", "physical_flip_axis"],
+      "properties": {
+        "mode": { "type": ["string", "null"] },
+        "force_axis": { "type": ["string", "null"] },
+        "zone_definition": { "type": ["string", "null"] },
+        "oph_vertical_scalar_claim": { "type": ["boolean", "null"] },
+        "physical_flip_axis": { "type": ["string", "null"] }
+      }
+    },
+    "measurement": {
+      "type": "object",
+      "required": ["method", "adc_calibration_file", "adc_saturation_margin_pct", "allan_deviation_file"],
+      "properties": {
+        "method": { "type": ["string", "null"] },
+        "adc_calibration_file": { "type": ["string", "null"] },
+        "adc_saturation_margin_pct": { "type": ["number", "string", "null"] },
+        "allan_deviation_file": { "type": ["string", "null"] }
+      }
+    },
+    "drive": {
+      "type": "object",
+      "required": ["waveform_hash", "state_schedule_hash", "packet_log_file"],
+      "properties": {
+        "waveform_hash": { "type": ["string", "null"] },
+        "state_schedule_hash": { "type": ["string", "null"] },
+        "packet_log_file": { "type": ["string", "null"] }
+      }
+    },
+    "states": {
+      "type": "object",
+      "required": ["sequence"],
+      "properties": {
+        "sequence": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "controls": {
+      "type": "object",
+      "required": [
+        "horizontal_axis_inversion",
+        "dummy_run",
+        "live_replay_ablation",
+        "shuffled_record_ablation",
+        "no_external_cables"
+      ],
+      "properties": {
+        "horizontal_axis_inversion": { "type": ["boolean", "null"] },
+        "dummy_run": { "type": ["boolean", "null"] },
+        "live_replay_ablation": { "type": ["boolean", "null"] },
+        "shuffled_record_ablation": { "type": ["boolean", "null"] },
+        "no_external_cables": { "type": ["boolean", "null"] }
+      }
+    },
+    "analysis": {
+      "type": "object",
+      "required": ["phase", "scorebook_hash", "randomization_seed", "verifier_hash", "analysis_environment_lockfile"],
+      "properties": {
+        "phase": { "type": ["string", "null"] },
+        "scorebook_hash": { "type": ["string", "null"] },
+        "randomization_seed": { "type": ["integer", "string", "null"] },
+        "verifier_hash": { "type": ["string", "null"] },
+        "analysis_environment_lockfile": { "type": ["string", "null"] }
+      }
+    },
+    "claims": {
+      "type": "object",
+      "required": ["strongest_allowed_claim", "explicit_non_claims"],
+      "properties": {
+        "strongest_allowed_claim": { "type": ["string", "null"] },
+        "explicit_non_claims": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

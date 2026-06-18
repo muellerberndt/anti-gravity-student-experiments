@@ -1,0 +1,64 @@
+run_id: synthetic-thermal-artifact
+date_local: 2026-06-18
+run_directory: runs/confirmation/locked_scorebook_hash___SCOREBOOK_SHA256__/synthetic-thermal-artifact
+repository:
+  package_repo_url: https://github.com/muellerberndt/anti-gravity-student-experiments
+  package_commit_hash: synthetic-package-commit
+device:
+  device_id: synthetic-plate
+  device_type: piezo_plate_balance
+  moving_mass_g: 120
+  plate_material: alumina
+  plate_dimensions_mm: 100 x 100 x 2
+  body_geometry_hash: synthetic-body-hash
+  wiring_map_hash: synthetic-wiring-hash
+  firmware_hash: synthetic-firmware-hash
+  dummy_device_id: synthetic-dummy
+  transducers:
+    - port_id: T1
+      face_or_zone: top
+    - port_id: T2
+      face_or_zone: top
+    - port_id: B1
+      face_or_zone: bottom
+    - port_id: B2
+      face_or_zone: bottom
+geometry:
+  mode: balance
+  force_axis: lab_vertical
+  zone_definition: top_bottom
+  oph_vertical_scalar_claim: true
+  physical_flip_axis: horizontal
+  single_pickup_per_dish_is_conventional_only: true
+measurement:
+  method: balance
+  adc_calibration_file: calibration/adc.csv
+  adc_saturation_margin_pct: 12
+  allan_deviation_file: analysis/allan_deviation.csv
+drive:
+  waveform_hash: synthetic-waveform-hash
+  state_schedule_hash: synthetic-schedule-hash
+  packet_log_file: raw/device_log.csv
+states:
+  sequence:
+    - LIVE
+    - REPLAY
+    - SHUFFLED_RECORD
+controls:
+  horizontal_axis_inversion: true
+  dummy_run: true
+  live_replay_ablation: true
+  shuffled_record_ablation: true
+  no_external_cables: true
+analysis:
+  phase: confirmation
+  scorebook_hash: __SCOREBOOK_SHA256__
+  randomization_seed: 44
+  verifier_hash: __VERIFIER_SHA256__
+  verifier_command: python analysis/verify_scorebook.py --manifest manifest.yaml --scorebook scorebook.json --data raw/device_log.csv --confirmation
+  analysis_environment_lockfile: analysis/requirements.lock
+claims:
+  strongest_allowed_claim: candidate_residual_under_frozen_scorebook
+  explicit_non_claims:
+    - no proof of OPH
+    - no proof of local gravity control

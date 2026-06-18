@@ -55,10 +55,11 @@ Main deliverables:
 - declared geometry: top/bottom zones for balance mode, or left/right zones for pendulum mode,
 - onboard battery and logger,
 - resonance and coupling matrix,
+- packet-level drive, record, and terminal voltage/current hashes,
 - signed `ACTIVE+` and `ACTIVE-` phase patterns,
 - analytical-balance measurement for vertical support force,
 - pendulum measurement for horizontal acoustic recoil and artifact mapping,
-- matched dummy plate and matched-power sham runs.
+- electrical dummy, mechanical active twin, and matched-power sham runs.
 
 Expected conventional result:
 
@@ -66,7 +67,7 @@ The plate will show resonances, ringdown, cross-coupling, acoustic leakage, and 
 
 Claim condition:
 
-A candidate chi_nu residual requires a frozen scorebook, `LIVE` versus `REPLAY` separation, `SHUFFLED_RECORD` rejection, sign reversal, horizontal-axis physical inversion for top/bottom exchange, dummy rejection, matched-power sham rejection, and no explanatory correlation with temperature, electrostatics, magnetics, vibration leakage, or handling.
+A candidate chi_nu residual requires a frozen scorebook, `LIVE` versus `REPLAY` separation, `SHUFFLED_RECORD` rejection, sign reversal, horizontal-axis physical inversion for top/bottom exchange, electrical dummy rejection, mechanical active twin rejection, matched-power sham rejection, and no explanatory correlation with temperature, electrostatics, magnetics, vibration leakage, or handling.
 
 ### Version 2: Acoustic Cymbal Bench Rig
 
@@ -96,9 +97,10 @@ The same residual criteria as Version 1 apply. The larger rig is valuable becaus
 1. Conventional characterization: modal maps, electrical transfer functions, acoustic maps, thermal maps, and force-sensor rectification tests.
 2. Valid OPH primitive: two physical vertical zones, reversible ports, live record-conditioned feedback, frozen scorebook, and a demonstrated signed `S_bottom - S_top`.
 3. Causal self-read ablation: `LIVE` feedback versus waveform-identical `REPLAY` and `SHUFFLED_RECORD` controls.
-4. Vertical force test: whole self-contained article on a balance, randomized blinded blocks, true top/bottom inversion, and no external cables.
-5. Artifact escalation: pressure sweep, enclosure-geometry sweep, electromagnetic and thermal perturbations, and a matched active mechanical twin.
-6. Independent replication: another balance type, another operator, another lab, and a second geometry with a preregistered area or scalar-scaling prediction.
+4. Verifier lock: scorebook hash, manifest hash, firmware hash, waveform hash, packet log schema, analysis lockfile, and executable verifier hash.
+5. Vertical force test: whole self-contained article on a balance, randomized blinded blocks, true top/bottom inversion, and no external cables.
+6. Artifact escalation: pressure sweep, enclosure-geometry sweep, electromagnetic and thermal perturbations, electrical dummy, and mechanical active twin.
+7. Independent replication: another balance type, another operator, another lab, and a second geometry with a preregistered area or scalar-scaling prediction.
 
 ## Other Useful Combinations
 
@@ -115,6 +117,7 @@ A good student project does not require a positive anomaly. It requires:
 - reproducible resonance and coupling data,
 - a frozen run manifest,
 - a frozen machine-readable scorebook,
+- a passing executable verifier output,
 - raw logs and analysis scripts,
 - clean conventional force curves,
 - a matched dummy,

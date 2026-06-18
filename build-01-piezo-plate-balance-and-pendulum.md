@@ -56,6 +56,13 @@ Matched dummy:
 - Same external coating, tape, heat path, and handling.
 - Broken coherent branch: replace piezos with matched capacitors/resistors, scramble phase, add damping, or run record-shuffled firmware.
 
+Confirmation needs two controls:
+
+- Electrical dummy: same battery, current draw, RF envelope, heat, and logging, with no coherent mechanical branch.
+- Mechanical active twin: same mass, same transducers, and same measured acceleration, acoustic, and thermal envelope, with invalid self-read from record shuffle or deliberately broken feedback.
+
+The mechanical active twin matters because a resistor-only dummy may fail to match acoustic leakage, force-sensor rectification, and thermal buoyancy.
+
 ## Mechanical Build
 
 1. Declare the measurement geometry before bonding ports. Balance mode uses top and bottom zones relative to gravity. Pendulum mode uses left/right or A/B zones along the horizontal force axis.
@@ -149,6 +156,10 @@ Required checks:
 6. Dummy rejection: dummy logs should not produce the same signed self-read scalar.
 7. Scorebook lock: freeze `templates/scorebook_template.json` or a run-specific derived `scorebook.json` before looking at force data.
 8. Live ablation: prove `LIVE` reduces the declared mismatch relative to `REPLAY` and `SHUFFLED_RECORD`.
+9. Zone independence: show `top_drive -> top_read` is stronger than `top_drive -> bottom_read` by the declared margin, or supply the coupled-mode model that explains both.
+10. Reverse zone independence: show `bottom_drive -> bottom_read` is stronger than `bottom_drive -> top_read` by the declared margin, or supply the coupled-mode model that explains both.
+11. Support-loading test: prove the balance pan, pad, or cradle does not erase or invert the pre-balance scalar.
+12. Port identity under inversion: prove horizontal-axis inversion exchanges lab top/bottom while preserving internal port identity.
 
 ## Balance Measurement
 
@@ -162,6 +173,8 @@ Setup:
 - Run the active plate from onboard power and onboard logging only.
 - Keep USB, power, and ground cables disconnected during force blocks.
 - Let the active plate, dummy, and balance thermally settle before recording.
+- Use a soft pad, three-point fixture, or symmetric cradle if the balance pan mechanically loads the bottom zone.
+- Save pre-balance and on-balance self-read scalar files. A support-loaded scalar is not a confirmation scalar unless the loading is modeled and preregistered.
 
 Run sequence:
 
@@ -252,6 +265,7 @@ Candidate residual threshold:
 - reversed by `ACTIVE_MINUS`,
 - reversed by horizontal-axis physical inversion for balance mode, or by the declared rotation test for pendulum mode,
 - absent or much smaller in dummy and sham,
+- absent or much smaller in the mechanical active twin,
 - absent or much smaller in `REPLAY` and `SHUFFLED_RECORD`,
 - not explained by temperature, battery voltage, vibration leakage, magnetometer changes, electrostatics, or operator timing.
 

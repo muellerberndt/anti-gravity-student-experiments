@@ -19,6 +19,9 @@ This manifest maps the repository contents. The concrete experiment designs are 
 - [Run manifest template](templates/run_manifest_template.yaml), [scorebook template](templates/scorebook_template.json), and [data columns template](templates/data_columns.csv)
   Fixed logging templates for each run.
 
+- [analysis/](analysis/)
+  Executable verifier, scalar computation, ABBA balance helper, Allan deviation helper, schemas, and synthetic verifier tests.
+
 Read the root `.md` files directly in GitHub. PDF files appear under `reference/` as source papers and background material.
 
 ## Included Build Background
@@ -81,4 +84,7 @@ controls-and-data-protocol.md
 templates/run_manifest_template.yaml
 templates/scorebook_template.json
 templates/data_columns.csv
+analysis/verify_scorebook.py
+analysis/compute_self_read_scalar.py
+analysis/run_synthetic_tests.py
 ```

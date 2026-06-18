@@ -51,6 +51,10 @@ Use this geometry after B0 characterizes the ordinary acoustic interaction.
 
 Ordinary acoustic forces between dish and reflector should cancel inside the weighed boundary. A residual claim belongs in B0-net, not in the subtraction of two large B0 conventional forces.
 
+Keep this rule absolute. Subtracting two large conventional acoustic force readings can create a small difference through sensor phase lag, alignment, gap drift, thermal drift, or calibration mismatch. A real net external force should be visible on the whole bounded article.
+
+B0-net also needs a sealed or well-characterized acoustic boundary. If sound, airflow, or vibration leaves the fixture and pushes on the room, the room becomes the reaction mass. Log external microphones or accelerometers and run an open/closed enclosure comparison.
+
 ### Stage B1: Four-Dish Bench Platform
 
 Build this after B0 is stable.
@@ -130,6 +134,17 @@ Minimum:
 - frequency sweep and resonance-lock mode,
 - fixed state schedules written to the log.
 
+One pickup sensor per dish is conventional-only. It is fine for resonance locking and acoustic mapping. It is not enough for an OPH top/bottom scalar. In the manifest, use:
+
+```yaml
+geometry:
+  mode: acoustic_B0
+  zone_definition: none
+  oph_vertical_scalar_claim: false
+```
+
+Change `oph_vertical_scalar_claim` to `true` only after the article has real upper/lower instrumented zones and an accepted scorebook.
+
 Drive states:
 
 | State | Behavior |
@@ -204,6 +219,7 @@ Use this only after the conventional maps are reproducible.
 3. Demonstrate a signed `S_bottom - S_top` that reverses between `ACTIVE_PLUS` and `ACTIVE_MINUS`.
 4. Run `LIVE`, waveform-identical `REPLAY`, and `SHUFFLED_RECORD` at matched power and timing.
 5. Move to B0-net only after the scalar and live ablation pass.
+6. Do not use B0 subtraction as an anomaly estimate. The candidate force test is the whole B0-net article on one weighed platform.
 
 ## Claim Boundary
 

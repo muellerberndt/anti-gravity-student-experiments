@@ -38,24 +38,35 @@
       "minimum_required_ports_per_zone": 2
     },
     "record_stability_R_U": {
-      "formula": "median_within_state_feature_correlation",
+      "formula": "median_port_feature_stability",
+      "definition": "For each port, compute 1 / (1 + MAD(feature) / max(abs(median(feature)), epsilon)) for ringdown_rms and q_estimate, and 1 / (1 + circular_MAD_phase_deg / 180) for ringdown_phase_deg. R_U is the median across valid ports in the zone.",
       "threshold": 0.80,
-      "range": [0.0, 1.0]
+      "range": [0.0, 1.0],
+      "epsilon": 1e-9
     },
     "predictive_boundary_coupling_P_U": {
-      "formula": "1 - normalized_prediction_error_against_block_shuffle",
+      "formula": "clip((shuffle_error - live_error) / max(shuffle_error, epsilon), 0, 1)",
+      "definition": "live_error is the median prediction_error for LIVE rows in the zone. shuffle_error is the median shuffled_prediction_error for the same rows, or the median prediction_error for SHUFFLED_RECORD rows if shuffled_prediction_error is absent.",
       "prediction_horizon_cycles": 3,
       "threshold": 0.20,
-      "range": [0.0, 1.0]
+      "range": [0.0, 1.0],
+      "epsilon": 1e-9,
+      "minimum_shuffle_error": 0.001,
+      "minimum_absolute_improvement": 0.001,
+      "fail_if_shuffle_baseline_is_already_excellent": true
     },
     "coherent_mismatch_reduction_C_U": {
-      "formula": "1 - live_mismatch_after_update / replay_mismatch_after_update",
+      "formula": "clip((replay_mismatch_after - live_mismatch_after) / max(replay_mismatch_after, epsilon), 0, 1)",
+      "definition": "live_mismatch_after and replay_mismatch_after are medians over matched LIVE and REPLAY packets in the zone. The LIVE before-after improvement must also exceed minimum_live_absolute_improvement.",
       "threshold": 0.20,
-      "range": [0.0, 1.0]
+      "range": [0.0, 1.0],
+      "epsilon": 1e-9,
+      "minimum_absolute_improvement": 0.001,
+      "minimum_live_absolute_improvement": 0.001
     },
     "zone_score": {
       "formula": "self_read_gate * R_U * P_U * C_U",
-      "aggregation": "median_across_ports_in_zone"
+      "aggregation": "compute gates per zone, with port-level stability and zone-level prediction and mismatch terms"
     },
     "delta_s_coh": {
       "formula": "S_bottom - S_top",
@@ -63,6 +74,20 @@
       "active_minus_requirement": "delta_s_coh < minus_threshold",
       "plus_threshold": 0.05,
       "minus_threshold": -0.05
+    },
+    "output_table": {
+      "required_columns": [
+        "zone",
+        "self_read_gate",
+        "R_U",
+        "P_U",
+        "C_U",
+        "S_zone",
+        "uncertainty",
+        "pass",
+        "fail_reason"
+      ],
+      "delta_row": "delta_s_coh"
     }
   },
   "live_ablation": {
@@ -99,6 +124,7 @@
     "max_temperature_drift_c": 0.5,
     "max_battery_voltage_drift_v": 0.2,
     "max_adc_saturation_fraction": 0.001,
+    "minimum_adc_saturation_margin_pct": 5.0,
     "max_magnetometer_change_ut": 5.0,
     "max_accel_artifact_g": 0.02,
     "exclude_operator_contact": true,
@@ -111,7 +137,7 @@
     "search_correction": "confirmation_dataset_only_or_bonferroni_over_declared_scan_count"
   },
   "verifier": {
-    "command": "python analysis/verify_scorebook.py --manifest manifest.yaml --scorebook scorebook.json",
+    "command": "python analysis/verify_scorebook.py --manifest manifest.yaml --scorebook scorebook.json --data raw/device_log.csv --confirmation",
     "verifier_hash": "",
     "analysis_environment_lockfile": "analysis/requirements.lock"
   },

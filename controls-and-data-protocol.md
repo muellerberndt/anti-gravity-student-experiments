@@ -9,8 +9,9 @@ A force reading is not interpretable until the test article has produced a self-
 3. freeze a machine-readable scorebook,
 4. prove `ACTIVE_PLUS` and `ACTIVE_MINUS` produce opposite signed internal contrast,
 5. prove `LIVE` separates from waveform-identical `REPLAY` and `SHUFFLED_RECORD`,
-6. measure force with the device running from onboard power,
-7. reject ordinary artifacts with sham, dummy, flip, thermal, electrostatic, magnetic, pressure, enclosure, and vibration controls.
+6. run the executable verifier on the manifest, scorebook, and packet log,
+7. measure force with the device running from onboard power,
+8. reject ordinary artifacts with sham, dummy, active twin, flip, thermal, electrostatic, magnetic, pressure, enclosure, and vibration controls.
 
 Geometry declaration:
 
@@ -18,6 +19,7 @@ Geometry declaration:
 - Pendulum mode: left/right or A/B zones define a horizontal force axis. Use this for acoustic recoil, artifact mapping, and pot-lid first-light measurements.
 - Acoustic bench B0 mode: dish and reflector forces are measured as reaction pairs. A closed fixture should sum close to zero for ordinary acoustic interaction.
 - Acoustic bench B0-net mode: dish, reflector, frame, electronics, battery, and enclosure sit on one common weighed platform. Internal acoustic forces should cancel.
+- Acoustic B0 subtraction is not an anomaly estimate. A residual claim belongs in B0-net.
 
 ## Required States
 
@@ -43,6 +45,7 @@ Before any force claim, save:
 - state schedule,
 - declared geometry and force axis,
 - frozen `scorebook.json` hash,
+- executable verifier hash,
 - frequency sweep,
 - coupling matrix,
 - ringdown or phase features,
@@ -51,6 +54,22 @@ Before any force claim, save:
 - top/bottom or A/B signed contrast,
 - dummy comparison,
 - `LIVE`, `REPLAY`, and `SHUFFLED_RECORD` comparison.
+
+Packet-level evidence:
+
+- `drive_packet_hash`,
+- `drive_vector_json_sha256`,
+- `record_packet_hash`,
+- `feedback_input_hash`,
+- `terminal_voltage_trace_hash`,
+- `terminal_current_trace_hash`,
+- `mismatch_before`,
+- `mismatch_after`,
+- `live_update_accepted`,
+- `replay_source_run_id`,
+- `shuffle_seed`.
+
+`REPLAY` and `SHUFFLED_RECORD` must match the referenced `LIVE` packet at the electrical terminals. Same script is not enough.
 
 Minimum pass:
 
@@ -79,6 +98,14 @@ The scorebook must define:
 
 Discovery data may tune the scorebook. Confirmation data must use the frozen version.
 
+Run the verifier:
+
+```bash
+python analysis/verify_scorebook.py --manifest manifest.yaml --scorebook scorebook.json --data raw/device_log.csv --confirmation
+```
+
+The verifier must fail if confirmation-critical manifest fields are blank, if packet hashes do not prove waveform identity, if the scalar table cannot be recomputed from raw logs, or if ordinary artifact limits are exceeded.
+
 ## Exploration And Confirmation
 
 Run two separate phases.
@@ -97,6 +124,18 @@ Confirmation:
 - use measured Allan deviation to set run length and sensitivity,
 - correct for any search over frequency, gap, phase, surface, or geometry,
 - base the candidate claim on an untouched dataset.
+
+Keep the file paths separate:
+
+```text
+runs/
+  exploration/
+  confirmation/
+    locked_scorebook_hash_<hash>/
+      run_001/
+```
+
+The verifier refuses a candidate claim from a confirmation path that contains exploration data.
 
 ## Pendulum Protocol
 
@@ -128,6 +167,8 @@ where `x` is bob displacement, `s` is laser spot displacement, and `D` is mirror
 
 Do not use this as the primary vertical support-force test. Use the balance protocol for the top/bottom PoC described in the Hacking PDF.
 
+A positive pendulum-only result is labeled development signal or conventional artifact lead. It is not a candidate OPH residual unless all pendulum confirmation requirements below pass.
+
 Pendulum confirmation requirements:
 
 - bifilar suspension, torsion balance, or two-fiducial camera tracking,
@@ -157,6 +198,7 @@ SHAM_1, ACTIVE_MINUS_1, ACTIVE_MINUS_2, SHAM_2
 7. Save raw balance CSV, not only screenshots.
 8. Include randomized `LIVE`, `REPLAY`, and `SHUFFLED_RECORD` blocks during confirmation.
 9. For the direct vertical OPH-style test, invert the complete article 180 degrees about a horizontal axis so top and bottom exchange places in the lab frame.
+10. Run both an electrical dummy and a mechanical active twin for confirmation.
 
 ABBA estimator:
 
@@ -184,6 +226,7 @@ Use for the cymbal or dish rigs.
 11. Repeat `ACTIVE_PLUS`, `ACTIVE_MINUS`, and `SHAM` at matched power.
 12. For B0-net anomaly testing, put dish, reflector, frame, electronics, battery, enclosure, and internal wiring on one common weighed platform.
 13. Record slow average force with anti-alias filtering and synchronized high-bandwidth vibration diagnostics.
+14. Add external microphones or accelerometers and compare open versus closed enclosure when sound, airflow, or vibration can leave the weighed boundary.
 
 Conventional acoustic force should change with standoff, surface, resonance, and drive amplitude. A residual that ignores those variables needs extra scrutiny, then flip and dummy tests.
 
@@ -200,6 +243,7 @@ Conventional acoustic force should change with standoff, surface, resonance, and
 | Acoustic leakage | sound pushes air or nearby surfaces | enclosure, microphone/accelerometer log, standoff map |
 | Vibration | mechanical coupling into supports | anti-vibration table, accelerometer log, dummy |
 | Force-sensor rectification | kHz vibration aliases into a DC load-cell output | anti-alias filter, high-bandwidth accelerometer, inert vibration-source calibration |
+| Feedback waveform artifact | `LIVE` differs electrically from `REPLAY` | packet hashes, terminal voltage/current trace hashes, replay source links |
 | RF/EMI | drive electronics affect sensors | shielding, dummy electronics, spectrum check if available |
 | Center of mass | moving parts or wires shift load | solid-state switching, no relays, pan-position test |
 | Human handling | order and expectation bias | preregistered schedule, blind labels where possible |
@@ -216,7 +260,7 @@ Candidate residual:
 - `LIVE` separates from `REPLAY` and `SHUFFLED_RECORD`,
 - `ACTIVE_MINUS` reverses sign,
 - horizontal-axis physical inversion reverses the direct vertical test in lab coordinates,
-- dummy and sham reject the signal,
+- dummy, active twin, and sham reject the signal,
 - temperature, battery, acoustic leakage, vibration, electrostatic, and magnetic logs do not explain it.
 
 Publishable upper bound:
@@ -246,6 +290,8 @@ run_id/
   analysis/
     analysis_script.py
     frozen_config.yaml
+    scalar_table.json
+    verifier_output.json
     plots/
     summary.md
   hashes.txt

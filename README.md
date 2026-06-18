@@ -25,6 +25,9 @@ Start with the small plate. Move to the acoustic bench rig after the measurement
 5. [Templates](templates/)
    `run_manifest_template.yaml`, `scorebook_template.json`, and `data_columns.csv` give students a fixed logging format.
 
+6. [Analysis verifier](analysis/)
+   Executable scorebook verifier, schemas, ABBA balance helper, Allan deviation helper, and synthetic test runs.
+
 Read the root `.md` files directly in GitHub. PDF files appear under `reference/` as source papers and background material.
 
 ## Basic Idea
@@ -57,3 +60,5 @@ Public links:
 - [Blog article](https://blog.floatingpragma.io/hacking-the-simulation-anti-gravity-exploit)
 - [Public overview](https://omega.floatingpragma.io/antigravity)
 - [NotebookLM for questions](https://notebooklm.google.com/notebook/d5249760-6ce8-44a0-927b-ccf90402711a)
+
+Legacy filenames redirect to the corrected build guides. Do not use old pendulum-first or hoverboard-framed instructions.

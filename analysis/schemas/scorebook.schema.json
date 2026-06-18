@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Anti-gravity scorebook",
+  "type": "object",
+  "required": [
+    "scorebook_id",
+    "locked_before_force_data",
+    "geometry",
+    "feature_extraction",
+    "scalar_formula",
+    "live_ablation",
+    "force_decision",
+    "exclusions",
+    "uncertainty",
+    "verifier",
+    "allowed_claim"
+  ],
+  "properties": {
+    "scorebook_id": { "type": "string" },
+    "locked_before_force_data": { "type": "boolean" },
+    "geometry": {
+      "type": "object",
+      "required": ["mode", "force_axis", "zone_convention", "required_physical_inversion"]
+    },
+    "scalar_formula": {
+      "type": "object",
+      "required": [
+        "self_read_gate",
+        "record_stability_R_U",
+        "predictive_boundary_coupling_P_U",
+        "coherent_mismatch_reduction_C_U",
+        "zone_score",
+        "delta_s_coh",
+        "output_table"
+      ]
+    },
+    "live_ablation": {
+      "type": "object",
+      "required": ["states", "live_rule", "replay_rule", "shuffled_record_rule", "shuffle_method", "pass_rule"]
+    },
+    "verifier": {
+      "type": "object",
+      "required": ["command", "verifier_hash", "analysis_environment_lockfile"]
+    }
+  },
+  "additionalProperties": true
+}

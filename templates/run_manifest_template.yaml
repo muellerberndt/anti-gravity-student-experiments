@@ -1,5 +1,6 @@
 run_id: krit-antigravity-YYYYMMDD-001
 date_local: YYYY-MM-DD
+run_directory: runs/exploration/krit-antigravity-YYYYMMDD-001
 repository:
   package_repo_url: https://github.com/muellerberndt/anti-gravity-student-experiments
   package_commit_hash:
@@ -26,6 +27,8 @@ device:
   pcb_id:
   battery_id:
   dummy_device_id:
+  electrical_dummy_device_id:
+  mechanical_active_twin_device_id:
   transducers:
     - port_id:
       serial:
@@ -38,12 +41,32 @@ geometry:
   mode: balance
   force_axis: lab_vertical
   zone_definition: top_bottom
+  oph_vertical_scalar_claim: true
   physical_flip_axis:
   reflector_plate: false
+  single_pickup_per_dish_is_conventional_only: true
   b0_geometry:
     dish_and_reflector_independent: false
+    anomaly_claim_allowed: false
   b0_net_geometry:
     whole_article_on_common_platform: false
+    sealed_or_characterized_acoustic_boundary: false
+    external_microphones: false
+    external_accelerometers: false
+    open_closed_enclosure_comparison: false
+  pendulum_result_label: development_signal_or_conventional_artifact_lead
+  zone_independence:
+    top_drive_top_read_margin:
+    bottom_drive_bottom_read_margin:
+    coupled_mode_model_file:
+    support_on_balance_preserves_scalar: false
+    horizontal_inversion_preserves_internal_port_identity: false
+  support_loading:
+    balance_pan_contact_point:
+    bottom_zone_loaded_by_support:
+    fixture_type:
+    pre_balance_scalar_file:
+    on_balance_scalar_file:
 measurement:
   method: balance
   pendulum_length_m:
@@ -57,9 +80,14 @@ measurement:
   accelerometer_model:
   adc_calibration_file:
   adc_saturation_margin_pct:
+  allan_deviation_file:
 drive:
   waveform_hash:
   state_schedule_hash:
+  packet_log_file: raw/device_log.csv
+  drive_vector_directory:
+  terminal_voltage_trace_directory:
+  terminal_current_trace_directory:
   frequency_hz:
   vrms_by_channel:
   irms_by_channel:
@@ -91,6 +119,8 @@ controls:
   physical_flip: false
   horizontal_axis_inversion: false
   dummy_run: false
+  electrical_dummy_run: false
+  mechanical_active_twin_run: false
   heater_only: false
   live_replay_ablation: false
   shuffled_record_ablation: false
@@ -99,6 +129,7 @@ controls:
   discharge_protocol: false
   no_external_cables: true
 analysis:
+  phase: exploration
   preregistered_formula: ABBA
   scorebook_file: scorebook.json
   scorebook_hash:
@@ -111,6 +142,7 @@ analysis:
     max_accel_artifact_g:
     max_magnetometer_change_uT:
   candidate_threshold:
+  exploration_data_must_not_share_confirmation_directory: true
 claims:
   strongest_allowed_claim: conventional_force_map_or_upper_bound
   explicit_non_claims:
