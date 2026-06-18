@@ -51,9 +51,9 @@ Read the root `.md` files directly in GitHub. PDF files appear under `reference/
 - [NotebookLM for questions](https://notebooklm.google.com/notebook/d5249760-6ce8-44a0-927b-ccf90402711a)
 - [TinyLev acoustic levitator paper](https://doi.org/10.1063/1.4989995)
 
-## Compact Email Bundle
+## First Reading Order
 
-For a compact email, send the GitHub repository link and point students to these root files:
+Point students to these root files first:
 
 ```text
 README.md
