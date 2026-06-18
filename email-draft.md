@@ -16,7 +16,11 @@ I suggest two versions for students:
 
 2. Acoustic cymbal hoverboard bench rig. This is the larger version. Start with one 200 to 510 mm pot lid, bowl, or cymbal, then scale to four dishes in a square frame. Each dish has three piezo or Langevin transducers at roughly 60 percent radius, driven by phase-locked channels. Goal: map conventional near-field acoustic force versus frequency, amplitude, phase, and standoff distance, then use the same rig as a high-Q coherent-body test article. This should stay a bench force platform. I would not put a person on it.
 
-I am attaching a compact package with concrete build notes, a bill of materials, run protocol, data columns, and decision rules. The best files to start with are:
+I made a compact GitHub package with concrete build notes, a bill of materials, run protocol, data columns, and decision rules:
+
+https://github.com/muellerberndt/anti-gravity-student-experiments
+
+The best files to start with are:
 
 - `project-brief.md`
 - `build-01-piezo-crystal-plate-pendulum.md`

@@ -4,7 +4,7 @@ Status: student lab package, research draft
 Prepared: 2026-06-18  
 Audience: Krit's student project group at Chiang Mai University
 
-This repository gives students two concrete lab builds for testing small force effects from coherent vibration systems. The files in the root directory are the working instructions. The `reference/` folder contains background papers, source articles, and supplemental theory material.
+This repository gives students two concrete lab builds for testing small force effects from coherent vibration systems. The Markdown files in the root directory are the working instructions. The `reference/` folder contains background papers, source articles, and supplemental theory material.
 
 ## Build Path
 
@@ -25,7 +25,7 @@ Start with the small plate. Move to the acoustic bench rig after the measurement
 5. [Templates](templates/)  
    `run_manifest_template.yaml` and `data_columns.csv` give students a fixed logging format.
 
-The same documents are compiled as PDFs in [pdf/](pdf/).
+Read the root `.md` files directly in GitHub. PDF files appear under `reference/` as source papers and background material.
 
 ## Basic Idea
 

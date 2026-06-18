@@ -1,6 +1,6 @@
 # Resource Manifest
 
-This manifest maps the repository contents. The concrete experiment designs are the root documents. The source papers and articles live under `reference/`.
+This manifest maps the repository contents. The concrete experiment designs are the root Markdown documents. The source papers and articles live under `reference/`.
 
 ## Lab Instructions
 
@@ -19,7 +19,7 @@ This manifest maps the repository contents. The concrete experiment designs are 
 - [Run manifest template](templates/run_manifest_template.yaml) and [data columns template](templates/data_columns.csv)  
   Fixed logging templates for each run.
 
-Compiled versions of the lab instructions live in [pdf/](pdf/).
+Read the root `.md` files directly in GitHub. PDF files appear under `reference/` as source papers and background material.
 
 ## Included Build Background
 
@@ -53,7 +53,7 @@ Compiled versions of the lab instructions live in [pdf/](pdf/).
 
 ## Compact Email Bundle
 
-For a compact email, attach or link these files:
+For a compact email, send the GitHub repository link and point students to these root files:
 
 ```text
 README.md
