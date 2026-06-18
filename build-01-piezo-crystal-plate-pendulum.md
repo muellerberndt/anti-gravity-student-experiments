@@ -108,8 +108,8 @@ Do not hang the device for a force claim until it has a self-read receipt.
 Required checks:
 
 1. Frequency sweep: identify stable plate modes from 100 Hz to 40 kHz.
-2. Coupling matrix: drive each port, read all ports, save amplitude/phase/ringdown features.
-3. Repeatability: repeat the same state at least 20 times.
+2. Coupling matrix: drive each port, read all ports, and save amplitude, phase, and ringdown features.
+3. Repeatability: repeat each state at least 20 times.
 4. Prediction test: use records from cycle `t` to predict held-out readouts from later cycles. Compare against shuffled records.
 5. Sign test: show that `ACTIVE_PLUS` and `ACTIVE_MINUS` produce opposite signed feature contrast along the intended axis.
 6. Dummy rejection: dummy logs should not produce the same signed self-read scalar.

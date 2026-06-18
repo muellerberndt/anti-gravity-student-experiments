@@ -23,17 +23,11 @@ I am attaching a compact package with concrete build notes, a bill of materials,
 - `build-02-acoustic-cymbal-hoverboard-bench.md`
 - `controls-and-data-protocol.md`
 
-The longer background material is included for context. The most useful technical background is the "Hacking the Simulation: Anti-Gravity Exploit" PDF and the "Antigravity Devices" survey, because they separate buildable acoustic lift from the unproven chi_nu hypothesis and lay out the control logic. The live article is here:
+The longer background material is included for context. The most useful technical background is the "Hacking the Simulation: Anti-Gravity Exploit" PDF and the "Antigravity Devices" survey, because they separate buildable acoustic lift from the unproven chi_nu hypothesis and lay out the control logic. The live article is [Hacking the Simulation: Anti-Gravity Exploit](https://blog.floatingpragma.io/hacking-the-simulation-anti-gravity-exploit).
 
-https://blog.floatingpragma.io/hacking-the-simulation-anti-gravity-exploit
+The public overview page is [Omega Antigravity](https://omega.floatingpragma.io/antigravity).
 
-The public overview page is here:
-
-https://omega.floatingpragma.io/antigravity
-
-For questions while reading the package, I also set up a NotebookLM with the relevant material:
-
-https://notebooklm.google.com/notebook/d5249760-6ce8-44a0-927b-ccf90402711a
+For questions while reading the package, I also set up a [NotebookLM package notebook](https://notebooklm.google.com/notebook/d5249760-6ce8-44a0-927b-ccf90402711a).
 
 If this fits a senior project or lab course, I can help supply starter firmware and an analysis script. A good outcome is either a candidate residual with clean controls or a published upper bound. A null result is useful if the measurement is clean.
 

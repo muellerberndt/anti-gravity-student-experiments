@@ -1,0 +1,1502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>The Hover Disk — Materials for a High-χν Lift Body</title>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+  :root {
+    --ink: #1c1c1c; --paper: #fbfaf6; --green: #5a7d3a; --amber: #b88a2a;
+    --rust: #b04a2a; --rule: #d2cdbf; --soft: #8a8676; --blue: #1a5276;
+  }
+  html { background: #ece8df; }
+  body {
+    font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+    max-width: 800px; margin: 2.5rem auto; padding: 2.5rem 2rem 4rem;
+    color: var(--ink); line-height: 1.62; background: var(--paper);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  h1 {
+    font-family: "Helvetica Neue", Helvetica, sans-serif; font-weight: 700;
+    font-size: 1.85rem; line-height: 1.25; border-bottom: 2px solid var(--ink);
+    padding-bottom: 0.6rem;
+  }
+  h2 { font-family: "Helvetica Neue", Helvetica, sans-serif; font-size: 1.25rem; margin-top: 2.6rem; }
+  h2 .num { color: var(--soft); font-weight: normal; margin-right: 0.4em; }
+  h3 { font-family: "Helvetica Neue", Helvetica, sans-serif; font-size: 1.05rem; margin-top: 1.7rem; color: #444; }
+  h4 { font-family: "Helvetica Neue", Helvetica, sans-serif; font-size: 0.98rem; margin-top: 1.3rem; color: #555; }
+  .byline { color: var(--soft); font-style: italic; margin-bottom: 2.2rem; font-size: 0.95rem; }
+  .tldr { background: #eef3e8; border-left: 4px solid var(--green); padding: 0.9rem 1.1rem; margin: 1.2rem 0; font-style: italic; }
+  .companion { background: #f0eee8; border-left: 4px solid var(--soft); padding: 0.6rem 1rem; margin: 1.2rem 0; font-size: 0.92rem; }
+  .doctrine { background: #1c1c1c; color: #f5f1e6; padding: 1rem 1.2rem; margin: 1.6rem 0; font-style: italic; line-height: 1.5; border-radius: 2px; }
+  .doctrine::before { content: "Doctrine sentence  ·  "; font-style: normal; color: var(--amber); font-family: "Helvetica Neue", Helvetica, sans-serif; font-size: 0.85rem; letter-spacing: 0.05em; }
+  .receipt { background: #eef3e8; border-left: 4px solid var(--green); padding: 0.8rem 1.1rem; margin: 1.2rem 0; font-size: 0.94rem; }
+  .receipt::before { content: "Derived  ·  "; font-style: normal; color: var(--green); font-family: "Helvetica Neue", Helvetica, sans-serif; font-size: 0.82rem; letter-spacing: 0.05em; font-weight: 600; }
+  .lemma { background: #fff8e8; border-left: 4px solid var(--amber); padding: 0.8rem 1.1rem; margin: 1.2rem 0; font-size: 0.94rem; }
+  .lemma::before { content: "Open — bench measures  ·  "; font-style: normal; color: var(--rust); font-family: "Helvetica Neue", Helvetica, sans-serif; font-size: 0.82rem; letter-spacing: 0.05em; font-weight: 600; }
+  .ic { background: #f0eee8; border-left: 3px solid var(--soft); padding: 0.6rem 1rem; margin: 1rem 0 1.6rem 0; font-size: 0.92rem; }
+  .ic::before { content: "Implementation consequence  ·  "; font-style: normal; color: var(--ink); font-family: "Helvetica Neue", Helvetica, sans-serif; font-size: 0.82rem; letter-spacing: 0.05em; font-weight: 600; }
+  .eq { text-align: center; margin: 1.1rem 0; font-family: "Cambria Math", "STIX Two Math", Georgia, serif; font-size: 1.06rem; }
+  code { font-family: "JetBrains Mono", Consolas, monospace; background: #f3eee0; padding: 0.05rem 0.3rem; border-radius: 2px; font-size: 0.9em; }
+  table { border-collapse: collapse; margin: 1.1rem auto; font-size: 0.9rem; }
+  th, td { border: 1px solid var(--rule); padding: 0.38rem 0.7rem; text-align: left; vertical-align: top; }
+  th { background: #f0eadb; font-family: "Helvetica Neue", Helvetica, sans-serif; }
+  td.n { text-align: right; font-family: "JetBrains Mono", Consolas, monospace; }
+  td.good { color: var(--green); font-weight: 600; }
+  td.bad { color: var(--rust); }
+  hr.softrule { border: none; border-top: 1px solid var(--rule); margin: 2rem 0; }
+  ul, ol { padding-left: 1.5rem; } li { margin: 0.3rem 0; }
+  blockquote { border-left: 3px solid var(--rule); margin: 1.2rem 0; padding-left: 1.1rem; color: #444; font-style: italic; }
+  .disclaimer { font-size: 0.84rem; color: var(--soft); border: 1px dashed var(--soft); padding: 0.7rem 1.1rem; margin: 2rem 0; border-radius: 2px; }
+  .smcap { font-variant-caps: small-caps; letter-spacing: 0.04em; }
+</style>
+</head>
+<body>
+<div style="background:#eef5fa;border-bottom:2px solid #1a5276;padding:10px 24px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;text-align:center;color:#1a5276;line-height:1.45;font-size:0.88em;">
+Companion in the <a href="the_boundary_problem.html" style="color:#1a5276;text-decoration:underline;font-weight:600;">Boundary Problem</a> network. Build companions: <a href="how_to_build_a_ufo.html" style="color:#1a5276;text-decoration:underline;font-weight:600;">How to Build a UFO</a> · <a href="diy_hoverbike_paper.html" style="color:#1a5276;text-decoration:underline;font-weight:600;">The DIY Hoverbike</a>. Force law: <a href="CHI_NU_FORCE_LAW.md" style="color:#1a5276;text-decoration:underline;font-weight:600;">χν → Force</a>.
+</div>
+
+<h1>The Hover Disk</h1>
+<p class="byline">
+  Materials for a high-χ<sub>ν</sub> lift body — choosing the disk substrate that
+  turns vertex-sharing coupling into usable force.<br>
+  Osika &amp; collaborators — draft 0.1, 2026-06-14.
+</p>
+
+<div class="tldr">
+  A hover disk lifts by the χ<sub>ν</sub> (vertex-sharing) channel, not by
+  pushing air — so its lift is a <em>materials</em> problem. The χ<sub>ν</sub>
+  force factors into a known hardware lever times two material-set numbers:
+  the coupling efficiency <em>η</em> and the body's stored-energy ceiling.
+  A first-pass <em>proxy</em> (an estimate, not a derived law — §4) puts
+  (i) <strong>η ≈ v<sub>phase</sub>/c</strong> — the coupling scales as the
+  substrate's coherent-mode phase velocity over <em>c</em>, so acoustic bodies
+  are capped near η ≲ 10<sup>−5</sup> while electromagnetic (THz / optical /
+  plasmonic) modes reach η ~ 0.1–0.5; and (ii) the energy ceiling at the
+  material's <strong>specific resilience σ²/(Eρ)</strong>, a size-independent
+  self-lift limit. On those levers bronze loses on both and
+  <strong>single-crystal diamond is the strongest single first core</strong> —
+  structural champion <em>and</em> high-index optical substrate. But no single
+  material carries all four UFO §8 predicates, so the actual convergent body is a
+  <strong>layered stack (§8)</strong>: a geometry-match register, a
+  coupling/nonlinearity film, a high-η aperture skin, and a phase-coherent
+  boundary. <strong>Honest status:</strong> the force <em>law</em> is derived in
+  form; its <em>magnitude</em> — C<sub>sub</sub>·|χ<sub>ν</sub>|² — is open,
+  unmeasured, and <strong>every χ<sub>ν</sub> measurement in the programme to
+  date is null</strong>. This paper ranks the substrates that <em>would</em>
+  maximise the three force terms; it does not claim lift — it names what to
+  build and measure. Reproducible numbers:
+  <code>hover/disk_material_ladder.py</code>.
+</div>
+
+<div class="companion">
+  <strong>Companion papers.</strong> Root ontology:
+  <code>shape_of_the_universe.html</code>. Per-vertex bound:
+  <code>G_VERTEX_DERIVATION.md</code> (g ≤ 1/√3). Substrate aggregate:
+  <code>CHI_NU_AS_VERTEX_SHARING_STRENGTH.md</code>. Force law:
+  <code>CHI_NU_FORCE_LAW.md</code>. The architecture this paper specialises:
+  <code>how_to_build_a_ufo.html</code> (§8 optimal substrate, §10 saucer
+  morphology). The ground-effect prototype:
+  <code>diy_hoverbike_paper.html</code>. Reproducible calculators:
+  <code>hover/disk_material_ladder.py</code>,
+  <code>hover/cymbal_chi_nu_force.py</code>.
+</div>
+
+<h2><span class="num">§1</span>What this paper is</h2>
+
+<p>
+  <em>How to Build a UFO</em> establishes the architecture: a disk-shaped
+  coherent body that biases how the spacetime lattice settles in its
+  neighbourhood, producing a net force its own mass-energy bookkeeping does not
+  predict (the χ<sub>ν</sub> / vertex-sharing channel). <em>The DIY Hoverbike</em>
+  is the ground-effect prototype. This paper takes one question from §8 of the
+  UFO paper and answers it in depth:
+</p>
+
+<blockquote>
+  Of the materials we can actually obtain, which build a disk that reaches
+  <em>high</em> χ<sub>ν</sub> force — and why?
+</blockquote>
+
+<p>
+  This is an engineering/materials paper. It does not claim a force; it states
+  the force law, isolates the two numbers the material sets, and ranks the
+  candidate substrates against them. Every quantity is tagged
+  <span class="smcap">derived</span>, <span class="smcap">estimate</span>, or
+  <span class="smcap">open</span> (bench-measured). The numbers are reproducible
+  from <code>hover/disk_material_ladder.py</code>.
+</p>
+
+<div class="companion">
+  <strong>How to read the tags (and where the honesty lives).</strong>
+  <span class="smcap">derived</span> — follows from the force law or the geometry
+  (the <em>form</em> <em>F</em> = −∇<em>E</em><sub>int</sub>, the bound g ≤ 1/√3).
+  <span class="smcap">estimate</span> — a heuristic <em>proxy</em>, a prior not a
+  wall (notably <strong>η ≈ v<sub>phase</sub>/c</strong>, §4).
+  <span class="smcap">open</span> — a number only the bench fixes (notably the
+  magnitude <strong>C<sub>sub</sub>·|χ<sub>ν</sub>|²</strong>, currently
+  <strong>null on every substrate measured</strong>).
+  <span class="smcap">bench</span> — a build-and-measure step.
+  No quantity in this paper is a demonstrated force; the paper ranks candidates
+  to test, and the directional derivative ∂|χ<sub>ν</sub>|²/∂X (not η alone) is
+  what a symmetric high-η disk would still need to be non-zero to lift at all
+  (§3, §14.4).
+</div>
+
+<h2><span class="num">§2</span>Why the lift is a materials problem, not an acoustics problem</h2>
+
+<p>
+  A natural first instinct is to lift the disk acoustically — hold a trapped
+  high-pressure region beneath it. That works <em>in ground effect</em> and only
+  there. Steady hover requires a steady downward flux of momentum through any
+  surface around the craft (Newton's third law). A pressure cushion routes that
+  momentum into the <em>ground</em>, which is why it is cheap — but remove the
+  ground and a genuinely-trapped, static overpressure exerts zero net force
+  (internal forces cancel; you cannot lift yourself by pressurising a tank you
+  carry), while a leaky one is just "throw air down" in disguise, with a power
+  floor of tens of kW (a coherent jet) to ~500 kW (radiated sound) for a
+  person-scale craft.
+</p>
+
+<div class="receipt">
+  <strong>Free-altitude hover needs a non-ground momentum sink.</strong> A
+  pressure cushion's reaction momentum terminates on the Earth, so cushion lift
+  is intrinsically a ground-effect regime. The only altitude-independent momentum
+  sink in the framework is the lattice background itself — momentum "redistributed
+  into and out of the lattice" (UFO §4). That sink <em>is</em> the χ<sub>ν</sub>
+  channel. Hence a free-flying disk lifts by χ<sub>ν</sub>, and how much force it
+  makes is set by how well its material couples to the lattice.
+</div>
+
+<p>
+  So the disk's lift is a property of its <em>substrate</em>, not its aerodynamics.
+  The rest of this paper is about choosing that substrate.
+</p>
+
+<h2><span class="num">§3</span>The force law and the three things a material sets</h2>
+
+<p>
+  From <code>CHI_NU_FORCE_LAW.md</code>, the χ<sub>ν</sub> force is an
+  energy-gradient law,
+</p>
+
+<div class="eq">
+  \( F \;=\; -\,\nabla E_{\rm int} \;=\; \big(C_{\rm sub}\,|\chi_\nu|^2\big)\;\times\;\Big(\dfrac{U_{\rm drive}\,\kappa}{L_{\rm grad}}\Big) \)
+</div>
+
+<p>
+  The second factor is the <strong>known hardware lever</strong>: stored coherent
+  drive energy <em>U</em><sub>drive</sub>, drive-asymmetry directionality
+  <em>κ</em> ∈ [0,1] (the drive pattern is the force direction), and the gradient
+  length <em>L</em><sub>grad</sub> ≈ the disk radius. The first factor is what the
+  <strong>material</strong> sets. Three sub-quantities:
+</p>
+
+<table>
+  <thead><tr><th>Factor</th><th>What it is</th><th>Status</th></tr></thead>
+  <tbody>
+    <tr><td><em>g</em><sub>max</sub> = 1/√3 ≈ 0.577</td><td>per-vertex geometric ceiling on coupling</td><td><span class="smcap">derived</span> (G_VERTEX_DERIVATION.md)</td></tr>
+    <tr><td><em>η</em> ∈ [0,1]</td><td>mode-match efficiency; \( |\chi_\nu| = \eta\, g_{\max} \)</td><td>naive value <span class="smcap">estimate</span>; true value <span class="smcap">open</span></td></tr>
+    <tr><td><em>U</em><sub>drive</sub> ceiling</td><td>most coherent energy the body can hold</td><td>mechanical ceiling <span class="smcap">derived</span>; C<sub>sub</sub> <span class="smcap">open</span></td></tr>
+  </tbody>
+</table>
+
+<p>
+  <em>g</em><sub>max</sub> is fixed by geometry. That leaves two levers the
+  material controls: the coupling <em>η</em> (§4) and the energy ceiling (§5).
+  They multiply.
+</p>
+
+<h2><span class="num">§4</span>Lever 1 (dominant) — coupling: the η ≈ v<sub>phase</sub>/c proxy</h2>
+
+<p>
+  The substrate aggregate (CHI_NU_AS_VERTEX_SHARING_STRENGTH.md) is the
+  mode-overlap of the substrate's coherent mode with the lattice mode at the drive
+  frequency, η = λ<sub>sub</sub>/λ<sub>lat</sub>. Since λ<sub>lat</sub> = <em>c</em>/<em>f</em>
+  and λ<sub>sub</sub>·<em>f</em> = v<sub>phase</sub> (the substrate mode's phase
+  velocity), a first-pass overlap estimate collapses to a single ratio — a
+  <em>heuristic proxy, not a derived law</em>:
+</p>
+
+<div class="eq">
+  \( \boxed{\;\eta \;\approx\; \dfrac{\lambda_{\rm sub}}{\lambda_{\rm lat}} \;=\; \dfrac{v_{\rm phase}}{c}\;} \)
+</div>
+
+<div class="companion">
+  <strong>Heuristic (a prior, not a wall).</strong> To first order η tracks the
+  substrate's coherent-mode phase velocity over <em>c</em>: a vibration whose
+  phase fronts move near light-speed overlaps the lattice mode coherently across
+  the body; a slow vibration oscillates many times under one lattice wavefront
+  and the overlap cancels. The whole "wavelength-mismatch suppression" the bench
+  papers warn about is this ratio. But the <em>derived</em> object is the
+  χ<sub>ν</sub> overlap integral (CHI_NU_AS_VERTEX_SHARING_STRENGTH.md); this
+  v<sub>phase</sub>/c form is only its leading-order proxy, and the true η is
+  <span class="smcap">open</span> (bench-measured).
+</div>
+
+<p>
+  This single ratio spans about six orders of magnitude depending on what
+  physically carries the coherent vibration:
+</p>
+
+<table>
+  <thead><tr><th>Mode (what carries the coherent vibration)</th><th>v<sub>phase</sub></th><th>η ≈ v/c</th></tr></thead>
+  <tbody>
+    <tr><td>audio flexural (bronze bowl/cymbal, ~300 Hz)</td><td class="n">~50 m/s</td><td class="n bad">1.7×10⁻⁷</td></tr>
+    <tr><td>bulk acoustic, steel/Ti (√(E/ρ) ~ 5 km/s)</td><td class="n">5.0×10³</td><td class="n">1.7×10⁻⁵</td></tr>
+    <tr><td>bulk acoustic, diamond (~17 km/s)</td><td class="n">1.7×10⁴</td><td class="n">5.8×10⁻⁵</td></tr>
+    <tr><td>THz electromagnon / polariton (~0.1c)</td><td class="n">3.0×10⁷</td><td class="n good">1.0×10⁻¹</td></tr>
+    <tr><td>optical in n = 3.5 (Si photonic, c/n)</td><td class="n">8.6×10⁷</td><td class="n good">2.9×10⁻¹</td></tr>
+    <tr><td>surface plasmon (~0.5c)</td><td class="n">1.5×10⁸</td><td class="n good">5.0×10⁻¹</td></tr>
+  </tbody>
+</table>
+
+<p>
+  Because |χ<sub>ν</sub>|² scales as η², moving the coherent mode from mechanical
+  to electromagnetic buys <strong>~10⁸–10¹² in coupling power</strong>. This is the
+  single biggest material decision in the whole design: <em>drive an
+  electromagnetic mode, not a mechanical one.</em>
+</p>
+
+<h3>4.1 The four open multipliers (UFO §8 predicates)</h3>
+
+<p>
+  On top of the naive v<sub>phase</sub>/c value sit multipliers that the framework
+  predicts but only the bench can size. Each is a way to make the overlap add
+  constructively beyond the bare velocity ratio:
+</p>
+
+<ul>
+  <li><strong>P1 — icosahedral symmetry match.</strong> A substrate whose own
+    structural symmetry is the lattice's primitive (icosahedral) cell has an
+    overlap integral that accumulates rather than cancels across the body.</li>
+  <li><strong>P2 — a coupling channel that ties spin to the lattice.</strong>
+    Multiferroic order gives two channels in concert — but its <em>rigorous</em>
+    form is <strong>spin–orbit coupling</strong> (the operator <em>λ L·S</em>),
+    the only interaction that mechanically fuses spin to real-space orbital/lattice
+    motion. SOC strength λ is the natural figure of merit; the 5d iridate
+    J<sub>eff</sub>=1/2 state (λ ≈ 0.5 eV) maxes it. See §12.</li>
+  <li><strong>P3 — phase-coherent condensate at the boundary.</strong> A
+    Cooper-pair / Bose / optical condensate preserves coupling phase across the
+    body; a thermal boundary randomises it. Its one <em>room-temperature</em>
+    realisation is the <strong>magnon (spin-wave) Bose-Einstein condensate</strong>
+    — a body-spanning, single-phase spin condensate (§12).</li>
+  <li><strong>P4 — drive frequency near the lattice mode.</strong> This is the
+    v<sub>phase</sub>/c term itself — the reason THz-to-optical drive is the
+    framework's prescription.</li>
+</ul>
+
+<div class="lemma">
+  The sizes of P1–P3 are the <strong>open numbers</strong>. The naive η =
+  v<sub>phase</sub>/c is a lower-bound-flavoured prior that assumes none of them.
+  A lattice-matched, multiferroic, condensate-boundary body could have η well
+  above its bare velocity ratio — which is exactly why the substrate ladder is an
+  experimental program and not a closed calculation. <em>(Anti-pessimism
+  guardrail: a low naive η is a prior, not a wall.)</em>
+</div>
+
+<h3>4.2 The light-consuming corollary — a cheap first-pass filter</h3>
+
+<p>
+  If coupling to the lattice goes as the substrate's electromagnetic mode-overlap,
+  then a material that couples optical-frequency EM into a coherent mode is, in the
+  visible band, <em>dark</em> — the same overlap that biases the lattice also
+  absorbs light. Absorptance should track |χ<sub>ν</sub>(ω)|² in the coupling band.
+  (This is the optical face of the coupling developed in
+  <code>how_to_build_a_ufo.html</code> §13.11, and reconciles Lazar's paired
+  report of a craft that "consumes light <em>and</em> bends gravity" — two
+  frequencies of one high-frequency mode-overlap, not two marvels.)
+</p>
+
+<div class="ic">
+  <strong>"Is it anomalously, broadbandly black at its coupling band?" becomes a
+  cheap screen.</strong> A good χ<sub>ν</sub> optical coupler must be unusually
+  light-consuming; if a candidate is optically ordinary, the high-η reading is
+  falsified. Strikingly, this filter points straight at the §7 top picks —
+  <strong>graphene's opacity is literally the fine-structure constant</strong>
+  (πα = 2.3% per layer, broadband, gate-tunable; Nair 2008), <strong>CNT forests
+  are the blackest known material</strong> (&gt;99.99%), and the Pt-group
+  "blacks" (including iridium) sit just behind. The honest null to keep in mind:
+  a <em>passive</em> super-absorber (a Vantablack-class coating) is black without
+  any χ<sub>ν</sub> coupling, so blackness is a necessary screen, not a sufficient
+  proof — it filters candidates in, it does not confirm them.
+</div>
+
+<h2><span class="num">§5</span>Lever 2 — energy ceiling: specific resilience σ²/(Eρ)</h2>
+
+<p>
+  U<sub>drive</sub> is <em>stored</em> coherent energy, not dissipated power — so
+  cavity Q raises efficiency (you reach a given energy at lower power) but not the
+  ceiling. For a body that stores the energy <em>mechanically</em>, the ceiling is
+  set by the stress at which it fractures or fatigues. Integrating the elastic
+  energy density σ²/(2E) over the volume that participates near peak stress (a
+  flexural mode reaches the working stress only at the surface antinodes) gives
+</p>
+
+<div class="eq">
+  \( U_{\rm cap} \;=\; \dfrac{\sigma_{\rm work}^2\,V}{12\,E} \qquad\Longrightarrow\qquad \dfrac{U_{\rm cap}}{\text{mass}} \;=\; \dfrac{\sigma_{\rm work}^2}{12\,E\rho} \)
+</div>
+
+<p>
+  So the relevant material figure of merit is the <strong>specific resilience</strong>
+  <em>R</em> = σ<sub>work</sub>²/(Eρ) — the elastic energy a material stores per
+  unit weight. It sets a clean, <em>size-independent</em> ceiling on χ<sub>ν</sub>
+  self-lift at perfect coupling:
+</p>
+
+<div class="eq">
+  \( \left(\dfrac{F}{W}\right)_{\rm perfect} \;=\; \dfrac{\sigma_{\rm work}^2\,\kappa\,g_{\max}^2}{12\,E\rho\,g\,L_{\rm grad}} \;\propto\; R \)
+</div>
+
+<div class="receipt">
+  <strong>The body's mass cancels.</strong> A bigger disk is heavier in exact
+  proportion, leaving only a weak 1/L<sub>grad</sub> (∝ 1/radius) residual. So
+  whether a material can self-lift via χ<sub>ν</sub> — even at perfect coupling —
+  is a property of the <em>material</em>, not the size.
+</div>
+
+<p>
+  Ranking candidate structural bodies (sustained / fatigue-class working stress;
+  self-lift quoted for a 1 m-radius disk, L<sub>grad</sub> = 0.5 m):
+</p>
+
+<table>
+  <thead><tr><th>Structural material</th><th>σ<sub>work</sub> (MPa)</th><th>c<sub>sound</sub> (km/s)</th><th>R (J/kg)</th><th>self-lift @ perfect</th></tr></thead>
+  <tbody>
+    <tr><td>Single-crystal diamond</td><td class="n">2000</td><td class="n">17.3</td><td class="n">1084</td><td class="n good">3.07 ✓</td></tr>
+    <tr><td>CFRP (uniaxial)</td><td class="n">600</td><td class="n">9.2</td><td class="n">1667</td><td class="n good">4.72 ✓</td></tr>
+    <tr><td>Maraging steel (18Ni-300)</td><td class="n">1200</td><td class="n">4.9</td><td class="n">947</td><td class="n good">2.68 ✓</td></tr>
+    <tr><td>Ti-6Al-4V</td><td class="n">500</td><td class="n">5.1</td><td class="n">495</td><td class="n good">1.40 ✓</td></tr>
+    <tr><td>Silicon carbide (4H)</td><td class="n">500</td><td class="n">11.8</td><td class="n">173</td><td class="n bad">0.49 ✗</td></tr>
+    <tr><td>Beryllium</td><td class="n">240</td><td class="n">12.5</td><td class="n">108</td><td class="n bad">0.31 ✗</td></tr>
+    <tr><td>Sapphire (cryo BAW)</td><td class="n">400</td><td class="n">10.0</td><td class="n">101</td><td class="n bad">0.28 ✗</td></tr>
+    <tr><td>Spring / high-strength steel</td><td class="n">700</td><td class="n">5.0</td><td class="n">312</td><td class="n bad">0.88 ✗</td></tr>
+    <tr><td>Stainless 304</td><td class="n">200</td><td class="n">4.9</td><td class="n">26</td><td class="n bad">0.07 ✗</td></tr>
+    <tr><td>Fused quartz (crystal bowl)</td><td class="n">50</td><td class="n">5.7</td><td class="n">16</td><td class="n bad">0.04 ✗</td></tr>
+    <tr><td>Bell bronze (singing bowl)</td><td class="n">100</td><td class="n">3.4</td><td class="n">11</td><td class="n bad">0.03 ✗</td></tr>
+  </tbody>
+</table>
+
+<p>
+  Bronze and quartz — the singing-bowl materials — physically <em>cannot</em>
+  self-lift via χ<sub>ν</sub> even with perfect coupling: their specific resilience
+  is too low. Diamond, CFRP, maraging steel, and titanium clear F/W &gt; 1. (Spring
+  steel sits just under at 1 m radius and clears it for a smaller disk.)
+</p>
+
+<h2><span class="num">§6</span>Both levers at once — the headline result</h2>
+
+<p>
+  The naive χ<sub>ν</sub> self-lift is the product of the two levers. Using
+  |χ<sub>ν</sub>|² = (η·g<sub>max</sub>)² it reduces to a clean form,
+  <em>self-lift</em> = (F/W)<sub>perfect</sub> × η²:
+</p>
+
+<table>
+  <thead><tr><th>Body / drive mode</th><th>η<sub>naive</sub></th><th>(F/W)<sub>perfect</sub></th><th>naive self-lift F/W</th></tr></thead>
+  <tbody>
+    <tr><td>Bell bronze, audio flexural</td><td class="n">1.7×10⁻⁷</td><td class="n">0.03</td><td class="n bad">9×10⁻¹⁶</td></tr>
+    <tr><td>Ti-6Al-4V, hypersonic acoustic</td><td class="n">1.7×10⁻⁵</td><td class="n">1.40</td><td class="n">4×10⁻¹⁰</td></tr>
+    <tr><td>Diamond, hypersonic acoustic</td><td class="n">5.8×10⁻⁵</td><td class="n">3.07</td><td class="n">1×10⁻⁸</td></tr>
+    <tr><td><strong>Diamond, optical mode</strong></td><td class="n">4.1×10⁻¹</td><td class="n">3.07</td><td class="n good"><strong>0.52</strong></td></tr>
+    <tr><td>SiC, optical mode</td><td class="n">3.8×10⁻¹</td><td class="n">0.49</td><td class="n good">7×10⁻²</td></tr>
+  </tbody>
+</table>
+
+<div class="doctrine">
+  A bronze singing bowl driven at audio frequency self-lifts about
+  10<sup>−15</sup> of its own weight. A diamond disk driven in its optical mode
+  self-lifts about half its own weight — on the same naive <em>estimate</em>,
+  before any of the open multipliers, and with the magnitude
+  C<sub>sub</sub>·|χ<sub>ν</sub>|² still unmeasured (null to date). Material and
+  drive-mode choice alone close ~13–14 orders of magnitude of the χ<sub>ν</sub>
+  lift gap. The substrate <em>is</em> the machine — and the convergent machine is
+  not one crystal but the <strong>layered stack of §8</strong>; the
+  diamond-optical single body is its first tier, not its endpoint.
+</div>
+
+<p>
+  The remaining factors are C<sub>sub</sub> (the substrate normalization, ≤ 1) and
+  the P1–P3 multipliers (which act <em>above</em> the naive η). The disk does not
+  need a coupling miracle; it needs the right body driven in the right mode, and
+  then the bench decides whether the open factors land it above or below
+  unity. (The optical figure conservatively uses the mechanical energy ceiling;
+  wide-bandgap diamond's optical-damage ceiling is plausibly higher.)
+</p>
+
+<h2><span class="num">§7</span>The best options, in detail</h2>
+
+<p>
+  Each class below is rated on the two levers — coupling <em>η</em> and energy
+  ceiling <em>R</em> — plus which open predicates it can carry. No single material
+  maxes everything; §8 assembles them.
+</p>
+
+<h3>7.1 Single-crystal diamond — the convergent single body</h3>
+<p>
+  Diamond is the one material that wins <em>both</em> levers outright. It is the
+  structural champion (highest sound speed of any material, 17 km/s; fracture
+  strength of CVD diamond ~2 GPa; specific resilience 1084 J/kg, self-lift 3.07),
+  and simultaneously a high-index optical substrate (n = 2.42 → η ≈ 0.41 in its
+  optical mode). It has the highest known thermal conductivity (it sheds drive
+  heat), a wide bandgap (high optical-damage threshold, so the optical energy
+  ceiling is comfortable), and lab-grown CVD plates are now manufacturable at
+  centimetre scale and growing. A diamond disk reaches the electromagnetic-η
+  regime <em>without a separate active layer</em> and holds the energy in the same
+  body. <strong>If you build one disk from one material, build it from diamond.</strong>
+</p>
+
+<h3>7.2 Silicon carbide — the scalable second</h3>
+<p>
+  SiC (4H polytype) is diamond's cheaper, larger-wafer cousin: high sound speed
+  (11.8 km/s), optical substrate (n = 2.6 → η ≈ 0.38), mature wafer and CVD
+  manufacturing at 150–200 mm. Its specific resilience is lower (173 J/kg,
+  self-lift 0.49 at 1 m), so a SiC disk is a strong η body that may need a
+  high-R backing layer to clear self-lift. The natural prototype substrate before
+  diamond is affordable at disk scale.
+</p>
+
+<h3>7.3 Titanium, maraging steel, CFRP — the structural cores</h3>
+<p>
+  These win Lever 2 but only reach acoustic η on their own (~10⁻⁵). Their role is
+  the <em>structural core</em> that holds the coherent energy beneath an active
+  η-skin. Ti-6Al-4V (R 495, self-lift 1.40) is the aerospace default: weldable,
+  available, fatigue-characterised. Maraging steel (R 947, self-lift 2.68) trades
+  density for a higher ceiling. CFRP has the highest specific resilience of all
+  (1667 J/kg, self-lift 4.72) — but it is anisotropic and a fibre/matrix
+  composite, so its coherent-mode Q and phase coherence are poor; treat it as a
+  mass-efficient backing, not a coherent substrate.
+</p>
+
+<h3>7.4 Icosahedral quasicrystals — the symmetry layer (P1)</h3>
+<p>
+  Al-Pd-Mn and Al-Cu-Fe icosahedral quasicrystals (Shechtman 1984; Tsai 1987) are
+  the only substrate class whose own diffraction symmetry <em>is</em> the lattice's
+  icosahedral primitive cell. That is predicate P1 in material form: a potentially
+  large, open multiplier on η from symmetry-matched overlap. They are brittle
+  (low R), so they serve as a thin <em>symmetry layer</em> on a structural core,
+  not as the load body. This is the substrate rung that tests whether the
+  symmetry-match multiplier is real and large.
+</p>
+
+<h3>7.5 Multiferroics (BiFeO₃) — the coupling film (P2 + P4)</h3>
+<p>
+  Bismuth ferrite carries simultaneous ferroelectric and antiferromagnetic order
+  (two coupling channels, P2) and supports THz electromagnon modes (P4, η into the
+  ~0.1 regime). Cycloid-suppressed epitaxial thin films reach the strongest
+  room-temperature magnetoelectric coupling known (~3 V/cm·Oe; Catalan &amp; Scott
+  2009). Grown as a thin film on the structural/symmetry core, BiFeO₃ is the
+  <em>active coupling layer</em> that drives the body into the electromagnetic-η
+  regime through a broken-symmetry order parameter rather than through bulk
+  motion.
+</p>
+
+<h3>7.6 Superconducting condensates — the coherent boundary (P3)</h3>
+<p>
+  A phase-coherent condensate at the boundary preserves coupling phase across the
+  whole body (P3) — the lineage of the Ning-Li and Tajmar rotating-superconductor
+  experiments (UFO §9). Cuprate films give P3 at 77 K; MgB₂ at ~39 K. Bismuth is
+  the standout: its 0.53 mK superconductivity is six orders below any BCS
+  prediction and has no accepted mechanism (Prakash et al. 2017), so it may escape
+  the s-wave Canterbury-2008 bound that constrains conventional superconductors.
+  The condensate is a surface boundary layer, not the structural body.
+</p>
+
+<h3>7.7 Photonic and plasmonic skins — the η extreme</h3>
+<p>
+  The highest η of any buildable substrate. Silicon photonic (n ≈ 3.48, η ≈ 0.29)
+  is the optical-chamber substrate class; a metallic plasmonic skin reaches
+  v<sub>phase</sub> ~ 0.5c (η ≈ 0.5). Energy is stored in the optical/plasmonic
+  field (high damage ceiling), not as mechanical strain, so Lever 2 is comfortable.
+  These are not structural bodies — they are the η reference point and the natural
+  "active surface" of a diamond/SiC disk.
+</p>
+
+<h3>7.8 Wildcard — ORMUS / monatomic Pt-group</h3>
+<p>
+  If the claimed high-spin-nucleus monatomic forms of Au/Ir/Rh are real (UFO
+  §11.9), they would supply predicate P3 (a phase-coherent condensate) at
+  <em>room temperature</em>, removing the cryogenic constraint. Independent
+  replication of the chemistry is the missing receipt; listed for completeness,
+  not relied upon.
+</p>
+
+<h3>7.9 Summary scoreboard</h3>
+<table>
+  <thead><tr><th>Class</th><th>Lever 1 (η)</th><th>Lever 2 (R)</th><th>Open predicates</th><th>Role on the disk</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Graphene / CNT</strong></td><td>η uncertain 0.003–0.2*</td><td class="good">7.5×10⁶ (champion)</td><td class="good">P1 (12-fold) + P3 (MATBG)</td><td>resilience core; η-conditional skin</td></tr>
+    <tr><td>Diamond</td><td class="good">optical 0.41</td><td class="good">1084</td><td>—</td><td>core + skin (both)</td></tr>
+    <tr><td>SiC</td><td class="good">optical 0.38</td><td>173</td><td>—</td><td>scalable core + skin</td></tr>
+    <tr><td>Ti / maraging / CFRP</td><td class="bad">acoustic ~10⁻⁵</td><td class="good">495–1667</td><td>—</td><td>structural core</td></tr>
+    <tr><td>Quasicrystal (Al-Pd-Mn)</td><td>—</td><td>low</td><td class="good">P1 symmetry</td><td>symmetry layer</td></tr>
+    <tr><td>BiFeO₃</td><td class="good">THz 0.1</td><td>low</td><td class="good">P2 + P4</td><td>coupling film</td></tr>
+    <tr><td>Iridate (Sr₂IrO₄)</td><td class="good">THz strain-tunable</td><td>low</td><td class="good">P2 (giant ME) + P4 + nuclear</td><td>coupling oxide</td></tr>
+    <tr><td>Superconductor (Bi / cuprate)</td><td>—</td><td>low</td><td class="good">P3 condensate</td><td>coherent boundary</td></tr>
+    <tr><td>Photonic / plasmonic</td><td class="good">0.3–0.5</td><td>n/a (optical)</td><td>—</td><td>active η surface</td></tr>
+    <tr><td>Iridium <em>metal</em></td><td class="bad">acoustic ~10⁻⁵</td><td class="bad">336 (brittle)</td><td>—</td><td class="bad">poor — use the oxide</td></tr>
+  </tbody>
+</table>
+<p style="font-size:0.88rem;color:var(--soft);">* Graphene's η is genuinely uncertain (see §7.10): the famous v<sub>F</sub> = 0.003c is a <em>transport</em> velocity (a category error to use as η); bare plasmons are slow; the optimistic 0.1–0.3 is an hBN-hybrid <em>group</em> velocity. Its resilience is so high that even the pessimistic η self-lifts ~0.2× its weight.</p>
+
+<h3>7.10 Graphene — the resilience champion (Lever 2 by ~7000×)</h3>
+<p>
+  Graphene is the highest-specific-resilience material known: σ ≈ 130 GPa, E ≈ 1 TPa,
+  ρ ≈ 2267 kg/m³ give R ≈ 7.5×10⁶ J/kg — about <strong>7000× diamond</strong>
+  (single-wall CNTs match it at the theoretical limit; real CNT fibre ~4× lower).
+  Its energy ceiling is so high that the self-lift question inverts: at perfect
+  coupling it would lift ~7000× its weight, so the <em>only</em> thing that matters
+  is how much η it can reach. The honest range (self-lift = (F/W)<sub>perfect</sub> × η²):
+</p>
+<table>
+  <thead><tr><th>η source</th><th>η</th><th>naive self-lift F/W</th></tr></thead>
+  <tbody>
+    <tr><td>bare confined plasmon (phase vel ~c/300) — pessimistic</td><td class="n">0.003</td><td class="n">~0.2</td></tr>
+    <tr><td>hBN-hybrid polariton (group vel ~0.2c) — optimistic</td><td class="n">0.2</td><td class="n good">~840</td></tr>
+    <tr><td>perfect coupling (η → g<sub>max</sub>)</td><td class="n">0.577</td><td class="n">~7000</td></tr>
+  </tbody>
+</table>
+<div class="lemma">
+  Graphene's η is the open, contested number. The v<sub>F</sub> = 0.003c Dirac
+  velocity is a <em>quasiparticle transport</em> speed, not a coherent mode's
+  <em>phase</em> velocity — do not credit graphene with EM-band η on its strength.
+  And the extreme plasmon confinement that makes graphene exciting also makes those
+  plasmons <em>slow</em> (confinement and high η pull opposite ways). The best honest
+  η is the graphene–hBN hybrid plasmon-phonon polariton (~0.1–0.3, and that is a
+  group velocity). But because R is ~7000× diamond, <strong>even the pessimistic
+  slow-plasmon η self-lifts ~0.2× weight on the naive estimate</strong> — graphene
+  is robust to η uncertainty in a way diamond is not.
+</div>
+<p>
+  Three further framework hits make carbon hard to ignore: (i) <strong>30°-twisted
+  bilayer graphene is a genuine dodecagonal (12-fold) quasicrystal</strong> —
+  predicate P1, and a direct match to the project's 12-port / icosahedral geometry;
+  (ii) <strong>magic-angle twisted bilayer graphene superconducts</strong>
+  (T<sub>c</sub> ≈ 1.7 K, geometry-set) — predicate P3, a condensate switched by a
+  twist angle, conceptually resonant with vertex-sharing; (iii) graphene's
+  <strong>opacity is the fine-structure constant</strong> (§4.2). Caveats:
+  graphene has essentially no native P2 (weak spin–orbit, non-magnetic — needs
+  proximity engineering), MATBG's T<sub>c</sub> is cryogenic and fabrication-fragile,
+  and graphene <em>aerogel/foam is a trap</em> — going ultralight collapses σ faster
+  than ρ, dropping R ~100× below monolayer. Rank by σ²/(Eρ), never by density.
+</p>
+
+<h3>7.10b Carbon nanotubes — the light-consuming aperture and the spin handle</h3>
+<p>
+  CNTs share graphene's single-tube resilience (~7×10⁶ J/kg) but lose it in any
+  buildable form (fibre/yarn/buckypaper fall to 0.01–1.2×10⁶ J/kg as tubes slip on
+  their van-der-Waals contacts) — so CNTs are <em>not</em> the Lever-2 win. They earn
+  their place on two CNT-specific axes graphene cannot match:
+</p>
+<ul>
+  <li><strong>The light-consuming aperture (decisive).</strong> A vertically-aligned
+    CNT <em>forest</em> is the blackest known material — Vantablack ~99.965%, the MIT
+    2019 record ≥99.995%, broadband UV→THz and angle-independent — because it
+    <em>multiplies</em> intrinsic 1D broadband absorption by geometric light-trapping.
+    That product is the physical realisation of the §4.2 filter: the forest forces
+    every entering mode to sample an enormous number of surface vertices before it
+    can leave — structurally the same "coherent aggregation over many boundary
+    vertices" as the χ<sub>ν</sub> overlap sum. A flat graphene sheet has the
+    intrinsic coupling but none of the geometric aggregation (2.3% vs 99.995%). So if
+    a good optical coupler must be black, <strong>the CNT forest is the substrate that
+    operationalises the coupling aperture</strong>, and graphene is not.</li>
+  <li><strong>Curvature spin–orbit coupling (P2).</strong> Wrapping graphene into a
+    tube breaks its mirror symmetry and turns on first-order SOC — measured at
+    0.37–3.4 meV (a built-in ~29 T axial field), i.e. <strong>10³–10⁴× flat
+    graphene's ~1 µeV</strong>, and geometry-tunable by diameter and chirality. CNTs
+    also carry native 1D superconductivity (intrinsic at 0.4 nm, T<sub>c</sub> ≈ 15 K;
+    plus rope and proximity SC) — a P3 channel graphene lacks natively — and a
+    quantized Luttinger-liquid plasmon at η ≈ 0.008–0.01 (carrier-density-independent,
+    cleaner than a 2D plasmon). Chirality is also a selectable P1 knob.</li>
+</ul>
+<div class="ic">
+  <strong>Two honest caveats.</strong> (1) The blackness→χ<sub>ν</sub> inference is
+  the framework's own postulate — a forest's blackness is fully explained by ordinary
+  absorption into heat, with no χ<sub>ν</sub> required; it is a necessary screen, not
+  a proof. (2) The morphologies fight: the 99.995%-black <em>forest</em> is a fragile
+  low-fill-fraction array, while a load-bearing disc wants dense <em>fibre</em> — you
+  cannot get both the black aperture and the structural body from one piece. On the
+  "Sport-Model black panels" lore: it is <em>not</em> documented — Lazar's craft was
+  described as bare metallic, and the famous stealth blacks are <em>radar</em>
+  (magnetic-loss) absorbers, a different mechanism from optical ultra-black. The
+  CNT-aperture case rests on the laboratory blackest-material record alone, which is
+  enough.
+</div>
+
+<h3>7.11 Iridates — the coupling oxides (it's the compound, not the metal)</h3>
+<p>
+  Iridium-<em>the-metal</em> is a poor candidate: dense and brittle (intrinsic
+  Frank-loop cleavage), specific resilience ≤ steel (R ≈ 336 J/kg at cold-worked
+  strength), acoustic-only coupling, and superconducting only at 0.11 K. The
+  framework-relevant physics lives entirely in the <strong>iridates</strong>
+  (Ir-oxides), one of the richest playgrounds for exotic coherent modes:
+</p>
+<ul>
+  <li><strong>Sr₂IrO₄</strong> — a spin–orbit-coupled J<sub>eff</sub>=1/2 Mott
+    insulator (a near-perfect cuprate analogue) with a <strong>giant
+    magnetoelectric effect</strong> (predicate P2, two coupling channels via an
+    unconventional SOC mechanism).</li>
+  <li><strong>THz collective modes</strong> — dispersing magnons up to ~50 THz plus
+    a spin–orbit exciton, intrinsically in the high-frequency band (P4), and
+    <strong>strongly strain-tunable</strong> — i.e. the coupling mode is itself a
+    handle that ties Lever 1 to Lever 2.</li>
+  <li><strong>A nuclear↔electronic channel</strong> — ¹⁹¹Ir was the original
+    Mössbauer nuclide; ¹⁹³Ir nuclear-resonant scattering reads the magnetic state,
+    and a giant magnetic isotope effect appears in an Ir quantum-spin-liquid. A
+    genuine second coupling channel few elements offer.</li>
+  <li>Honeycomb/pyrochlore iridates host Kitaev-spin-liquid and Weyl-semimetal
+    states (P1-flavoured frustrated geometry), though all real iridates order
+    magnetically rather than realising the ideal spin liquid.</li>
+</ul>
+<p>
+  Caveat: predicate P3 is <em>unfilled</em> for iridates (no confirmed iridate
+  superconductor yet), and iridium is among the rarest, most expensive elements —
+  a practical ceiling on any build. Use the oxide as a thin coupling layer, pair it
+  with a separate condensate boundary for P3, and treat the ORMUS / "monatomic-iridium"
+  claims as a <em>testable lead</em> rather than established physics — see §7.12.
+</p>
+
+<h3>7.12 ORMUS / monatomic iridium — extracting the testable claim</h3>
+<p>
+  Breakthrough materials have a real history of being dismissed before they were
+  understood, so the right posture toward a fringe lead is not "ignore it" but
+  "extract the falsifiable physical claim and run the cheapest decisive test." Doing
+  that for ORMUS iridium separates a discardable myth from a genuinely untested sliver.
+</p>
+<p>
+  <strong>What does not survive.</strong> The headline claims — bulk room-temperature
+  superconductivity with Meissner levitation, ~4/9 weight loss / "weighs less than
+  nothing," arc-made permanent high-spin <em>nuclei</em> — are contradicted: a
+  room-temperature superconductor is trivially SQUID-detectable and none has been
+  shown; the weight anomaly is the signature of a thermogravimetric buoyancy artifact;
+  and superdeformed/high-spin nuclei are picosecond–nanosecond accelerator states, not
+  a storable powder. Commercial "ORMUS" assays as mostly magnesium hydroxide with no
+  significant precious metal. That part is noise.
+</p>
+<div class="lemma">
+  <strong>What is real, and untested for this material.</strong> Hudson's core
+  intuition — <em>a noble-metal atom stripped of bulk metallic bonding occupies an
+  anomalous d-hole electronic state with new magnetism</em> — was vindicated in spirit
+  by mainstream nanoscience he never saw: thiol-capped gold nanoparticles show
+  <strong>room-temperature ferromagnetic hysteresis</strong> attributed to 5d localized
+  holes (Crespo, PRL 2004) — bulk-diamagnetic gold becoming magnetic when its surface
+  bonding is disrupted. Single-atom Ir catalysts and Au "superatom" clusters are real
+  and electronically unlike the bulk. None of this is superconductivity or antigravity —
+  but it is a <strong>legitimate P2 (spin / d-hole) channel</strong>, and crucially
+  <strong>no one has put a genuine Hudson-route Ir/Rh preparation through a SQUID +
+  EPR + microwave-surface-impedance battery and published it.</strong> For that narrow
+  claim, "the evidence isn't in yet" is literally true.
+</div>
+<div class="ic">
+  The cheapest decisive experiment is one afternoon on a shared SQUID/VSM (5–400 K,
+  field sweep): it falsifies the superconductivity claim outright if null, and
+  detects any real room-temperature moment (Crespo-scale) down to ~10⁻⁷ emu — pinning
+  whether the prep carries an anomalous P2 spin channel. Pair with EPR (high-spin
+  signature) and a buoyancy-blank thermogravimetry run (kills the weight claim). And
+  if the actual goal is a <em>room-temperature condensate</em> (P3), the honest place
+  to look is not the powder but driven organic <strong>exciton-polariton condensates</strong>,
+  which already deliver coherent matter at 300 K in peer-reviewed work and fit the
+  high-frequency-drive predicate P4. Investigate the fringe by measuring it.
+</div>
+
+<h2><span class="num">§8</span>The convergent disk — winning both levers by layering</h2>
+
+<p>
+  No single material maxes both levers <em>and</em> carries all the predicates, so
+  the high-end disk is a stack, structured exactly along the §6 morphology of the
+  UFO paper (closed coherent shell, rim-segmented drive, top–bottom asymmetry,
+  central cabin):
+</p>
+
+<table>
+  <thead><tr><th>Layer</th><th>Job</th><th>Material</th></tr></thead>
+  <tbody>
+    <tr><td>Structural core</td><td>holds the coherent energy (Lever 2)</td><td>diamond (best); else maraging steel / Ti / CFRP backing</td></tr>
+    <tr><td>Symmetry layer (P1)</td><td>lattice-cell symmetry match</td><td>Al-Pd-Mn icosahedral quasicrystal</td></tr>
+    <tr><td>Coupling film (P2, P4)</td><td>two channels, THz drive → EM-η regime</td><td>epitaxial BiFeO₃</td></tr>
+    <tr><td>Condensate boundary (P3)</td><td>preserves coupling phase across the body</td><td>bismuth (non-BCS) or cuprate film</td></tr>
+    <tr><td>Drive</td><td>asymmetric, directional (κ → 1)</td><td>rim-segmented THz-to-optical sources</td></tr>
+  </tbody>
+</table>
+
+<div class="ic">
+  The single-body shortcut is a <strong>diamond disk driven optically</strong>: it
+  carries Lever 1 (optical η ≈ 0.41) and Lever 2 (R = 1084, self-lift 3.07) in one
+  material, no active layer required. The full multilayer stack is what you build
+  when you want the P1–P3 multipliers <em>on top</em> of that — i.e. when the bench
+  has shown they are large enough to be worth the fabrication cost. Diamond first;
+  predicates second.
+</div>
+
+<p>
+  Steering, cabin, and drive electronics follow the saucer morphology unchanged
+  (UFO §10): per-segment rim drive gives directional thrust by amplitude/phase
+  asymmetry; the top–bottom drive asymmetry makes the disk a lift platform rather
+  than a sphere; the central thickening houses crew, power, and the THz/optical
+  drive sources.
+</p>
+
+<h2><span class="num">§9</span>Build tiers</h2>
+
+<table>
+  <thead><tr><th>Tier</th><th>Body</th><th>Drive</th><th>What it answers</th><th>Order of cost</th></tr></thead>
+  <tbody>
+    <tr><td>0 — demonstrator</td><td>Ti or steel disk on a pendulum</td><td>audio / ultrasonic</td><td>extends the pot-lid bench to a disk; bounds acoustic-η at the disk geometry</td><td>$ (bench)</td></tr>
+    <tr><td>1 — research</td><td>SiC then diamond disk</td><td>optical</td><td>measures EM-regime η; first test of the §6 headline at a torsion-balance readout</td><td>$$$</td></tr>
+    <tr><td>2 — aspirational</td><td>full multilayer stack</td><td>THz + optical, rim-segmented</td><td>turns on the P1–P3 multipliers; the §8 disk</td><td>$$$$$</td></tr>
+  </tbody>
+</table>
+
+<p>
+  The ladder is deliberately the same shape as the substrate ladder in the UFO and
+  pot-lid papers: each tier produces a clean η measurement at one substrate +
+  geometry, and the program is the ranking of those η values — not a single
+  go/no-go.
+</p>
+
+<p>
+  Two <strong>pre-bench screens cost almost nothing</strong> and should run first.
+  (i) <em>The reflectance/blackness screen</em> (§4.2): measure broadband absorptance
+  of each candidate on a spectrometer — a good optical χ<sub>ν</sub> coupler must be
+  anomalously black at its coupling band, so this filters the §7 picks in (and any
+  optically-ordinary candidate out) before any force apparatus is built. (ii) <em>The
+  diamagnetic control</em> (§11): pyrolytic graphite over a NdFeB array levitates with
+  no power and pins the conventional diamagnetic baseline, so a later force result in a
+  field can be distinguished from ordinary diamagnetism.
+</p>
+
+<h2><span class="num">§10</span>What is derived, estimated, and open</h2>
+
+<table>
+  <thead><tr><th>Element</th><th>Status</th></tr></thead>
+  <tbody>
+    <tr><td>g<sub>max</sub> = 1/√3 per-vertex ceiling</td><td><span class="smcap">derived</span></td></tr>
+    <tr><td>Force law F = (C<sub>sub</sub>|χ<sub>ν</sub>|²)(U<sub>drive</sub>κ/L<sub>grad</sub>)</td><td><span class="smcap">derived</span> form (energy gradient)</td></tr>
+    <tr><td>η ≈ v<sub>phase</sub>/c</td><td><span class="smcap">estimate</span> (naive overlap; a prior, not a wall)</td></tr>
+    <tr><td>Energy ceiling U<sub>cap</sub> = σ²V/12E; specific resilience R</td><td><span class="smcap">derived</span> (mechanical)</td></tr>
+    <tr><td>Self-lift ceiling ∝ R (size-independent)</td><td><span class="smcap">derived</span></td></tr>
+    <tr><td>P1–P3 multipliers on η; C<sub>sub</sub></td><td><span class="smcap">open</span> — the bench measures them</td></tr>
+  </tbody>
+</table>
+
+<p>
+  The honest one-line state: the levers and ceilings are derived; the naive η is a
+  conservative prior; the multipliers and C<sub>sub</sub> are what the substrate
+  ladder is built to measure. The material analysis tells you <em>where to
+  build</em> (diamond / SiC, optical mode, with the predicate layers as upside);
+  it does not by itself certify a Newton of force. That certification is a bench
+  receipt, per the schema the pot-lid and UFO papers share.
+</p>
+
+<div class="doctrine">
+  The hover disk's lift is its substrate. Coupling goes as the coherent mode's
+  phase velocity over <em>c</em> (go electromagnetic), and the self-lift ceiling
+  goes as the material's specific resilience (go diamond). Choose those two right
+  and the χ<sub>ν</sub> lift gap closes from fourteen orders of magnitude to the
+  span of two open numbers the bench can read.
+</div>
+
+<h2><span class="num">§11</span>Diamagnetic levitation — the conventional benchmark (and the Meissner→P3 bridge)</h2>
+
+<p>
+  One conventional, room-temperature, fully-demonstrated mechanism does lift
+  ordinary matter — including living tissue — and it is the honest yardstick every
+  χ<sub>ν</sub> claim should be measured against: <strong>diamagnetic
+  levitation</strong> (Geim's levitating frog; Berry &amp; Geim 1997). All matter is
+  weakly diamagnetic, so it is repelled from high field; the on-axis force balance is
+</p>
+
+<div class="eq">
+  \( B\,\dfrac{dB}{dz} \;=\; -\,\dfrac{\mu_0\,\rho\,g}{|\chi|} \)
+</div>
+
+<p>
+  Two features make this the right benchmark — and a partial bridge into this paper's
+  framework. First, it depends on the object's <em>density ρ, not its mass</em> (a
+  frog, water, and a hazelnut all float at the same setting), and it cancels gravity
+  to ~0.1 g <em>throughout the bulk, atom by atom</em> — the cleanest existing example
+  of a uniform body force on a whole coherent object. Second, it escapes Earnshaw's
+  theorem precisely because the energy depends on |<em>B</em>| (which, unlike a field
+  component, can have a true minimum), giving a stable zone at the field's inflection
+  point. The cost scales with volume: small objects levitate over ordinary NdFeB if
+  they are strong diamagnets — <strong>pyrolytic graphite, the best room-temperature
+  diamagnet, levitates over permanent magnets with no power at all</strong> (the cheap
+  demonstrator) — while a human needs ≈40 T over ~1 GW of coil power (or a
+  superconducting persistent magnet, no steady power).
+</p>
+
+<div class="ic">
+  This is force-balance against a real magnetic body force — <strong>not</strong>
+  anti-gravity and <strong>not</strong> the χ<sub>ν</sub> channel; do not over-read it.
+  But it is load-bearing here in three ways. (1) It is the conventional <em>control</em>
+  any χ<sub>ν</sub> lift result must out-perform or be distinguished from — a disk that
+  lifts in a strong field may just be diamagnetic. (2) It runs on the same weak
+  <em>diamagnetic coupling channel</em> the framework names as the baseline (one weak
+  port to the lattice; UFO §8). (3) Its perfect-diamagnet limit, χ = −1, is the
+  <strong>Meissner effect</strong> — a superconductor expelling the field — which is
+  exactly predicate <strong>P3</strong> (a phase-coherent condensate). So the
+  superconducting-boundary layer of the §8 disk is simultaneously the strongest
+  diamagnetic levitator <em>and</em> the χ<sub>ν</sub> coherence predicate: the two
+  pictures meet at the condensate. (This also closes the loop on the carbon thread —
+  pyrolytic graphite/graphene is both the resilience champion of §7.10 and the
+  strongest room-temperature diamagnet.)
+</div>
+
+<h2><span class="num">§12</span>Spin — the coupling channel we under-examined</h2>
+
+<p>
+  "Spin" appears in every candidate above, but it means several different things, and
+  conflating them is how the analysis goes wrong. Pulled apart, spin turns out to
+  sharpen two of the four predicates — it is the rigorous content of P2 and the
+  room-temperature route to P3 — so it deserves its own treatment. The orienting fact:
+  <strong>spin–orbit coupling is the only known interaction that mechanically ties spin
+  to real-space geometry</strong>. Spin alone is an internal angular momentum with no
+  handle on the lattice; the operator <em>λ L·S</em> entangles it with lattice-locked
+  orbital motion. So whenever we ask "does spin couple to the lattice?", SOC is where
+  the answer is least speculative, and its strength λ is the figure of merit.
+</p>
+
+<h3>12.1 Six senses of spin, and which predicate each feeds</h3>
+<table>
+  <thead><tr><th>Sense of "spin"</th><th>What's known (candidates)</th><th>Predicate</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Nuclear spin</strong></td><td>¹²C = 0 (→ ultra-long electron coherence); ¹⁹¹/¹⁹³Ir = 3/2 with a 133 T hyperfine field that reads the J<sub>eff</sub>=1/2 state</td><td>P2 (Ir nuclear↔electronic bridge); else a bath to remove</td></tr>
+    <tr><td><strong>Spin–orbit coupling</strong></td><td>graphene ~1 µeV → CNT 0.4–3.4 meV (curvature) → iridate λ ≈ 0.5 eV (builds J<sub>eff</sub>=1/2)</td><td class="good">P2 — the rigorous channel</td></tr>
+    <tr><td><strong>Spin coherence</strong></td><td>NV in ¹²C-diamond T₂ ≈ 1.8 ms at room T; ¹³C-dimer singlet to minutes</td><td>P3 (phase-holding, but pointlike)</td></tr>
+    <tr><td><strong>Entangled / fractionalised</strong></td><td>Kitaev quantum spin liquid (α-RuCl₃, honeycomb iridates) — Majorana excitations</td><td class="good">P1∩P2∩P3 — but cryogenic</td></tr>
+    <tr><td><strong>High-spin molecules</strong></td><td>single-molecule magnets (Mn₁₂ S=10), spin-crossover Fe — the <em>real</em> "high-spin" science</td><td>P4 actuator (a switchable knob)</td></tr>
+    <tr><td><strong>Magnon (spin wave)</strong></td><td>YIG magnon BEC at room T, spin supercurrents, GHz–THz; AFM magnons to ~THz at km/s</td><td class="good">P3+P4 — room-temperature</td></tr>
+  </tbody>
+</table>
+
+<h3>12.2 The carbon tension, and where each material lands</h3>
+<p>
+  A built-in trade-off runs through the carbon candidates: the low atomic number that
+  gives carbon its <em>long spin coherence</em> (spin-zero ¹²C, weak decoherence) is
+  exactly what gives it <em>negligible spin–orbit coupling</em>. <strong>You cannot
+  maximise spin coherence and spin↔lattice coupling in the same carbon at once.</strong>
+  CNT curvature buys some SOC back (§7.10b); the iridates sit at the opposite corner —
+  enormous SOC (the J<sub>eff</sub>=1/2 state literally fuses spin to the octahedral
+  lattice, maximising P1∩P2) but collective rather than single-spin coherence. The
+  honeycomb Kitaev iridates/α-RuCl₃ are the rare triple point that maxes P1, P2 and P3
+  at once — paid for in temperature (the spin-liquid window is cryogenic and
+  field-stabilised).
+</p>
+
+<div class="receipt">
+  <strong>The room-temperature P3 prize is the magnon BEC.</strong> Of every coherent
+  mode in this paper, the magnon Bose–Einstein condensate in YIG is the only one that
+  is simultaneously (i) <em>room-temperature</em>, (ii) a genuine body-spanning
+  single-wavefunction condensate (with <em>measured spin supercurrents</em> and a
+  Josephson analogue), (iii) natively spin-carrying (a phonon or plasmon is not), and
+  (iv) GHz–THz drivable (P4) and lattice-locked in its dispersion (P1). It is the
+  cleanest physical realisation of "a phase-coherent condensate that holds coupling
+  phase across the body" — and it exists today, at 300 K.
+</div>
+
+<div class="lemma">
+  <strong>The honest caveat, kept in view.</strong> A magnon's phase velocity is
+  ~km/s, so on the §4 coupling lever its η ≈ v<sub>phase</sub>/c ≈ 3×10⁻⁵ is
+  phonon-like — <em>not</em> an η win. Its case rests entirely on the other axis: it
+  carries spin and stays coherent across the body at room temperature. So the spin
+  channel and the η (electromagnetic-mode) channel are <em>different</em> levers that a
+  full disk would want to combine — a high-η optical/diamond aperture coupled to a
+  room-temperature spin condensate — not a single material. And every "spin couples to
+  χ<sub>ν</sub>" statement here is <em>unmeasured hypothesis</em>: what is established
+  is the materials physics (the λ values, the 1.8 ms coherence, the 133 T hyperfine
+  bridge, the room-temperature magnon BEC); whether any of it feeds the χ<sub>ν</sub>
+  channel is exactly what the bench must decide.
+</div>
+
+<h3>12.3 What the spin map tells you to measure</h3>
+<p>
+  Two experiments fall straight out of this and are the most direct tests of "spin as a
+  χ<sub>ν</sub> channel" the framework admits:
+</p>
+<ol>
+  <li><strong>The SOC ladder.</strong> Measure whether the coupling (whatever the bench
+    reads as χ<sub>ν</sub>) scales with spin–orbit strength λ across a clean series:
+    graphene (~1 µeV) → CNT (~meV) → 5d iridate (~0.5 eV). A monotone rise is the
+    signature that P2 is genuinely an SOC channel; a null across three orders of
+    magnitude in λ falsifies it.</li>
+  <li><strong>The magnon-BEC drive test.</strong> A room-temperature YIG magnon
+    condensate already holds a body-spanning spin phase. Ask whether that phase
+    responds to the χ<sub>ν</sub> drive the framework posits — the one place a
+    macroscopic coherent spin phase exists at room temperature and is measurable today.</li>
+</ol>
+
+<h2><span class="num">§13</span>The lattice-match substrate — first-principles material selection</h2>
+
+<p>
+  §§7–12 ranked materials by the <em>coupling</em> they offer (η, spin, energy
+  ceiling). There is a deeper, more first-principles way to ask the question: the
+  root paper says spacetime <em>is</em> a specific lattice — the <code>{5,3,3}</code>
+  dodecahedral honeycomb (<code>shape_of_the_universe.html</code>). So which material's
+  own structure most closely <em>reproduces</em> that lattice? A substrate built like
+  the lattice it must couple to is the one whose mode-overlap (predicate P1) is least
+  cancelled. This section answers that — and it lands on the same place §7 did, by an
+  independent road.
+</p>
+
+<h3>13.1 The exact lattice is forbidden in flat space — by your own paper, and by theorem</h3>
+<p>
+  The universe lattice has four defining features: <strong>equal edges</strong>,
+  <strong>degree-3 vertices</strong>, <strong>pentagon</strong> smallest loops, and
+  <strong>dodecahedral cells</strong> with icosahedral symmetry (φ-forced). No
+  ordinary crystal can carry all of them, for two independent reasons:
+</p>
+<ul>
+  <li><strong>The shape paper's own frustration argument (§5).</strong> "Pentagons…
+    cannot tile flat three-dimensional space… the geometric frustration at the heart
+    of the network." It explicitly rules out the alternatives: hexagonal honeycombs
+    (don't fill 3D), diamond/cubic (degree ≥ 4), quasicrystals ("admit several edge
+    lengths"), and the Laves graph (10-edge loops, no φ). The <em>only</em> exact fit
+    is <code>{5,3,3}</code> on the <strong>3-sphere</strong> — a curved-space tiling.</li>
+  <li><strong>The crystallographic restriction theorem.</strong> Periodic crystals
+    admit only 2-, 3-, 4-, 6-fold rotational symmetry — <strong>5-fold and icosahedral
+    are forbidden</strong>. (This is precisely why quasicrystals were revolutionary,
+    and why no periodic element can carry the lattice's symmetry.)</li>
+</ul>
+<div class="receipt">
+  No element's crystal reproduces the exact infinite lattice in flat space. That is
+  not a failure to engineer around — it is the <code>α√π</code> "almost-fit" of
+  <em>P = φ + α√π</em> made physical: the residual frustration left after positive
+  curvature absorbs what it can. A perfect-fit material would be the "frozen sculpture"
+  of shape §5 — silent, eventless. The frustration <em>is</em> the aliveness.
+</div>
+
+<h3>13.2 The refined question lands on carbon — and the cage geometry is exact</h3>
+<p>
+  Refine to the answerable question: <em>which element's bonding natively builds the
+  universe's degree-3, pentagon-closing, dodecahedral motif?</em> Real chemistry
+  answers cleanly, and the answer is <strong>carbon</strong> — for reasons that are
+  exact, not analogical:
+</p>
+<ul>
+  <li><strong>Degree-3 is carbon's signature.</strong> sp² carbon makes exactly three
+    σ-bonds — it is <em>the</em> three-way-vertex element. Graphene is a degree-3 net.</li>
+  <li><strong>Dodecahedrane (C₂₀H₂₀) is the literal primitive cell.</strong> Twenty
+    carbons at the twenty degree-3 corners of a regular dodecahedron, each bonded to
+    three carbons — exactly shape §5's "twenty corners; at every corner three pentagons
+    meet." The C–C–C angle is 108° (the pentagon interior angle), only 1.5° from the
+    ideal sp³ 109.5°, which is why it is a real, synthesised molecule (Paquette 1982;
+    the bare C₂₀ all-carbon dodecahedron, Prinzbach 2000).</li>
+  <li><strong>Euler forces exactly 12 pentagons.</strong> Any closed degree-3 carbon
+    cage (a fullerene) must have <em>precisely 12 pentagonal faces</em> — the same
+    twelve as the dodecahedral cell. And carbon's flat net is hexagonal (graphene);
+    <strong>the pentagons are what force it to curve and close into a ball.</strong>
+    The same move that builds a buckyball — pentagons → curvature → closure — is the
+    move that closes the dodecahedral honeycomb onto the 3-sphere. Carbon resolves the
+    pentagonal frustration the way the universe does: by curving.</li>
+</ul>
+<div class="ic">
+  So the "universe-matched" carbon substrate is not flat graphene (hexagonal, the
+  wrong loop) — it is a <strong>curved degree-3 carbon cage</strong>: a fullerene,
+  a dodecahedral cage, or a nanotube cap, where pentagons appear and φ enters the
+  standing patterns. This is the §7.10b carbon thread, now selected from the
+  cosmology rather than from the material levers.
+</div>
+
+<h3>13.3 The complements — the dodecahedron / icosahedron duality</h3>
+<p>
+  No single structure carries every feature; the candidates split cleanly along the
+  <strong>dodecahedron ⇄ icosahedron duality</strong> (the two are dual polyhedra:
+  the dodecahedron has 20 degree-3 vertices and 12 pentagon faces; the icosahedron has
+  12 degree-5 vertices and 20 triangle faces). Carbon sits on the dodecahedron (the
+  cell — the degree-3 <em>vertex rule</em>); boron sits on the icosahedron (the dual —
+  the <em>symmetry</em>). Reproducible map: <code>hover/disk_material_ladder.py</code>.
+</p>
+<table>
+  <thead><tr><th>Structure</th><th>eq-edge</th><th>deg-3</th><th>pentagon</th><th>dodeca</th><th>icosa</th><th>φ</th><th>fill 3D</th><th>what it matches</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Universe {5,3,3}</strong> (target)</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>S³ only</td><td>the lattice (curved space)</td></tr>
+    <tr><td>Carbon — dodecahedrane / C₂₀</td><td>✓</td><td>✓</td><td>✓</td><td class="good">✓ (is one)</td><td>✓</td><td>✓</td><td>✗</td><td class="good">the cell + vertex rule</td></tr>
+    <tr><td>Carbon — C₆₀ fullerene</td><td>~</td><td>✓</td><td>✓</td><td>✗</td><td>✓</td><td>✓</td><td>✗</td><td class="good">degree-3 + 12-pentagon closure</td></tr>
+    <tr><td>Boron — B₁₂ icosahedron</td><td>~</td><td class="bad">✗ (deg-5)</td><td>✗</td><td>✗</td><td>✓</td><td>✓</td><td>✓</td><td>icosahedral symmetry (the dual)</td></tr>
+    <tr><td>Icosahedral quasicrystal</td><td class="bad">✗</td><td>~</td><td>~</td><td>~</td><td class="good">✓ long-range</td><td>✓</td><td>✓</td><td>long-range symmetry, φ (multi-edge)</td></tr>
+    <tr><td>Clathrate 5¹² / Frank-Kasper</td><td>~</td><td>~</td><td>✓</td><td>✓</td><td class="bad">✗</td><td>~</td><td>✓</td><td>pentagonal cells, periodically</td></tr>
+  </tbody>
+</table>
+<p>
+  Read the table as a division of labour: <strong>carbon</strong> matches the cell and
+  the degree-3 vertex rule exactly but cannot tile flat (one cage); <strong>boron</strong>
+  (B₁₂ icosahedra in α/β-boron) supplies the icosahedral <em>symmetry</em> and tiles
+  space, but on the dual lattice (degree-5); the <strong>icosahedral quasicrystal</strong>
+  is the only thing with true long-range icosahedral order and φ-scaling, but at the cost
+  of several edge lengths (the shape paper's stated disqualifier); and
+  <strong>clathrate / Frank-Kasper</strong> phases are the periodic flat-space best-try
+  (mostly-pentagonal dodecahedral cages), but periodicity forbids true 5-fold symmetry.
+  Nothing scores a full row — which is the §13.1 frustration, made into a scoreboard.
+</p>
+
+<h3>13.4 Three independent roads converge on carbon</h3>
+<div class="doctrine">
+  The cosmology (this section: carbon = the degree-3, pentagon-closing element;
+  dodecahedrane = the literal cell), the periodic-table paper (which already names
+  carbon "the lattice's master joiner, the standing pattern from which other patterns
+  hang"), and the χ<sub>ν</sub> material ladder (carbon = the specific-resilience
+  champion, the light-consuming aperture, and the optical+structural body) are three
+  unrelated arguments. They land on the same element. That convergence is the signal.
+</div>
+<p>
+  The practical upshot is reassuring rather than exotic: the lattice-match does
+  <em>not</em> send you hunting a rare element — it confirms <strong>carbon in its
+  curved degree-3 forms</strong> (fullerene / dodecahedral cage / nanotube), with
+  <strong>boron</strong> (icosahedral symmetry, the dual) and an <strong>icosahedral
+  quasicrystal</strong> layer (long-range symmetry, predicate P1) as the natural
+  complements a single carbon cage cannot supply. The disk's "lattice-matched skin," in
+  this reading, is a carbon-cage network carrying a quasicrystalline / boron-icosahedral
+  symmetry register — the structural expression of the same shape the substrate must
+  couple to. Honest boundary, as throughout: this reasons <em>within</em> the premise
+  that spacetime is the <code>{5,3,3}</code> lattice; the crystallography it rests on
+  (the restriction theorem, Euler's 12-pentagon rule, dodecahedrane, the dodecahedron
+  ⇄ icosahedron duality, quasicrystals) is established science, and it independently
+  agrees with the periodic-table paper rather than contradicting it.
+</p>
+
+<h3>13.5 Reasoning to the quasicrystal composition — the Tsai-type substrate</h3>
+<p>
+  The carbon cage gives the exact <em>local</em> rule (degree-3, φ) but cannot tile;
+  the other escape from the §13.1 frustration is to keep the exact <em>long-range</em>
+  icosahedral symmetry and φ-scaling and relax the degree-3 / equal-edge rule — an
+  <strong>icosahedral quasicrystal (iQC)</strong>. The striking result is that we can
+  reason all the way to a specific, makeable composition.
+</p>
+
+<h4>The minimum is binary, not ternary — and not one</h4>
+<p>
+  The famous iQCs are ternary (Al-Pd-Mn), but the floor is lower: stable
+  <strong>binary</strong> icosahedral quasicrystals exist (i-Cd₅.₇Yb, i-Cd₅.₇Ca; and a
+  whole binary <em>magnetic</em> family i-RCd₅.₇, R = Gd…Tm). A genuine single-element
+  <em>bulk</em> iQC does <strong>not</strong> exist, for a deep reason that is itself
+  on-framework: quasiperiodicity needs <em>two</em> length scales in the irrational
+  ratio φ, cleanest to imprint with two atom sizes; and metallic iQCs are stabilised by
+  a Hume-Rothery pseudogap that sits at a precise electron-per-atom ratio e/a, which
+  needs alloying to tune. So the "one atom coupling to three" ideal is unreachable in a
+  bulk metal — <strong>binary is the honest minimum</strong> (the only "one-atom"
+  quasicrystals are templated monolayers, e.g. Sb on an i-AgInYb surface).
+</p>
+
+<div class="receipt">
+  <strong>The Tsai cluster is the atomic "dodecahedral cell."</strong> Tsai-type iQCs
+  are built from concentric shells: an off-centre <strong>tetrahedron</strong> (core) →
+  <strong>dodecahedron (20 atoms, 12 pentagon faces)</strong> → <strong>icosahedron
+  (12 atoms)</strong> → icosidodecahedron (30) → rhombic triacontahedron (92). The
+  dodecahedron shell <em>is</em> the pentagon-loop primitive cell of §13.2; the 12-atom
+  icosahedron shell is where the coupling-active atoms (rare-earth moments) sit — the
+  <strong>"12 ports" on the cell</strong>; and the off-centre tetrahedral core is a
+  built-in symmetry-breaking (phason) degree of freedom. The geometry the framework
+  draws by hand is the geometry these atoms self-assemble into.
+</div>
+
+<h4>Layering in the coupling predicates → a specific composition</h4>
+<p>
+  With the icosahedral+φ geometry (P1) fixed by the Tsai cluster, reason in the other
+  predicates: P2 wants a heavy, strong-SOC atom; P3 wants a coherent order. Both are
+  realised — and the order type is <strong>continuously dialable by e/a</strong>
+  (spin-glass for e/a &gt; ~1.9 → ferromagnetic ~1.57–1.9 → antiferromagnetic
+  &lt; ~1.57). The candidates:
+</p>
+<table>
+  <thead><tr><th>Composition</th><th>P1 (ico+φ)</th><th>P2 (SOC/heavy)</th><th>P3 (coherent order)</th><th>N</th><th>note</th></tr></thead>
+  <tbody>
+    <tr><td><strong>i-Au₆₅Ga₂₀Gd₁₅</strong></td><td class="good">✓ Tsai</td><td>Au 5d + Gd 7 μ<sub>B</sub> (L=0)</td><td class="good">ferromagnet, T<sub>C</sub> = 23 K (warmest iQC)</td><td>3</td><td>best overall</td></tr>
+    <tr><td>i-Au₆₅Ga₂₀Tb₁₅</td><td class="good">✓ Tsai</td><td class="good">Tb 4f, strong SOC; topological hedgehog texture</td><td>ferromagnet, T<sub>C</sub> = 16 K + topological charge</td><td>3</td><td>best for SOC/topology (P2)</td></tr>
+    <tr><td>i-Tb-Cd / i-Dy-Cd (RCd₅.₇)</td><td class="good">✓ Tsai</td><td>Tb/Dy 4f SOC; Cd light</td><td>spin-glass ~5 K (frozen, not coherent)</td><td class="good">2</td><td>fewest elements</td></tr>
+    <tr><td>i-Au₅₁Al₃₄Yb₁₅</td><td class="good">✓ Tsai</td><td>Yb heavy, valence-fluctuation</td><td>quantum-critical (χ, γ diverge T→0)</td><td>3</td><td>self-organised-critical electronic state</td></tr>
+    <tr><td>i-Al-Zn-Mg</td><td class="good">✓</td><td class="bad">light, weak SOC</td><td>superconductor, T<sub>c</sub> ≈ 0.05–0.8 K</td><td>3</td><td>true SC condensate, very cold</td></tr>
+  </tbody>
+</table>
+
+<div class="lemma">
+  <strong>The pseudogap is the catch — and it splits the optimum in two.</strong> The
+  same Hume-Rothery pseudogap that <em>stabilises</em> the icosahedral φ-structure (good
+  for P1) <em>suppresses</em> itinerant conduction — iQCs are poor-conductor semimetals.
+  So an iQC does <em>not</em> give a high-velocity electronic mode (low η, weak P4); its
+  coherent channel must be the <strong>localised-moment magnetic order or the SC
+  condensate</strong>, and it is cold (≤ 23 K). The geometry-match optimum (the iQC) and
+  the coupling-velocity optimum (the high-η optical carbon/diamond aperture of §7) are
+  therefore <em>different materials</em>. This is not a contradiction — it is the §8
+  layered disk made concrete: a <strong>quasicrystalline icosahedral skeleton</strong>
+  (i-Au-Ga-Gd/Tb — the lattice-matched P1+P2+P3 register, with the 12 active ports on
+  the cell) carrying a <strong>high-η carbon/optical aperture</strong> (the coupling
+  surface). Reason to the geometry with the quasicrystal; reason to the coupling
+  velocity with carbon; the disk wants both.
+</div>
+
+<p>
+  So your question answers cleanly: <em>yes</em>, you can reason to the exact
+  characteristics and map them to elements — the geometry forces an icosahedral Tsai-type
+  quasicrystal, "fewest elements" forces binary as the floor, and layering the coupling
+  predicates picks out <strong>i-Au₆₅Ga₂₀Gd₁₅</strong> (or the Tb variant for spin–orbit
+  and a topological spin texture, or binary i-Tb-Cd for minimal elements). The honest
+  boundary remains: the iQC is the <em>geometry/symmetry</em> match (P1) with a real
+  magnetic coupling channel (P2/P3), not the high-velocity electronic coupler — pair it
+  with the carbon aperture for that. <span class="smcap">[E]</span> the quasicrystal
+  physics (binary iQCs, Tsai shells, the 2021 ferromagnetic and 2025 antiferromagnetic
+  iQCs, e/a tuning, the pseudogap) is established and cited; <span class="smcap">[spec]</span>
+  the identification of the icosahedral shell with the lattice's "12 ports" is framework
+  inference. Reproducible map: <code>hover/disk_material_ladder.py</code>.
+</p>
+
+<h2><span class="num">§14</span>Driving the substrate — the conductivity question and the capacitor architecture</h2>
+
+<p>
+  Everything above ranked <em>what the substrate is</em>; this section asks <em>how you
+  energise it</em>, and the answer changes the material choice. If the drive is a high
+  voltage applied across the substrate, the conductivity is suddenly decisive: a
+  <strong>conductor shorts</strong> — the field collapses, current flows, and the stored
+  drive energy dissipates as heat — whereas an <strong>insulating dielectric between
+  conductive electrodes holds the field</strong>. That is a capacitor, and the χ<sub>ν</sub>
+  drive energy becomes the stored electrostatic field energy
+</p>
+<div class="eq">
+  \( U_{\rm drive} \;=\; \tfrac12\,\varepsilon_r\,\varepsilon_0\,E^2\,V , \qquad
+     u \;=\; \tfrac12\,\varepsilon_r\,\varepsilon_0\,E_{\rm bd}^2 \)
+</div>
+<p>
+  with energy density <em>u</em> capped by the breakdown field <em>E</em><sub>bd</sub>.
+</p>
+
+<div class="ic">
+  <strong>The drive mechanism selects the substrate.</strong> A <em>field/HV</em> drive
+  wants an <strong>insulator</strong> (it holds the field); a <em>current/RF</em> drive
+  of a magnetic order wants a <strong>metal</strong>. So the metallic magnetic
+  quasicrystal of §13.5 (i-Au-Ga-Gd) is the right substrate <em>only if</em> you drive
+  its magnetism with current/RF — under static HV it would short. If the disk is
+  field-driven, the substrate must instead be a true insulating dielectric. The two are
+  alternative drive architectures, not the same device.
+</div>
+
+<h3>14.1 Is there an insulating quasicrystal? (Mostly no — use a photonic one)</h3>
+<p>
+  Bulk quasicrystal <em>alloys</em> are "bad metals," not dielectrics: even the most
+  resistive (i-Al-Pd-Re, across a real metal–insulator transition) reaches only
+  ρ ≈ 1 Ω·cm — still ~16 orders of magnitude too leaky to hold off HV (diamond is
+  ~10¹⁶ Ω·cm). The celebrated oxide quasicrystal (Ba-Ti-O, 12-fold) is a
+  <em>single-atom interface monolayer</em> on Pt, not a bulk ferroelectric — a bulk
+  ferroelectric quasicrystal does not exist. The realizable route to "insulating +
+  12-fold" is therefore a <strong>photonic quasicrystal</strong>: pattern a genuine
+  dielectric (diamond, SiN, Si) in a 12-fold tiling, so the quasiperiodicity is
+  <em>geometric</em> while the material stays a true insulator (complete photonic gaps
+  are demonstrated even at low index). Your "insulating quasicrystal + graphene" becomes
+  a <strong>photonic-QC-patterned dielectric between graphene electrodes</strong>.
+</p>
+<div class="ic">
+  <strong>A photonic quasicrystal may unify the two optima that §13.5 had to split.</strong>
+  A 12-fold/icosahedral photonic-QC-patterned <em>diamond</em> is simultaneously an
+  <em>insulator</em> (holds the HV field), an <em>icosahedral/φ geometry register</em>
+  (P1, by the pattern), and an <em>optical structure</em> carrying high-velocity EM modes
+  (η ≈ c/n in the visible/IR — the high-η regime of §4, and the slow-light/band-edge modes
+  of a photonic QC concentrate the field where the coupling is wanted) — all in the
+  resilience/clean-field champion of §7. It does not supply the magnetic/spin channel
+  (P2/P3); those still want a BiFeO₃ or magnetic layer. But "geometry-match vs η-match are
+  different materials" (§13.5) softens here: the photonic-QC diamond is one structure that
+  carries the icosahedral geometry <em>and</em> an optical-velocity mode at once.
+</div>
+
+<h3>14.2 The dielectric — energy density vs clean field-hold</h3>
+<p>
+  The energy-density figure of merit <em>u</em> pulls against insulation quality:
+  higher ε<sub>r</sub> correlates with lower E<sub>bd</sub> (E<sub>bd</sub> ∝ E<sub>g</sub><sup>~1.5</sup>),
+  so ferroelectrics store more <em>nominal</em> energy but leak, age, and lose ε<sub>r</sub>
+  under bias, while wide-gap insulators store less but hold a <em>clean, loss-free</em>
+  static field.
+</p>
+<table>
+  <thead><tr><th>Dielectric</th><th>ε<sub>r</sub></th><th>E<sub>bd</sub> (MV/cm)</th><th>u (J/cm³)</th><th>character</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Diamond</strong></td><td>5.7</td><td>~10 (→20)</td><td>~25 (→100)</td><td class="good">cleanest high-field insulator; ρ~10¹⁶, κ=22 W/cmK</td></tr>
+    <tr><td>hBN</td><td>3.4</td><td>4–10</td><td>~4–10</td><td>atomically clean 2D insulator; graphene's partner</td></tr>
+    <tr><td><strong>BiFeO₃</strong> (multiferroic)</td><td>80–120</td><td>~2</td><td>~18</td><td class="good">magnetoelectric coupling channel (P2); leaky → needs hBN buffer</td></tr>
+    <tr><td>SrTiO₃ (film)</td><td>~290</td><td>~6.8</td><td>~590*</td><td>best-behaved high-ε; *nominal</td></tr>
+    <tr><td>PZT relaxor / PZT-MgO</td><td>~1300</td><td>3.6–6.2</td><td>~68–169 (meas.)</td><td class="bad">highest u, but hysteretic/lossy — not a clean reservoir</td></tr>
+  </tbody>
+</table>
+
+<h3>14.3 The recommended stacks</h3>
+<p>
+  Graphene is an excellent electrode here — transparent (97.7%/layer), patternable into
+  the 12-segment rim drive, tunable work function (4.5–5.5 eV), and atomically smooth (no
+  asperities → raises effective breakdown). Caveat: one atom thick (low current/ESD
+  headroom), so use few-layer or graphene+metal-mesh on the HV bus bars. The two stacks
+  that fall out are exactly the two threads of this paper:
+</p>
+<ul>
+  <li><strong>Stack A — coupling channel:</strong>
+    <code>graphene / hBN / BiFeO₃ / hBN / graphene</code>. The BiFeO₃ core <em>is</em> the
+    magnetoelectric (P2) coupling channel; the thin hBN buffers cap its leakage and
+    present clean interfaces. Graphene-on-BiFeO₃ is already a demonstrated transparent-
+    electrode multiferroic stack. Best when the order-parameter coupling is the point.</li>
+  <li><strong>Stack B — clean field + geometry:</strong>
+    <code>graphene / hBN / diamond / hBN / graphene</code>, the diamond face etched as a
+    12-fold photonic quasicrystal. Diamond gives the cleanest, highest, loss-free static
+    field <em>and</em> dumps the dielectric heating (κ=22 W/cm·K); the photonic-QC pattern
+    injects the icosahedral/φ geometry into a true insulator — the only physically real
+    route to "insulating + quasiperiodic." Best when a clean field reservoir and the
+    geometry register dominate.</li>
+</ul>
+
+<div class="lemma">
+  <strong>The capacitor is a drive/coupling structure, not a propulsion mechanism —
+  keep these separate.</strong> Asymmetric dielectric capacitors (Biefeld–Brown
+  "lifters") produce real thrust <em>in air</em> by ion wind, but every controlled
+  <em>vacuum</em> test (Talley 1988; Campbell 2003; Tajmar 2004) found <strong>null</strong>
+  net thrust; Buhler's mN-in-vacuum "Exodus Effect" is unreviewed and its "thrust persists
+  after the voltage is removed" claim is a reactionless-drive red flag. The genuine
+  field-asymmetry force is the Maxwell-stress / dielectrophoretic gradient
+  <em>F</em> = ∇(½ε<sub>r</sub>ε<sub>0</sub>E²·V) — but on a closed, isolated device that
+  is an <em>internal</em> stress that integrates to zero net translation (Newton's third
+  law, again). So the HV capacitor is the right way to <em>store and shape the drive
+  field and couple it to the substrate's order</em>; it does <strong>not</strong> by
+  itself give net lift. Net translation still requires the χ<sub>ν</sub>/lattice momentum
+  sink of §2 — the capacitor energises the coupling, the lattice carries the reaction.
+</div>
+
+<h3>14.4 Propellantless, not reactionless — the line this whole programme walks</h3>
+<p>
+  This deserves to be stated exactly, because it is the line between the legitimate
+  target and the crackpot trap, and they are easy to confuse. The disk's goal is a
+  <strong>propellantless</strong> drive — no ejected reaction mass, no air thrown down,
+  no propellant tank ("massless propulsion"). That is <em>allowed</em>. What is
+  <em>forbidden</em> is a <strong>reactionless</strong> drive — a force with no reaction
+  at all — because momentum conservation (Noether's theorem, translational symmetry) is
+  not negotiable.
+</p>
+<div class="doctrine">
+  Propellantless ≠ reactionless. A propellantless drive still has a reaction; it just
+  doesn't carry its own reaction mass. The momentum goes into a <em>field or medium</em>
+  that carries it away — photons for a solar sail, the rails for a maglev, and, for this
+  programme, the <strong>spacetime lattice</strong>. That is the entire content of the
+  χ<sub>ν</sub> proposal (UFO §4: "momentum redistributed into and out of the lattice
+  background, which carries it away"). So "charge up the substrate's coherent energy
+  until a force appears" is exactly the force law <em>F</em> = −∇[C<sub>sub</sub>|χ<sub>ν</sub>|²U<sub>drive</sub>]
+  — propellantless, and momentum-conserving <em>because the lattice is the sink.</em>
+</div>
+<p>
+  This is why the Buhler "thrust persists after the voltage is removed" claim is a red
+  flag and the χ<sub>ν</sub> disk is not: the red flag is specifically a claim of force
+  <em>with no identifiable sink</em> (force from a static stored charge, going nowhere) —
+  that would violate conservation. The χ<sub>ν</sub> programme avoids the flag by
+  <em>naming the sink</em> (the lattice) up front. The honest test that separates the two
+  is always the same single question: <strong>where does the reaction momentum go?</strong>
+  A legitimate propellantless drive can answer it; a reactionless claim cannot. For this
+  disk the answer is "the lattice" — and whether that coupling is real, and carries
+  momentum, is precisely the open bench question the whole substrate hunt (§§4–13) is in
+  service of. The programme is on the right side of the line <em>if</em> the χ<sub>ν</sub>
+  coupling exists; that "if" is the experiment, not a claim.
+</p>
+
+<h2><span class="num">§15</span>Cross-check against documented electrostatic-thrust devices</h2>
+
+<p>
+  A force law earns trust by surviving contact with published data. The closest
+  documented devices to the §14 capacitor are the electrostatic thrusters — ion-wind
+  "lifters" and the controlled vacuum/sealed nulls. They let us do two things: validate
+  the <em>conventional</em> part of our math against measured thrust, and let the
+  published <em>nulls</em> put a real upper bound on the open coefficient
+  C<sub>sub</sub>·|χ<sub>ν</sub>|². Reproducible:
+  <code>hover/capacitor_cross_check.py</code>.
+</p>
+<table>
+  <thead><tr><th>device</th><th>V</th><th>medium</th><th>thrust (obs/bound)</th><th>cross-check result</th></tr></thead>
+  <tbody>
+    <tr><td>Bahder/Fazi, Canning lifters</td><td>30–40 kV</td><td>air</td><td>~60 mN (measured)</td><td>ion-wind T = I·d/μ reproduces it (×0.1–0.8 geom.) ✓</td></tr>
+    <tr><td>Tajmar 2004 (corona-excluded)</td><td>38 kV</td><td>sealed</td><td>&lt; 10 µN [peer-rev.]</td><td>C<sub>sub</sub>·|χ<sub>ν</sub>|² &lt; ~2×10⁻³</td></tr>
+    <tr><td>Bartlett &amp; Tajmar 2021 (dielectric cap)</td><td>≤ 10 kV</td><td>balance</td><td>~nano-N [peer-rev.]</td><td>C<sub>sub</sub>·|χ<sub>ν</sub>|² &lt; ~2×10⁻¹⁰</td></tr>
+    <tr><td>Buhler patent (US11511891B2 / WO)</td><td>25 kV</td><td><strong>air</strong></td><td>237 µN (US) / 237 mN (WO)*</td><td>his own F=ε₀[E²A] = internal Maxwell stress; measured in air; no vacuum test</td></tr>
+  </tbody>
+</table>
+
+<div class="receipt">
+  <strong>Conventional math: validated. χν coefficient: bounded, not refuted.</strong>
+  The ion-wind relation reproduces the measured air thrusts, and the Maxwell-stress plate
+  force is the legitimate electrostatic force — but it is <em>internal</em>
+  (electrode↔electrode), so it gives zero net translation, which is exactly why the
+  vacuum tests null. The tightest published null (Bartlett's dielectric capacitor) bounds
+  C<sub>sub</sub>·|χ<sub>ν</sub>|² &lt; ~2×10⁻¹⁰.
+</div>
+
+<p>
+  Now compare that bound to the framework's naive estimates (§6, §13.5): an
+  <em>acoustic</em> substrate sits at ~10⁻¹⁴ — far below the bound, so the null cannot
+  see it (consistent). An <em>optical</em> substrate's naive |χ<sub>ν</sub>|² ~ 6×10⁻²
+  sits ~8 orders <em>above</em> the bound — which looks like a problem until you notice
+  <strong>the null devices are statically-driven capacitors with no high-frequency mode
+  — no predicate P4.</strong> The framework's whole claim is that the high-η optical
+  channel only switches on under THz-to-optical drive; a static HV capacitor structurally
+  cannot access it. So the static-cap nulls rule out a large <em>static</em> χ<sub>ν</sub>
+  coupling (which the framework never claims) and say nothing about a high-frequency-driven
+  coherent substrate (which it does require). The apparent tension is resolved by the
+  framework's own P4 requirement — the cross-check is self-consistent.
+</p>
+
+<div class="receipt">
+  <strong>The Buhler cross-check passes on the scaling — and his open mystery is the hole
+  the lattice fills.</strong> Buhler's patent states the force is "a function of the
+  geometry... the applied voltage, and the dielectric constant," with F ∝ V². That is
+  <em>exactly</em> our U<sub>drive</sub> dependence: U<sub>drive</sub> = ½ε<sub>r</sub>ε<sub>0</sub>E²V ∝ ε<sub>r</sub>·V²,
+  so both his independently-built device and our force law give
+  <strong>F ∝ (geometry) × (dielectric constant) × (voltage)²</strong>. The functional forms
+  agree. Moreover his reported effect <em>persists after the power is disconnected</em> —
+  which is the signature our F ∝ U<sub>drive</sub> (stored energy, not input power) predicts
+  for a propellantless drive. And the one thing he says he <em>cannot explain</em> — and his
+  patent explicitly disclaims "field momentum or hidden momentum," i.e. names <em>no reaction
+  sink</em> — is precisely the piece this framework supplies: <strong>the lattice is the
+  sink.</strong> His device intends vacuum (spacecraft-thruster) operation; he reports ~2,000
+  vacuum runs at 5–10 mN; the χ<sub>ν</sub>/lattice picture is a candidate <em>explanation</em>
+  for the force he observes but cannot account for. (His abstract even calls for carbon-nanotube
+  electrodes — the same electrode choice as §7.10b / §14.)
+</div>
+<div class="lemma">
+  What is still open is the <em>confirmation</em>, and it is a positive experiment, not a
+  veto. Buhler's work is unreviewed and unreplicated, and the in-air force data in the patent
+  also fits conventional electrostatics — so the step that promotes "promising alignment" to
+  "demonstrated lattice coupling" is the <strong>chamber-variation test</strong>: a χ<sub>ν</sub>
+  force couples to the lattice (everywhere → chamber-independent), while a trapped-charge
+  artifact couples to the walls (chamber-dependent). Hold the charged/coherent state fixed and
+  vary the chamber: unchanged force → the lattice reading survives (vindicating the explanation
+  Buhler could not give); force tracks the chamber → it was the artifact. Combined with a
+  high-frequency-driven coherent substrate on the balance (or the §12 magnon-BEC drive), this is
+  the measurement that would settle it — the one experiment neither Buhler nor the prior-art
+  null tests performed. (§15.1.)
+</div>
+
+<h3>15.1 Buhler's vacuum / "persists-unplugged" claim — the discriminating test</h3>
+<p>
+  Separately from the patent, Buhler claims in interviews (2026) ~2,000 vacuum
+  test-articles showing 5–10 mN of thrust that <em>persists after the power is
+  disconnected</em> — "if the field persists, the force persists" — and states he cannot
+  explain it and that the capacitor "does not drain as a simple energy calculation would
+  predict." This is unreviewed and unreplicated, and it conflicts directly with the
+  independent, peer-reviewed vacuum <em>nulls</em> (Talley, Campbell, Tajmar). It is worth
+  taking seriously precisely because it is double-edged:
+</p>
+<ul>
+  <li><strong>It is what our force law predicts.</strong> F = (C<sub>sub</sub>|χ<sub>ν</sub>|²)·U<sub>drive</sub>·κ/L<sub>grad</sub>
+    scales with <em>stored</em> coherent energy, not input power — so a force that persists
+    as long as the charged/coherent state persists (unplugged) is the <em>expected</em>
+    signature of a propellantless, stored-energy drive, not an anomaly.</li>
+  <li><strong>It is also the signature of the single hardest artifact.</strong> A charged
+    body in a chamber electrostatically couples to the (conductive) <em>walls</em>, and
+    that coupling — plus thermal/outgassing drift from a warm charged device — also
+    produces a force that persists with the trapped charge, unplugged. Buhler's described
+    controls (ion wind, Faraday cage) do <em>not</em> exclude wall-coupling, thermal, or
+    outgassing forces. "Persists unplugged" does not, by itself, distinguish a lattice
+    coupling from trapped-charge-to-chamber coupling.</li>
+</ul>
+<div class="receipt">
+  <strong>The clean discriminator (and it's the control Buhler is missing):</strong> a
+  χ<sub>ν</sub> force couples to the <em>lattice</em>, which is everywhere — so it must be
+  <em>independent of the chamber</em>. A trapped-charge artifact couples to the
+  <em>chamber walls</em> — so it must <em>change</em> when you change the chamber. The
+  decisive test is therefore: hold the device and its charge state fixed, and
+  <em>vary the chamber</em> (wall distance, geometry, grounded vs floating). If the force
+  is unchanged → it is not wall-coupling (the χ<sub>ν</sub>/lattice reading survives). If it
+  tracks the chamber → it is the artifact. Add thermal/outgassing nulls (dummy heated mass)
+  and the energy-balance audit (does the stored field energy actually drain as work is
+  done?). This is exactly the experiment §15's bound says is missing — and it is the one
+  that would either promote Buhler's claim or explain it away.
+</div>
+
+<h3>15.2 What the Buhler program contributes — and the lever it leaves on the table</h3>
+<p>
+  Read constructively (from his 2026 long-form interview), the program converges with
+  this paper in three useful ways, and reveals one lever it has not touched — which is
+  exactly where this framework adds value.
+</p>
+<ul>
+  <li><strong>His mechanism is conservation-respecting real physics, not "force from
+    nothing."</strong> Buhler frames it as <em>"the conversion from field momentum to
+    mechanical momentum… you can convert momentum stored in the field into real momentum.
+    They've done that in the '70s with the angular momentum, but the linear analog was
+    hindered by… hidden momentum, so I tried to find systems with no hidden momentum."</em>
+    That is the Feynman-disk / Shockley–James <em>hidden-momentum</em> lineage — the EM
+    field genuinely carries momentum, and the claim is a geometry that converts it without
+    the cancellation that normally forbids the linear case. This is the same
+    <em>propellantless-not-reactionless</em> logic as §14.4, anchored in conventional
+    field-momentum physics: the field is the reservoir (and in this paper's frame, the
+    lattice is the deeper reservoir).</li>
+  <li><strong>His material wishlist is our §14 FOM — and he independently reaches for
+    bismuth.</strong> He wants <em>"new materials with high dielectric breakdown strength"</em>
+    plus high permittivity (the high-K dielectric was <em>"a really important factor for
+    determining the thrust"</em>) — i.e. the energy-density FOM u = ½ε<sub>r</sub>ε<sub>0</sub>E<sub>bd</sub>².
+    He has tried barium titanate ("good high-permittivity powder," unremarkable) and is
+    keen to test <strong>bismuth</strong> — converging on the same element our §7.6 / §9
+    threads flag.</li>
+  <li><strong>His controls are real:</strong> a lifter sealed in a box on a scale
+    <em>flatlines</em> (ion wind cancels, conservation intact) while ~200 µN persists — he
+    uses the ion-wind null itself as the discriminator, plus Faraday shielding,
+    thruster-off-the-scale spacing, charge neutralisation between runs, and sign-flip
+    tests.</li>
+</ul>
+<div class="receipt">
+  <strong>The unexplored lever is frequency — and it is the one this framework says
+  matters most.</strong> Buhler is <em>DC-only</em>: <em>"we're still exploring the DC
+  versions… we haven't explored all the different ways you can apply different voltages and
+  currents… a lot of room in the future."</em> His interviewer notes DC is "a really long
+  wavelength excitation" (ω → 0). But §4's coupling lever is η ≈ v<sub>phase</sub>/c, which
+  <em>rises with drive frequency</em> — DC sits at the bottom of it. So this framework makes
+  a concrete, additive prediction Buhler has not tested: <strong>driving the same
+  asymmetric high-K dielectric structure at RF → THz (rather than DC) should raise the
+  coupling by orders of magnitude.</strong> Frequency is the knob his program has left on
+  the table and the one our η-lever points straight at.
+</div>
+
+<hr class="softrule">
+
+<h3>References</h3>
+<ol>
+  <li>Osika, A. (2026). <em>How to Build a UFO — Controlled Motion Through the Lattice.</em> <code>papers/how_to_build_a_ufo.html</code> (§8 optimal substrate, §10 saucer morphology).</li>
+  <li>Osika &amp; collaborators (2026). <em>From χν to Force — the current-framework force law.</em> <code>papers/CHI_NU_FORCE_LAW.md</code>.</li>
+  <li><em>Vertex sharing strength: an analytical bound.</em> <code>papers/G_VERTEX_DERIVATION.md</code> (g ≤ 1/√3).</li>
+  <li><em>χ_ν as substrate-aggregated vertex-sharing strength.</em> <code>papers/CHI_NU_AS_VERTEX_SHARING_STRENGTH.md</code> (the overlap → η).</li>
+  <li><em>The Shape of the Universe.</em> <code>papers/shape_of_the_universe.html</code> (root ontology; icosahedral primitive cell).</li>
+  <li><em>The DIY Hoverbike.</em> <code>papers/diy_hoverbike_paper.html</code> (ground-effect prototype).</li>
+  <li>Reproducible calculators: <code>hover/disk_material_ladder.py</code>, <code>hover/cymbal_chi_nu_force.py</code>.</li>
+  <li>Shechtman, D. <em>et al.</em> (1984). "Metallic Phase with Long-Range Orientational Order and No Translational Symmetry." <em>Phys. Rev. Lett.</em> 53, 1951. (Icosahedral quasicrystals.)</li>
+  <li>Tsai, A.P. <em>et al.</em> (1987). Stable icosahedral Al-Cu-Fe quasicrystal.</li>
+  <li>Catalan, G. &amp; Scott, J.F. (2009). "Physics and Applications of Bismuth Ferrite." <em>Adv. Mater.</em> 21, 2463. (BiFeO₃ multiferroic.)</li>
+  <li>Prakash, O. <em>et al.</em> (2017). "Superconductivity in a low carrier density single crystal of bismuth." <em>Science</em> 355, 52. (Non-BCS bismuth SC.)</li>
+  <li>Graham, R.D. <em>et al.</em> (2008). Ring-laser test of frame dragging in rotating superconductors. <em>Physica C</em> 468, 383. (Canterbury bound, UFO §9.)</li>
+  <li>Berry, M.V. &amp; Geim, A.K. (1997). "Of flying frogs and levitrons." <em>Eur. J. Phys.</em> 18, 307. (Diamagnetic levitation theory; the design law and Earnshaw loophole, §11.)</li>
+  <li>Geim, A.K. (1998). "Everyone's Magnetism." <em>Physics Today</em> 51(9), 36. (Diamagnetic levitation; ~40 T / ~1 GW human estimate.)</li>
+  <li>Lee, C. <em>et al.</em> (2008). "Measurement of the Elastic Properties and Intrinsic Strength of Monolayer Graphene." <em>Science</em> 321, 385. (σ ≈ 130 GPa, E ≈ 1 TPa.)</li>
+  <li>Nair, R.R. <em>et al.</em> (2008). "Fine Structure Constant Defines Visual Transparency of Graphene." <em>Science</em> 320, 1308. (Opacity = πα; §4.2.)</li>
+  <li>Cao, Y. &amp; Jarillo-Herrero, P. <em>et al.</em> (2018). "Unconventional superconductivity in magic-angle graphene superlattices." <em>Nature</em> 556, 43. (MATBG, predicate P3.)</li>
+  <li>Ahn, S.J. <em>et al.</em> (2018). "Dirac electrons in a dodecagonal graphene quasicrystal." <em>Science</em> 361, 782. (30°-twist 12-fold quasicrystal, predicate P1.)</li>
+  <li>Cui, K. &amp; Wardle, B.L. (2019). CNT-forest ultra-black absorber (&gt;99.99%). <em>ACS Appl. Mater. Interfaces</em> 11, 42866. (Blackest material; §4.2.)</li>
+  <li>Kim, B.J. <em>et al.</em> (2008). "Novel J<sub>eff</sub>=1/2 Mott State in Sr₂IrO₄." <em>Phys. Rev. Lett.</em> 101, 076402. (Spin–orbit Mott iridate; §7.11.)</li>
+  <li>Chikara, S. <em>et al.</em> (2009). Giant magnetoelectric effect in Sr₂IrO₄. <em>Phys. Rev. B</em> 80, 140407. (Predicate P2 in an iridate; §7.11.)</li>
+  <li>Crespo, P. <em>et al.</em> (2004). "Permanent Magnetism … of Thiol-Capped Gold Nanoparticles." <em>Phys. Rev. Lett.</em> 93, 087204. (Room-T magnetism from 5d holes; the real sliver behind ORMUS, §7.12.)</li>
+  <li>Hudson, D.R. (1989). GB Patent 2,219,995 A, "Non-metallic, monoatomic forms of transition elements." (The ORMUS patent; §7.12.)</li>
+  <li>Cui, K. &amp; Wardle, B.L. (2019). CNT-forest ultra-black (&gt;99.99%). <em>ACS Appl. Mater. Interfaces</em> 11, 42866; and Surrey NanoSystems, Vantablack (2014). (Light-consuming aperture, §7.10b.)</li>
+  <li>Steele, G.A. <em>et al.</em> (2013). "Large spin-orbit coupling in carbon nanotubes." <em>Nat. Commun.</em> 4, 1573; Kuemmeth, F. <em>et al.</em> (2008). <em>Nature</em> 452, 448. (Curvature SOC, §7.10b, §12.)</li>
+  <li>Balasubramanian, G. <em>et al.</em> (2009). "Ultralong spin coherence time in isotopically engineered diamond." <em>Nat. Mater.</em> 8, 383. (NV T₂ ≈ 1.8 ms at room T; §12.)</li>
+  <li>Banerjee, A. <em>et al.</em> (2017). Kitaev quantum spin liquid in α-RuCl₃. <em>Science</em> 356, 1055; Kasahara, Y. <em>et al.</em> (2018). Half-integer thermal Hall. <em>Nature</em> 559, 227. (Fractionalised spin, §12.)</li>
+  <li>Demokritov, S.O. <em>et al.</em> (2006). "Bose–Einstein condensation of … magnons at room temperature." <em>Nature</em> 443, 430; Bozhko, D.A. <em>et al.</em> (2016). Magnon supercurrent. <em>Nat. Phys.</em> 12, 1057. (Room-temperature spin condensate, predicate P3; §12.)</li>
+  <li>Osika, A., Claude &amp; Codex (2026). <em>The Shape of the Universe</em> and <em>The Periodic Table</em> (this network). (The <code>{5,3,3}</code> lattice and the carbon-as-master-joiner seating; §13.)</li>
+  <li>Paquette, L.A. <em>et al.</em> (1982). "Total synthesis of dodecahedrane." <em>J. Am. Chem. Soc.</em> 104, 4503; Prinzbach, H. <em>et al.</em> (2000). "Gas-phase production of C₂₀ fullerene." <em>Nature</em> 407, 60. (The literal carbon dodecahedron; §13.2.)</li>
+  <li>Kroto, H.W. <em>et al.</em> (1985). "C₆₀: Buckminsterfullerene." <em>Nature</em> 318, 162. (Euler's 12-pentagon closure; §13.2.)</li>
+  <li>Coxeter, H.S.M. (1973). <em>Regular Polytopes</em> (Dover). (Crystallographic restriction; dodecahedron ⇄ icosahedron duality; the {5,3,3} honeycomb; §13.)</li>
+  <li>Tsai, A.P. <em>et al.</em> (2000). "Stable binary quasicrystals." <em>Phys. Rev. B</em> 62, R14605; Takakura, H. <em>et al.</em> (2007). <em>Nat. Mater.</em> 6, 58. (Binary iQCs; the Tsai cluster shell sequence; §13.5.)</li>
+  <li>Tamura, R. <em>et al.</em> (2021). "Long-range ferromagnetic order in an icosahedral quasicrystal." <em>J. Am. Chem. Soc.</em> 143, 19938. (i-Au-Ga-Gd T<sub>C</sub>=23 K / -Tb 16 K; §13.5.)</li>
+  <li>Tamura, R. <em>et al.</em> (2025). "Antiferromagnetic order in an icosahedral quasicrystal." <em>Nat. Phys.</em> (i-Au-In-Eu, T<sub>N</sub>=6.5 K; e/a tuning of order; §13.5.)</li>
+  <li>Kamiya, K. <em>et al.</em> (2018). "Discovery of superconductivity in quasicrystal." <em>Nat. Commun.</em> 9, 154 (i-Al-Zn-Mg); Deguchi, K. <em>et al.</em> (2012). <em>Nat. Mater.</em> 11, 1013 (i-Au-Al-Yb quantum criticality). (§13.5.)</li>
+  <li>Förster, S. <em>et al.</em> (2013). "Quasicrystalline structure formation in a classical crystalline thin-film system" (Ba-Ti-O oxide quasicrystal). <em>Nature</em> 502, 215. (§14.1.)</li>
+  <li>Zoorob, M.E. <em>et al.</em> (2000). "Complete photonic bandgaps in 12-fold symmetric quasicrystals." <em>Nature</em> 404, 740. (Insulating-dielectric quasicrystal; §14.1.)</li>
+  <li>Pierret, A. <em>et al.</em> (2022). Dielectric breakdown of hBN. <em>arXiv:2201.05826</em>; diamond breakdown ~10–20 MV/cm (review). (Dielectric FOM; §14.2.)</li>
+  <li>Canning, F.X. <em>et al.</em> (NASA, 2004). <em>Asymmetrical Capacitors for Propulsion</em>; Tajmar, M. (2004), <em>AIAA J.</em> 42, 315; Talley, R.L. (1991), AFRL. (Ion wind; null vacuum thrust; §14.3.)</li>
+</ol>
+
+<div class="disclaimer">
+  Draft engineering/materials paper in the χ<sub>ν</sub> / vertex-sharing research
+  program. It states a force law and ranks substrates against its two
+  material-set levers; it does not claim a measured force. Quantities are tagged
+  derived / estimate / open; the open numbers (η multipliers, C<sub>sub</sub>) are
+  measured on the bench per the shared receipt schema. Reproducible numbers:
+  <code>hover/disk_material_ladder.py</code>.
+</div>
+
+</body>
+</html>

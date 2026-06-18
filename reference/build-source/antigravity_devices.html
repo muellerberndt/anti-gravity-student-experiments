@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Antigravity Devices — What Actually Lifts, What Is Only Claimed, and What the Physics Forbids</title>
+<style>
+  :root {
+    --ink: #1c1c1c; --paper: #fbfaf6; --green: #5a7d3a; --amber: #b88a2a;
+    --rust: #b04a2a; --blood: #7a1f1f; --steel: #3a5a7d; --teal: #2f6d5e;
+    --rule: #d2cdbf; --soft: #8a8676;
+  }
+  html { background: #ece8df; }
+  body {
+    font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+    max-width: 800px; margin: 2.5rem auto; padding: 2.5rem 2rem 4rem;
+    color: var(--ink); line-height: 1.62; background: var(--paper);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  h1 { font-family: "Helvetica Neue", Helvetica, sans-serif; font-weight: 700;
+    font-size: 1.9rem; line-height: 1.22; border-bottom: 2px solid var(--ink); padding-bottom: 0.6rem; }
+  h2 { font-family: "Helvetica Neue", Helvetica, sans-serif; font-size: 1.28rem; margin-top: 2.4rem; color: var(--ink); }
+  h2 .num { color: var(--soft); font-weight: normal; margin-right: 0.4em; }
+  h3 { font-family: "Helvetica Neue", Helvetica, sans-serif; font-size: 1.05rem; margin-top: 1.6rem; color: #444; }
+  .byline { color: var(--soft); font-style: italic; margin-bottom: 2rem; font-size: 0.95rem; }
+  .epigraphs { margin: 1.6rem 0 2rem; padding: 0; }
+  .epigraphs blockquote { border-left: 3px solid var(--rule); margin: 0.8rem 0; padding-left: 1.1rem; color: #444; font-style: italic; font-size: 0.95rem; }
+  .epigraphs cite { display:block; font-style: normal; color: var(--soft); font-size: 0.85rem; margin-top: 0.2rem; }
+  .tldr { background: #eef3e8; border-left: 4px solid var(--green); padding: 0.9rem 1.1rem; margin: 1.2rem 0; font-style: italic; }
+  .companion { background: #f0eee8; border-left: 4px solid var(--soft); padding: 0.6rem 1rem; margin: 1.2rem 0; font-size: 0.92rem; }
+  .legend { background: #f4f1e8; border: 1px solid var(--rule); padding: 0.9rem 1.1rem; margin: 1.4rem 0; font-size: 0.9rem; }
+  .legend b { font-family: "Helvetica Neue", Helvetica, sans-serif; }
+  .receipt { background: #eef3e8; border-left: 4px solid var(--green); padding: 0.8rem 1.1rem; margin: 1.2rem 0; font-size: 0.94rem; }
+  .receipt::before { content: "Documented  ·  "; font-style: normal; color: var(--green);
+    font-family: "Helvetica Neue", Helvetica, sans-serif; font-size: 0.82rem; letter-spacing: 0.05em; font-weight: 600; }
+  .build { background: #e8f1ee; border-left: 4px solid var(--teal); padding: 0.8rem 1.1rem; margin: 1.2rem 0; font-size: 0.94rem; }
+  .build::before { content: "Build it now  ·  "; font-style: normal; color: var(--teal);
+    font-family: "Helvetica Neue", Helvetica, sans-serif; font-size: 0.82rem; letter-spacing: 0.05em; font-weight: 600; }
+  .claim { background: #fdf0e8; border-left: 4px solid var(--rust); padding: 0.8rem 1.1rem; margin: 1.2rem 0; font-size: 0.94rem; }
+  .claim::before { content: "Proponent's claim  ·  "; font-style: normal; color: var(--rust);
+    font-family: "Helvetica Neue", Helvetica, sans-serif; font-size: 0.82rem; letter-spacing: 0.05em; font-weight: 600; }
+  .verdict { background: #eaf0f5; border-left: 4px solid var(--steel); padding: 0.8rem 1.1rem; margin: 1.2rem 0; font-size: 0.94rem; }
+  .verdict::before { content: "Physics verdict  ·  "; font-style: normal; color: var(--steel);
+    font-family: "Helvetica Neue", Helvetica, sans-serif; font-size: 0.82rem; letter-spacing: 0.05em; font-weight: 600; }
+  .lemma { background: #fff8e8; border-left: 4px solid var(--amber); padding: 0.8rem 1.1rem; margin: 1.2rem 0; font-size: 0.94rem; }
+  .lemma::before { content: "Open thread  ·  "; font-style: normal; color: var(--amber);
+    font-family: "Helvetica Neue", Helvetica, sans-serif; font-size: 0.82rem; letter-spacing: 0.05em; font-weight: 600; }
+  .warning { background: #f3e7e7; border-left: 4px solid var(--blood); padding: 0.8rem 1.1rem; margin: 1.2rem 0; font-size: 0.94rem; }
+  .warning::before { content: "Safety — real, not decorative  ·  "; font-style: normal; color: var(--blood);
+    font-family: "Helvetica Neue", Helvetica, sans-serif; font-size: 0.82rem; letter-spacing: 0.05em; font-weight: 700; }
+  .doctrine { background: #1c1c1c; color: #f5f1e6; padding: 1rem 1.2rem; margin: 1.6rem 0; font-style: italic; line-height: 1.5; border-radius: 2px; }
+  .doctrine::before { content: "Thesis sentence  ·  "; font-style: normal; color: var(--amber);
+    font-family: "Helvetica Neue", Helvetica, sans-serif; font-size: 0.85rem; letter-spacing: 0.05em; }
+  .eq { text-align: center; margin: 1.1rem 0; font-family: "Cambria Math", "STIX Two Math", Georgia, serif; font-size: 1.05rem; }
+  .figure { margin: 1.6rem 0; text-align: center; color: #555; }
+  .figure pre { text-align: left; background: #f4f1e8; padding: 0.8rem 1rem; border-radius: 2px;
+    border: 1px solid var(--rule); font-size: 0.8rem; line-height: 1.32; overflow-x: auto; display: inline-block; margin: 0 auto; }
+  .figure .caption { font-style: italic; font-size: 0.88rem; color: var(--soft); margin-top: 0.4rem; }
+  table { border-collapse: collapse; margin: 1.1rem auto; font-size: 0.9rem; }
+  th, td { border: 1px solid var(--rule); padding: 0.4rem 0.7rem; text-align: left; vertical-align: top; }
+  th { background: #f0eadb; font-family: "Helvetica Neue", Helvetica, sans-serif; }
+  code { font-family: "JetBrains Mono", Consolas, monospace; background: #f3eee0; padding: 0.05rem 0.3rem; border-radius: 2px; font-size: 0.9em; }
+  ul, ol { padding-left: 1.5rem; } li { margin: 0.3rem 0; }
+  hr.softrule { border: none; border-top: 1px solid var(--rule); margin: 2rem 0; }
+  .part-rule { border: none; border-top: 2px solid var(--ink); margin: 3.2rem 0 0; }
+  .part-label { font-family: "Helvetica Neue", Helvetica, sans-serif; font-size: 0.82rem; letter-spacing: 0.12em; color: var(--soft); text-transform: uppercase; margin-top: 0.6rem; }
+  blockquote { border-left: 3px solid var(--rule); margin: 1.2rem 0; padding-left: 1.1rem; color: #444; font-style: italic; }
+  .disclaimer { font-size: 0.84rem; color: var(--soft); border: 1px dashed var(--soft); padding: 0.7rem 1.1rem; margin: 2rem 0; border-radius: 2px; }
+  .toc { background: #f4f1e8; border: 1px solid var(--rule); padding: 1rem 1.2rem; margin: 1.5rem 0; font-size: 0.9rem; }
+  .toc b { font-family:"Helvetica Neue",Helvetica,sans-serif; display:block; margin-top:0.5rem; color:var(--soft); font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; }
+</style>
+</head>
+<body>
+<div style="background:#eef5fa;border-bottom:2px solid #1a5276;padding:10px 24px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;text-align:center;color:#1a5276;line-height:1.45;font-size:0.88em;">
+Companion in the <a href="the_boundary_problem.html" style="color:#1a5276;text-decoration:underline;font-weight:600;">Boundary Problem</a> network. Build companions: <a href="how_to_build_a_ufo.html" style="color:#1a5276;text-decoration:underline;font-weight:600;">How to Build a UFO</a> · <a href="diy_hoverbike_paper.html" style="color:#1a5276;text-decoration:underline;font-weight:600;">The DIY Hoverbike</a>. History companion: <a href="the_military_industrial_complex.html" style="color:#1a5276;text-decoration:underline;font-weight:600;">The Military-Industrial Complex</a> · <a href="uap_origins.html" style="color:#1a5276;text-decoration:underline;font-weight:600;">UAP Origins</a>.
+</div>
+
+<h1>Antigravity Devices</h1>
+<p class="byline">
+  What actually lifts, what is only claimed, and what the physics forbids &mdash;
+  a builder's field guide to the two real levitation effects, the redacted
+  scientists, and the &ldquo;it also makes energy&rdquo; claims.<br>
+  Osika &amp; collaborators &mdash; draft 0.1, 2026-06-14.
+</p>
+
+<div class="epigraphs">
+  <blockquote>&ldquo;I do not think there is any thrill that can go through the human heart like that felt by the inventor as he sees some creation of the brain unfolding to success.&rdquo;
+  <cite>&mdash; Nikola Tesla</cite></blockquote>
+  <blockquote>&ldquo;Put strong limits on all proposed theories.&rdquo;
+  <cite>&mdash; M. Tajmar &amp; M. Schreiber, title of the 2021 vacuum-thrust null that settles the electrogravitics question</cite></blockquote>
+</div>
+
+<div class="tldr">
+  Two levitation effects are real, cost under a hundred dollars, and lift
+  small masses this weekend on textbook physics: <strong>acoustic radiation
+  pressure</strong> (an ultrasonic standing wave that floats beads, droplets,
+  and insects) and <strong>electrohydrodynamic ion thrust</strong> (a
+  high-voltage &ldquo;lifter&rdquo; that pushes against air). Almost every
+  &ldquo;antigravity device&rdquo; in the historical record is one of these
+  two effects &mdash; usually the second &mdash; or a theory that was refuted,
+  or a claim that was never independently replicated. Both real effects have
+  <em>hard physical ceilings</em> that forbid a human-carrying free-air version.
+  The &ldquo;it also generates energy&rdquo; layer &mdash; Tesla&rsquo;s earth
+  power, Schauberger&rsquo;s implosion, the self-powered disc &mdash; rests on
+  genuine but modest physics (Schumann resonance, the global atmospheric
+  circuit, the Casimir force, vortex micro-hydro) inflated into
+  conservation-law violations that have never survived a closed-loop
+  measurement. This paper gathers all of it, sorts it by what the boxes below
+  mean, and ends with the only honest move: build the two demonstrators, run
+  the controls, and let the receipt &mdash; not the legend &mdash; speak.
+</div>
+
+<div class="legend">
+  <b>How to read the boxes.</b> This is a build guide and an honest survey at
+  the same time. The colored boxes are the instrument that keeps those two
+  jobs from contaminating each other.
+  <ul style="margin:0.5rem 0 0;">
+    <li><b style="color:var(--green)">Documented</b> &mdash; on the public or
+      scientific record; a patent number, a journal DOI, an obituary; checkable
+      without trusting us.</li>
+    <li><b style="color:var(--teal)">Build it now</b> &mdash; you can construct
+      this and it will work on conventional physics; real performance numbers,
+      not aspirational ones.</li>
+    <li><b style="color:var(--rust)">Proponent&rsquo;s claim</b> &mdash;
+      asserted by an inventor or advocate and not independently verified. Not
+      a synonym for &ldquo;false&rdquo; &mdash; a synonym for
+      &ldquo;unconfirmed.&rdquo;</li>
+    <li><b style="color:var(--steel)">Physics verdict</b> &mdash; what a
+      controlled experiment or settled theory actually concluded, including the
+      honest nulls. This is where signal gets separated from noise.</li>
+    <li><b style="color:var(--amber)">Open thread</b> &mdash; a lead that is
+      genuinely unresolved and worth pulling. Named so you can pull it too.</li>
+    <li><b style="color:var(--blood)">Safety</b> &mdash; a real hazard. Lethal
+      voltages and lung-rupturing sound are both in this paper.</li>
+  </ul>
+  One discipline holds the document together, inherited from the rest of this
+  network: <b>name what is buildable, name what is claimed, and let the
+  measurement &mdash; not the wish &mdash; promote a claim across the line.</b>
+</div>
+
+<div class="companion">
+  <strong>Where this sits.</strong> <code>how_to_build_a_ufo.html</code> gives
+  the framework definition of an anti-gravity-class effect (a controlled
+  <em>settling bias</em> of the consensus lattice, not a conservation-law
+  violation) and reverse-engineers the saucer. <code>diy_hoverbike_paper.html</code>
+  is the four-cymbal vehicle. This paper is the bench layer beneath both: the
+  devices small enough to hold in your hand, the people who chased the effect
+  and what became of them, and a clean ledger of which claims the physics
+  licenses. It corrects two over-reaches in the companions where the honest
+  ceiling demands it (&sect;2.4, &sect;3.5).
+</div>
+
+<div class="toc">
+  <b>Part I — The two effects that actually lift things</b>
+  §1 The honesty contract · §2 The acoustic track (ultrasound &amp; cymbals) · §3 The high-voltage track (the ion lifter)
+  <b>Part II — Signal in the fringe: the redacted scientists</b>
+  §4 Townsend Brown &amp; electrogravitics · §5 Ning Li &amp; the superconductor-gravity program · §6 Amy Eskridge
+  <b>Part III — "It also generates energy"</b>
+  §7 Tesla &amp; energy from the earth · §8 Schauberger &amp; implosion · §9 Over-unity, in general
+  <b>Part IV — The ledger</b>
+  §10 Buildable / claimed / forbidden · §11 The honest build program
+</div>
+
+<hr class="part-rule">
+<p class="part-label">Part I — The two effects that actually lift things</p>
+
+<h2><span class="num">&sect;1</span>The honesty contract</h2>
+<p>
+  &ldquo;Antigravity&rdquo; is three different claims wearing one word, and the
+  fastest way to waste a year is to let them blur. This paper keeps them apart
+  from the first page.
+</p>
+<ol>
+  <li><strong>Lift on conventional physics, now.</strong> A measurable upward
+    force on an object, produced by a mechanism that is fully accounted for by
+    acoustics or electrohydrodynamics. No new physics. This is real, and most
+    of Part&nbsp;I is how to build it.</li>
+  <li><strong>A lattice-coupling / &chi;<sub>&nu;</sub> effect, under test.</strong>
+    The framework claim of the companion papers: a coherent body biases how the
+    consensus lattice settles, producing a force that conventional bookkeeping
+    of the same hardware does <em>not</em> predict (<code>how_to_build_a_ufo.html</code>
+    &sect;4). This is not yet a receipt. It is a hypothesis with a pre-registered
+    bench test, and it is allowed to stay open &mdash; but it is not allowed to
+    borrow credibility from category&nbsp;1.</li>
+  <li><strong>Free-space, self-powered, conservation-defying antigravity.</strong>
+    The sci-fi version, and the version most of the historical claims quietly
+    assume. This is the one the physics forbids, and Part&nbsp;III is where it
+    goes to be weighed.</li>
+</ol>
+<div class="doctrine">
+  The contract: a device may be celebrated as <em>buildable</em> only when the
+  mechanism is conventional and the numbers are real; a device may be called an
+  <em>antigravity candidate</em> only after it has beaten the controls that
+  separate it from category&nbsp;1; and no device gets to be both
+  &ldquo;lifts&rdquo; and &ldquo;makes free energy&rdquo; without showing a
+  closed-loop measurement, because that pair is exactly what conservation of
+  energy forbids.
+</div>
+
+<h2><span class="num">&sect;2</span>The acoustic track &mdash; ultrasound and cymbals</h2>
+<p>
+  The cleanest hand-held levitation you can build. A standing sound wave has
+  pressure nodes; a small dense object dropped into one feels a time-averaged
+  <em>acoustic radiation pressure</em> that pushes it toward the node and holds
+  it against gravity. The trapping potential is Gor&rsquo;kov&rsquo;s; the force
+  scales with the acoustic energy density and with the object&rsquo;s volume,
+  which is the whole story of what it can and cannot lift.
+</p>
+
+<div class="figure">
+<pre>
+   top array   &#9660;&#9660;&#9660;&#9660;&#9660;&#9660;&#9660;&#9660;   36 &times; 40 kHz transducers
+                 |   N   |        &#955; = c/f = 343/40000 = 8.6 mm
+                 |  (&middot;o&middot;) |  &larr; bead trapped at a pressure NODE
+                 |   A   |        node spacing = &#955;/2 &asymp; 4.3 mm
+                 |   N   |        object must be smaller than &#955;/2 (&lt; ~4 mm)
+   bottom array &#9650;&#9650;&#9650;&#9650;&#9650;&#9650;&#9650;&#9650;   36 &times; 40 kHz, driven in ANTIPHASE
+</pre>
+<div class="caption">Figure&nbsp;1. Single-axis standing-wave levitator (TinyLev topology). Two opposed phased arrays focus to a common point; objects park at the nodes.</div>
+</div>
+
+<h3>2.1 The buildable device</h3>
+<div class="build">
+  <strong>TinyLev</strong> (Marzo, Barnes &amp; Drinkwater, <em>Rev. Sci.
+  Instrum.</em> 88, 085105, 2017) is the open-source standard and the one to
+  build first.
+  <ul style="margin:0.4rem 0 0;">
+    <li><strong>Emitters:</strong> 72 ultrasonic transducers (10&nbsp;mm,
+      40&nbsp;kHz parking-sensor units), in two opposed concave arrays of 36.</li>
+    <li><strong>Drive:</strong> an Arduino Nano makes the 40&nbsp;kHz square
+      wave; an L298N H-bridge drives the two arrays in antiphase; ~10&ndash;20&nbsp;V
+      supply &mdash; <em>low voltage, genuinely safe</em>.</li>
+    <li><strong>Structure:</strong> 3-D-printed spherical-cap holders.</li>
+    <li><strong>Cost:</strong> ≈ $70. Designed explicitly to be built at home
+      or in a classroom.</li>
+  </ul>
+</div>
+<p>
+  What it lifts: expanded-polystyrene beads up to ~3&ndash;4&nbsp;mm, water and
+  solvent droplets, small electronic parts, and small insects (ants, flies) &mdash;
+  i.e. <strong>milligrams up to a few hundred milligrams</strong>, ant-to-pea
+  scale. The focus runs at roughly 150&ndash;170&nbsp;dB SPL. This is a real,
+  reproducible, slightly magical thing to have on a desk.
+</p>
+
+<h3>2.2 Near-field acoustic levitation (the cymbal regime)</h3>
+<p>
+  A second, heavier-duty acoustic mode underlies the hoverbike companion. In
+  <em>near-field acoustic levitation</em> (NFAL) a flat object floats on a thin
+  squeeze-film of trapped air &mdash; tens of micrometres &mdash; just above a
+  surface vibrating ultrasonically. The trapped film&rsquo;s time-averaged
+  pressure exceeds ambient, and the object rides it.
+</p>
+<div class="receipt">
+  NFAL is used industrially for contactless bearings and silicon-wafer
+  handling. Demonstrated squeeze-film load capacities reach the order of
+  <strong>~0.8&nbsp;N</strong> for suitable actuators &mdash; far more than a
+  standing-wave trap &mdash; <em>but only microns above the surface and only
+  for flat, light parts</em>. It is a proximity effect, not free flight.
+</div>
+
+<h3>2.3 The honest scaling ceiling</h3>
+<p>
+  Here is where a builder is owed the truth, because it is an order-of-magnitude
+  wall, not an engineering inconvenience. Radiation pressure is bounded by the
+  acoustic energy density, and the energy density of a sound wave in air is
+  hard-capped by the nonlinear limit: a wave cannot rarefy below vacuum, so the
+  maximum sinusoidal pressure amplitude is about one atmosphere &mdash;
+  ≈&nbsp;194&nbsp;dB SPL, an intensity of ≈&nbsp;2.5&nbsp;&times;&nbsp;10<sup>7</sup>&nbsp;W/m<sup>2</sup>.
+  Push past that and the wave shocks into a blast wave.
+</p>
+<div class="eq">
+  p<sub>max</sub> &asymp; 1 atm &asymp; 10<sup>5</sup> Pa  &rArr;  ~194 dB SPL  &rArr;  I &asymp; 2.5&times;10<sup>7</sup> W/m<sup>2</sup>
+</div>
+<div class="verdict">
+  <strong>Human-scale free-air acoustic levitation is excluded, not merely
+  hard.</strong> Two independent walls: (1) stable trapping requires the object
+  to be <em>smaller than half a wavelength</em> (~4&nbsp;mm at 40&nbsp;kHz); a
+  person spans thousands of nodes and antinodes and would be shaken, not lifted.
+  (2) Sustaining anything near the 194&nbsp;dB ceiling over a body-sized region
+  means megawatts of acoustic flux &mdash; lethal by internal heating and lung
+  and eardrum rupture long before it lifts you. The radiation-pressure physics
+  gives milligrams-to-sub-grams in free air, full stop.
+</div>
+
+<h3>2.4 What this means for the cymbal hoverbike</h3>
+<p>
+  The companion <code>diy_hoverbike_paper.html</code> describes four bronze
+  cymbals lifting 150&nbsp;kg on ~90&ndash;300&nbsp;W. The honest reading of the
+  numbers above: that figure is off by many orders of magnitude, and the paper
+  &rsquo;s own &sect;4 quietly concedes it &mdash; the first-light bench shows
+  the lid &ldquo;deflect&hellip;by a few microns to a few millimetres&hellip;
+  conventional acoustic physics; no new effects are required.&rdquo; That is the
+  real measurement, and it is gram-scale.
+</p>
+<div class="lemma">
+  This is not a reason to scrap the cymbal rig &mdash; it is a reason to be
+  precise about its job. The twelve-piezo cymbal/pot-lid build is an excellent
+  <em>demonstrator</em> of category-1 lift and, more importantly, it is the
+  exact apparatus the framework needs to test category&nbsp;2: a coherent,
+  high-Q, asymmetrically-driven body on a pendulum, instrumented for a force
+  that conventional acoustics does <em>not</em> predict. The acoustic lift you
+  will measure is small and real; the &chi;<sub>&nu;</sub> question is whether
+  anything rides on top of it. Keep the bench; demote the 150&nbsp;kg headline
+  to &ldquo;aspirational, pending a category-2 receipt.&rdquo;
+</div>
+
+<h2><span class="num">&sect;3</span>The high-voltage track &mdash; the ion lifter</h2>
+<p>
+  This is the &ldquo;simple high-voltage thing,&rdquo; and it is the device at
+  the center of the entire electrogravitics legend (&sect;4). It is also, on the
+  physics, the most over-interpreted object in the field &mdash; so building one
+  and measuring it is the best inoculation against a century of confusion.
+</p>
+
+<div class="figure">
+<pre>
+        thin corona wire  (emitter, +20 to +40 kV)
+        &middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;
+                     &uarr; ion wind &uarr;          gap d &asymp; 1 mm per kV
+        &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+        &#9553;        aluminium foil skirt        &#9553;   (collector, grounded)
+        &#9553;        on a balsa triangle          &#9553;
+        &#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;
+     net thrust &uarr; = reaction to the downward ion wind
+</pre>
+<div class="caption">Figure&nbsp;2. The asymmetric capacitor (&ldquo;lifter&rdquo;). Corona at the sharp wire ionizes air; ions drift to the skirt, dragging neutral air with them; the frame recoils upward. Tethered &mdash; the heavy high-voltage supply stays on the ground.</div>
+</div>
+
+<h3>3.1 The physics, stated correctly</h3>
+<p>
+  At the thin wire the field exceeds the corona threshold of air (~30&nbsp;kV/cm)
+  and ionizes it. Ions drift down the field to the wide skirt, colliding with
+  neutral molecules and handing them momentum &mdash; an <em>ion wind</em>. The
+  frame recoils upward. The one-dimensional ideal:
+</p>
+<div class="eq">
+  T &asymp; I&middot;d / &mu;
+</div>
+<p>
+  where <em>T</em> is thrust, <em>I</em> the corona current, <em>d</em> the
+  electrode gap, and &mu; the ion mobility of air (≈&nbsp;2&times;10<sup>&minus;4</sup>&nbsp;m<sup>2</sup>V<sup>&minus;1</sup>s<sup>&minus;1</sup>).
+  Two consequences a builder must internalize: thrust scales with
+  <strong>current&times;gap, not voltage</strong> (voltage only has to clear
+  corona onset and stay below spark-over), and thrust-per-current is small &mdash;
+  at a 3&nbsp;cm gap, ≈&nbsp;0.15&nbsp;mN per milliamp. Currents are microamps to
+  a few milliamps, so the lift is <strong>grams-force</strong>.
+</p>
+
+<h3>3.2 The buildable device</h3>
+<div class="build">
+  <strong>Classic JLN-Labs-class lifter.</strong>
+  <ul style="margin:0.4rem 0 0;">
+    <li><strong>Frame:</strong> balsa, equilateral triangle, sides
+      ~10&ndash;40&nbsp;cm.</li>
+    <li><strong>Collector skirt:</strong> aluminium foil band ~2&ndash;4&nbsp;cm
+      tall on the lower edge, top edge smooth/rounded (sharp edges cause
+      back-corona).</li>
+    <li><strong>Emitter:</strong> bare ~0.08&ndash;0.1&nbsp;mm wire (38&ndash;44
+      AWG) strung parallel above the foil.</li>
+    <li><strong>Gap:</strong> rule of thumb ~1&nbsp;mm per kV &mdash; at 30&nbsp;kV,
+      ~30&nbsp;mm.</li>
+    <li><strong>Mass:</strong> a 10&nbsp;cm-side lifter ≈ 2&nbsp;g. Tethered;
+      only the airframe flies.</li>
+    <li><strong>High-voltage supply:</strong> a salvaged CRT/TV flyback +
+      ZVS&nbsp;or&nbsp;555 driver → ~10&nbsp;kV AC, then a Cockcroft&ndash;Walton
+      multiplier ladder (1&nbsp;nF/30&nbsp;kV caps, ~$2.50 each) → ~30&nbsp;kV DC.
+      Total ~$30&ndash;80. A series high-voltage resistor (hundreds of
+      k&Omega;&ndash;M&Omega;) current-limits faults.</li>
+  </ul>
+  Performance: lifts its own ~2&ndash;5&nbsp;g, tethered, indoors, in still air.
+  This is the genuine article &mdash; a heavier-than-air craft with no moving
+  parts, hovering on your bench.
+</div>
+
+<h3>3.3 The legitimate milestone &mdash; MIT&rsquo;s solid-state plane</h3>
+<div class="receipt">
+  Xu, He, Barrett <em>et al.</em>, &ldquo;Flight of an aeroplane with
+  solid-state propulsion,&rdquo; <em>Nature</em> 563, 532&ndash;535 (2018): the
+  first sustained heavier-than-air flight with <strong>no moving parts</strong>.
+  Mass ~2.5&nbsp;kg; wingspan 5&nbsp;m; ~40&nbsp;kV; flew ~60&nbsp;m in ~10&nbsp;s
+  across a gymnasium, ten-plus flights. Simultaneous thrust density
+  <strong>3&nbsp;N/m<sup>2</sup></strong> and thrust-to-power
+  <strong>6.25&nbsp;N/kW</strong>. This is the peer-reviewed ceiling of what EHD
+  thrust does, and it is real.
+</div>
+<p>
+  A caution you will meet in the wild: the widely-quoted &ldquo;110&nbsp;N/kW,
+  better than a jet&rsquo;s 2&nbsp;N/kW&rdquo; figure is from MIT&rsquo;s 2013
+  <em>static bench</em> thrusters at very low thrust density &mdash; true, but
+  not a flying-vehicle number. Cite it only with that caveat.
+</p>
+
+<h3>3.4 Safety &mdash; this one can kill you</h3>
+<div class="warning">
+  Twenty to forty kilovolts is lethal, not theatrical.
+  <ul style="margin:0.4rem 0 0;">
+    <li><strong>One-hand rule.</strong> Keep one hand in a pocket; never let
+      current cross your chest. A path hand-to-hand through the heart can
+      fibrillate it.</li>
+    <li><strong>Discharge before touching.</strong> Multiplier capacitors hold
+      charge after power-off. Short the output to ground with a grounded
+      discharge stick, every time.</li>
+    <li><strong>Current-limit the supply.</strong> A µA-limited 30&nbsp;kV
+      source is survivable in a way a stiff low-impedance one is not. Use the
+      series HV resistor.</li>
+    <li><strong>Ozone.</strong> Corona makes it; it is toxic; ventilate.</li>
+    <li>No jewelry, dry hands, one person, isolated area. There is no GFCI at
+      these voltages.</li>
+  </ul>
+</div>
+
+<h3>3.5 The vacuum truth, and why it won&rsquo;t carry a person</h3>
+<p>
+  The lifter feels like antigravity. It is not. It is a fan with no blades,
+  pushing on air. Three walls, each fatal to the &ldquo;scale it up&rdquo;
+  dream:
+</p>
+<div class="verdict">
+  <strong>(1) It dies in vacuum.</strong> Ion <em>wind</em> needs neutral air
+  to push against; remove the air and the thrust goes to essentially zero. (Ion
+  <em>thrusters</em>, which work in space, expel the ions themselves as reaction
+  mass &mdash; a different machine.) <strong>(2) Thrust density is tiny.</strong>
+  At the best demonstrated 3&nbsp;N/m<sup>2</sup>, one person (~1000&nbsp;N)
+  needs ~330&nbsp;m<sup>2</sup> of electrode &mdash; before the batteries and
+  high-voltage gear, which dominate the mass. <strong>(3) Power scales
+  brutally.</strong> Even at 6&nbsp;N/kW, 1000&nbsp;N of lift draws ~170&nbsp;kW
+  continuously, far beyond any flyable battery+HV budget. Air&rsquo;s
+  ~30&nbsp;kV/cm breakdown caps the field, so you cannot buy thrust density with
+  more voltage &mdash; you just arc. Human-carrying EHD lift is not on the table
+  with known physics or materials.
+</div>
+
+<hr class="part-rule">
+<p class="part-label">Part II — Signal in the fringe: the redacted scientists</p>
+
+<h2><span class="num">&sect;4</span>Townsend Brown &amp; electrogravitics</h2>
+<p>
+  Thomas Townsend Brown (1905&ndash;1985) is the origin of the whole
+  &ldquo;antigravity went black in the 1950s&rdquo; story. He deserves a careful
+  read, because his record contains real documents, a real effect, and a real
+  error &mdash; and the legend conflates all three.
+</p>
+<div class="receipt">
+  <strong>The documented man.</strong> Caltech and Denison attendance; U.S. Navy
+  and Naval Research Laboratory service from 1930; participation in the 1932
+  Navy&ndash;Princeton gravity expedition. Real granted patents, including
+  GB&nbsp;300,311 (1928), US&nbsp;2,949,550 &ldquo;Electrokinetic Apparatus&rdquo;
+  (1960), US&nbsp;3,018,394 &ldquo;Electrokinetic Transducer&rdquo; (1962), and
+  &mdash; note for Part&nbsp;III &mdash; US&nbsp;3,022,430 &ldquo;Electrokinetic
+  <em>Generator</em>&rdquo; (1962). Project Winterhaven (1952), his proposal for
+  a Mach-3 electrogravitic craft, is archived at the University of Maryland.
+  The 1929 <em>Science and Invention</em> article &ldquo;How I Control
+  Gravitation&rdquo; is a real publication.
+</div>
+<div class="claim">
+  Brown asserted the force on his charged &ldquo;gravitator&rdquo; was an
+  <em>electrogravitic</em> coupling &mdash; a genuine interaction between charge
+  and gravity, the same effect that would later steer a saucer. The
+  &ldquo;Biefeld&ndash;Brown&rdquo; name credits a Denison professor as
+  co-discoverer; present-day Denison University says it has <em>no record</em>
+  of the experiments or the association. Treat the mentor story as
+  Brown&rsquo;s account.
+</div>
+<div class="verdict">
+  <strong>The asymmetric-capacitor force is ion wind, and the vacuum tests
+  settle it.</strong> Talley (1988, Air Force-funded) ran Brown-style electrodes
+  at 10<sup>&minus;6</sup>&nbsp;torr under DC and measured <em>no thrust</em>
+  except during actual breakdown current. Tajmar (2004) isolated the corona wind
+  directly. The load-bearing modern result is Tajmar &amp; Schreiber,
+  <em>Acta Astronautica</em> 181, 482 (2021): a high-voltage capacitor on a
+  balance to 10&nbsp;kV, sensitivity ±0.3&nbsp;mg, <strong>no force detected</strong>
+  in any configuration &mdash; ruling out the proposed electrostatic-propulsion
+  theories by many orders of magnitude. The effect is electrohydrodynamic, not
+  gravitational. It is &sect;3, dressed in mythology.
+</div>
+<p>
+  One honesty flag, because proponents lean on it: the U.S. Army Research
+  Laboratory analysis (Bahder &amp; Fazi, 2003) is often cited as if it
+  supported electrogravitics. It did the opposite in spirit &mdash; it found a
+  naïve &ldquo;breeze&rdquo; estimate too small but full ion-drift momentum the
+  right magnitude, and explicitly called for the vacuum test that Tajmar later
+  answered with a null. It is an ion-wind paper.
+</p>
+<h3>4.1 &ldquo;It went black&rdquo; &mdash; document vs. inference</h3>
+<div class="receipt">
+  The report is real: <em>Electrogravitics Systems</em> (Aviation Studies
+  (International) Ltd., February 1956) names Glenn&nbsp;L. Martin, Convair, GE,
+  Bell, Sperry-Rand and others as interested in electrogravitic propulsion and
+  proposes a disc interceptor.
+</div>
+<div class="lemma">
+  But &ldquo;named in a 1956 think-tank survey&rdquo; is not &ldquo;ran a funded
+  program that produced hardware and then classified it.&rdquo; The
+  disappearance of electrogravitics from the open literature after ~1957 is
+  explained at least as well by the ion-wind debunking &mdash; there was no
+  gravity effect to report &mdash; as by secrecy. The suppression reading is
+  <em>possible</em>; it is not <em>documented</em>. This is the cleanest place
+  in the whole field to feel the difference between the two.
+</div>
+<h3>4.2 The genuine open thread &mdash; Buhler&rsquo;s vacuum claim</h3>
+<div class="claim">
+  Charles Buhler (a NASA veteran) and Exodus Propulsion Technologies report an
+  asymmetric <em>dielectric</em> capacitor producing net thrust <em>in
+  vacuum</em> &mdash; figures around 10&nbsp;mN in a stack, across &gt;2000 runs,
+  presented at APEC in December 2023 (patent US&nbsp;11,511,891). If real, it
+  would be the thing Brown was wrong to claim but right to chase.
+</div>
+<div class="verdict">
+  Status: <strong>not peer-reviewed, not independently replicated.</strong> The
+  results live in conference talks and patents. Sub-Newton forces are exactly
+  where thermal, outgassing, and electromagnetic artifacts hide &mdash; the same
+  trap that ultimately explained the EmDrive (which Tajmar also tested to null).
+  This is a real open thread, not a receipt. The decisive moves &mdash;
+  independent replication, journal review, a space demonstration &mdash; are
+  outstanding. <em>Watch it; don&rsquo;t bank on it.</em>
+</div>
+
+<h2><span class="num">&sect;5</span>Ning Li &amp; the superconductor-gravity program</h2>
+<p>
+  If electrogravitics is the high-voltage lineage, the rotating superconductor
+  is the cryogenic one &mdash; and it is the better-pedigreed of the two, with
+  real <em>Physical Review</em> theory and real NASA replication attempts. It
+  also contains the most important honest correction in this paper, because the
+  Ning&nbsp;Li story is told almost everywhere as a disappearance, and it was not
+  one.
+</p>
+<div class="receipt">
+  <strong>Ning Li (宁李, 1943&ndash;2021)</strong> was a research scientist at
+  the University of Alabama in Huntsville. With Douglas Torr she published a
+  real theory predicting that a rotating type-II superconductor &mdash; its
+  Cooper-pair condensate in coherent rotation &mdash; would generate an
+  anomalously large gravitomagnetic field: Li &amp; Torr, <em>Phys. Rev. D</em>
+  43, 457 (1991); <em>Phys. Rev. B</em> 46, 5489 (1992); Torr &amp; Li,
+  <em>Found. Phys. Lett.</em> 6, 371 (1993). In 1999 she left to found
+  <strong>AC Gravity LLC</strong>, which received a U.S. Department of Defense
+  award of <strong>$448,970 (2001)</strong>.
+</div>
+<div class="verdict">
+  The theory was refuted on its own terms: Harris, <em>Found. Phys. Lett.</em>
+  12, 201 (1999), showed the predicted fields were too large by many orders of
+  magnitude under realistic assumptions. AC Gravity LLC published no results.
+  The often-quoted &ldquo;11&ndash;12% weight loss&rdquo; is <em>not</em>
+  Li&rsquo;s &mdash; those weight-change numbers belong to Podkletnov (below),
+  and Li&rsquo;s own 1997 experiments failed to reproduce the effect. Keep them
+  separate.
+</div>
+<div class="receipt">
+  <strong>The correction the conspiracy frame gets wrong.</strong> Ning Li did
+  not &ldquo;vanish&rdquo; or get &ldquo;disappeared back to China.&rdquo; Per
+  her obituary, a 2014 vehicular accident caused permanent brain damage,
+  followed by Alzheimer&rsquo;s; she died in Huntsville on
+  <strong>27 July 2021, age 78</strong>. The mystery was a tragedy, not a
+  cover-up &mdash; and saying so is exactly the discipline that makes the
+  genuinely open threads credible.
+</div>
+<h3>5.1 Podkletnov and the rotating disc</h3>
+<div class="claim">
+  Eugene Podkletnov (Tampere University of Technology) reported ~0.05% weight
+  loss of a mass suspended above a rotating YBCO superconducting disc, rising
+  toward ~0.3&ndash;2% under AC fields (Podkletnov &amp; Nieminen,
+  <em>Physica C</em> 203, 441, 1992). A 1996 follow-up was withdrawn amid press
+  leaks and his institution distanced itself. Later he claimed an &ldquo;impulse
+  gravity generator&rdquo; emitting a collimated repulsive beam
+  (Podkletnov &amp; Modanese, arXiv physics/0108005, 2001).
+</div>
+<div class="verdict">
+  NASA Marshall took it seriously enough to try &mdash; the Koczor/Noever
+  program, and a careful replication by Hathaway, Cleveland &amp; Bao
+  (<em>Physica C</em> 385, 488, 2003) &mdash; and found <strong>no weight change
+  to the 0.001% level</strong>. A German Göde-Foundation replication of the
+  impulse generator returned null. After thirty years the effect remains
+  unreplicated. That is not proof it is impossible; it is the absence of the
+  receipt that would make it real.
+</div>
+<h3>5.2 Tajmar &mdash; the man who tested his own claim to death</h3>
+<div class="receipt">
+  Martin Tajmar is the figure to anchor on, because he ran the arc honestly.
+  In 2006 he and de Matos reported a &ldquo;gravitomagnetic London moment&rdquo;
+  &mdash; an accelerometer signal around a niobium ring spun to thousands of rpm
+  (arXiv gr-qc/0610015), publicized by ESA. By 2008, with no independent
+  reproduction, <strong>Tajmar himself</strong> traced the signal to
+  thermal/cryogenic and electromagnetic artifacts. He went on to run the
+  rigorous vacuum null on the Brown effect (&sect;4) and on the EmDrive.
+</div>
+<div class="doctrine">
+  Tajmar is what the field looks like when it works: a serious person builds the
+  apparatus, reports the positive, fails to replicate it, and says so in print.
+  Every name in this section was chasing a real question. The ones who advanced
+  it are the ones who let the null count.
+</div>
+
+<h2><span class="num">&sect;6</span>Amy Eskridge</h2>
+<p>
+  You asked specifically about Amy Eskridge, and she deserves to be handled with
+  care &mdash; she was a real person who died young, and her name now travels
+  mostly as a data point in a viral &ldquo;dead scientists&rdquo; list. The
+  honest account is sadder and smaller than the legend, and worth stating
+  plainly.
+</p>
+<div class="receipt">
+  <strong>What is documented.</strong> Eskridge was an aerospace/propulsion
+  figure in Huntsville with a UAH science background. She co-founded and chaired
+  the <strong>Institute for Exotic Science</strong>, a small Huntsville
+  organization oriented to advanced propulsion, zero-point energy, and
+  &ldquo;antigravity&rdquo; &mdash; co-founded with her father,
+  <strong>Richard Eskridge, a retired NASA Marshall plasma-physics engineer</strong>
+  (the real NASA link runs through him, not through her own employment). She gave
+  a dated public talk, &ldquo;A Historical Perspective on Anti-Gravity
+  Technology,&rdquo; to the Huntsville L5 Society in December 2018 &mdash; a
+  survey, not a device demonstration. She died on <strong>11 June 2022, age
+  34</strong>; the ruling was a self-inflicted gunshot wound.
+</div>
+<div class="verdict">
+  <strong>What is not documented:</strong> any working device, any peer-reviewed
+  result, any confirmed Woodward/Mach-effect project, or that she was personally
+  a NASA employee. The Institute&rsquo;s output is a topic space and a talk, not
+  a receipt. There is a real evidentiary floor here, and it is low.
+</div>
+<div class="claim">
+  The suppression narrative &mdash; the reported &ldquo;if you see a report that
+  I killed myself, I most definitely did not&rdquo; message, and her inclusion
+  in 2025&ndash;26 viral &ldquo;dead scientists with access to U.S. secrets&rdquo;
+  coverage &mdash; is real as <em>reporting</em>, but unsubstantiated as
+  <em>fact</em>. Her own father stated he did not consider the death suspicious
+  and attributed it to chronic pain. Authorities have indicated no connection
+  between her work and her death.
+</div>
+<div class="lemma">
+  The honest signal in the Eskridge story is not a hidden antigravity device. It
+  is that the antigravity community is small, under-funded, emotionally intense,
+  and prone to reading tragedy as conspiracy &mdash; and that a real young
+  engineer&rsquo;s death got absorbed into that pattern. The respectful and the
+  rigorous move are the same one: hold the documented facts, decline the
+  unsupported frame, and don&rsquo;t build a physics claim on a person&rsquo;s
+  death.
+</div>
+
+<hr class="part-rule">
+<p class="part-label">Part III — "It also generates energy"</p>
+
+<h2><span class="num">&sect;7</span>Tesla &amp; energy from the earth</h2>
+<p>
+  The recurring rumor &mdash; that these craft are also free-energy machines,
+  &ldquo;drawing power from the earth&rdquo; the way Tesla promised &mdash; is
+  where the most beautiful real physics sits next to the most durable myth. The
+  job here is to keep the two from trading clothes.
+</p>
+<div class="receipt">
+  <strong>What Tesla actually built and patented.</strong> At Colorado Springs
+  (1899) he built a &ldquo;magnifying transmitter&rdquo; and recorded what he
+  called terrestrial stationary waves &mdash; concluding the Earth behaves as a
+  resonant conductor. Wardenclyffe Tower (1901&ndash;1917) was meant to transmit
+  power and telegraphy wirelessly; it was never completed and was dismantled in
+  1917. The real patents: US&nbsp;645,576 and 649,621 (1900, transmission via
+  Earth and upper atmosphere); US&nbsp;1,119,732 (1914, the magnifying
+  transmitter); and US&nbsp;685,957 / 685,958 (1901, &ldquo;Apparatus
+  for / Method of Utilizing Radiant Energy&rdquo;).
+</div>
+<div class="verdict">
+  Read the radiant-energy patents for what they say: an elevated insulated
+  plate charges a condenser from incident radiation, which a discharge circuit
+  then taps. It is a <strong>charge-accumulation device &mdash; it gathers and
+  stores incident energy; it does not create it.</strong> Wireless power
+  transfer is real (and radiatively lossy over distance); &ldquo;free unlimited
+  energy from the aether&rdquo; is neither demonstrated nor what the patents
+  claim. The famous &ldquo;200 lamps lit 26 miles away&rdquo; is Tesla&rsquo;s
+  own narration, not an independently verified demonstration.
+</div>
+<div class="receipt">
+  <strong>The real referents under the myth.</strong> The Earth&ndash;ionosphere
+  cavity has a genuine fundamental resonance &mdash; the
+  <strong>Schumann resonance, ~7.83&nbsp;Hz</strong> (harmonics ~14.3, 20.8&nbsp;Hz),
+  driven by global lightning. Predicted by Schumann (1952), first measured by
+  Balser &amp; Wagner, <em>Nature</em> 188, 638 (1960). Tesla anticipated
+  Earth-cavity resonance qualitatively ~50 years early &mdash; a real insight he
+  then over-read. The global atmospheric electrical circuit is also real: a
+  fair-weather field of <strong>~100&nbsp;V/m</strong> at the surface, an
+  ionosphere&ndash;Earth potential of <strong>~250&nbsp;kV</strong>, total
+  circuit current <strong>~1&ndash;2&nbsp;kA</strong>.
+</div>
+<div class="verdict">
+  But you cannot cheaply tap it. The fair-weather conduction current density is
+  ~2&nbsp;picoamps per square metre and the source impedance is gigaohms-plus:
+  the energy density of the air is minuscule. Real atmospheric-electricity
+  harvesting exists in the lab and produces negligible power. The earth has
+  energy; it does not have <em>free, concentrated, low-impedance</em> energy
+  waiting at the top of a tower.
+</div>
+
+<h2><span class="num">&sect;8</span>Schauberger &amp; implosion</h2>
+<div class="receipt">
+  <strong>Viktor Schauberger (1885&ndash;1958)</strong> was an Austrian forester
+  and close observer of moving water &mdash; log-flume transport systems, river
+  vortices, trout holding station in fast current. Those observations are real
+  and were genuinely ahead of their time.
+</div>
+<div class="claim">
+  From them he built &ldquo;implosion&rdquo; theory: that inward, centripetal,
+  vortical flow could purify water, generate energy, and &mdash; in the
+  &ldquo;Repulsine&rdquo; disc &mdash; produce antigravity lift. Wartime accounts
+  tie a prototype to SS-directed work; the devices were reportedly destroyed; he
+  went to the United States in 1958 to commercialize implosion and died days
+  after returning to Linz.
+</div>
+<div class="verdict">
+  No implosion device ever demonstrated over-unity output, water-borne
+  &ldquo;levitation,&rdquo; or antigravity under controlled measurement.
+  Mainstream references classify the free-energy and flying-disc claims as
+  pseudoscience, and the Nazi-era operational details come largely from
+  proponent literature &mdash; folklore, not record.
+</div>
+<div class="receipt">
+  <strong>The legitimate residue is real engineering.</strong> The vortex
+  insight survives as the <em>gravitational water-vortex power plant</em>
+  (Zotlöterer): water forms a stable line vortex over a central drain at low
+  head (~0.7&ndash;3&nbsp;m), driving a slow, fish-friendly turbine. It is
+  installed micro-hydro with efficiencies in the tens of percent &mdash;
+  generally <em>less</em> efficient than conventional turbines, with a low-head,
+  ecological niche. It extracts the gravitational energy of falling water like
+  any hydro plant. It is conserved, lawful, and useful &mdash; and it is what
+  &ldquo;Schauberger technology&rdquo; actually amounts to once the over-unity
+  is removed.
+</div>
+
+<h2><span class="num">&sect;9</span>Over-unity, in general</h2>
+<p>
+  The unifying claim across Brown&rsquo;s self-powered disc, Searl&rsquo;s
+  generator, Schauberger&rsquo;s implosion, and the &ldquo;it makes its own
+  energy&rdquo; rumor is the same one, and it is the one the laws of
+  thermodynamics exist to forbid.
+</p>
+<div class="verdict">
+  Over-unity violates the first law (energy conservation); perpetual motion of
+  the second kind violates the second law. The historical pattern is invariant:
+  a device that shines in open-loop or single-run demonstration fails the
+  closed-loop, independently-instrumented measurement. The
+  <strong>Searl Effect Generator</strong> &mdash; a magnetized rotating-ring
+  device claimed to produce free energy <em>and</em> antigravity &mdash; has
+  never been observed or replicated under controlled conditions and is not a
+  recognized principle. An &ldquo;antigravity device that also powers itself&rdquo;
+  is not two extraordinary claims; it is one impossible one, because a closed
+  system cannot output more work than it takes in.
+</div>
+<div class="receipt">
+  <strong>Where the real vacuum energy lives, and why it is not free.</strong>
+  The Casimir force between close conductors is real and measured &mdash;
+  Lamoreaux (1997), Mohideen &amp; Roy (1998) &mdash; and the dynamical Casimir
+  effect (photons from the vacuum via an accelerated mirror) was observed by
+  Wilson <em>et al.</em>, <em>Nature</em> 479, 376 (2011). In every case the
+  energy is paid for by external work: moving the plates, driving the mirror.
+  The vacuum is not a usable reservoir of net free energy. &ldquo;Zero-point
+  energy&rdquo; marketing conflates a real force with net extraction, which is
+  not established.
+</div>
+<div class="receipt">
+  <strong>The honest &ldquo;energy from the environment&rdquo; menu</strong> &mdash;
+  the real set the myths distort: solar (~1000&nbsp;W/m<sup>2</sup>, the one
+  genuinely large ambient source), RF/EM harvesting (microwatts &mdash; ~tens of
+  µW/m<sup>2</sup> ambient, sensor-scale), thermoelectric and piezo harvesting
+  (µW&ndash;mW), telluric earth-battery currents (real, tiny, powered early
+  telegraph lines). All conserved. All modest. None over-unity.
+</div>
+<div class="doctrine">
+  The free-energy mythos has one move and makes it every time: take a real
+  effect that is small or conserved &mdash; Schumann&rsquo;s cavity, the
+  fair-weather field, the Casimir force, a water vortex &mdash; and inflate it
+  into a conservation-law violation that has never survived independent
+  measurement. The signal is real. The over-unity is the noise added on top.
+</div>
+
+<hr class="part-rule">
+<p class="part-label">Part IV — The ledger</p>
+
+<h2><span class="num">&sect;10</span>Buildable / claimed / forbidden</h2>
+<p>
+  The whole survey, on one page, in the three registers of &sect;1.
+</p>
+<table>
+  <thead><tr><th>Effect / device</th><th>Status</th><th>What the record actually shows</th></tr></thead>
+  <tbody>
+    <tr><td>Ultrasonic standing-wave levitator (TinyLev)</td><td style="color:var(--teal)"><b>Buildable</b></td><td>Lifts mg&ndash;sub-g (beads, droplets, insects). ~$70. Conventional acoustics.</td></tr>
+    <tr><td>Near-field acoustic levitation (squeeze-film)</td><td style="color:var(--teal)"><b>Buildable</b></td><td>~0.8 N for flat parts, microns above a vibrating surface. Industrial.</td></tr>
+    <tr><td>EHD ion lifter / ionocraft</td><td style="color:var(--teal)"><b>Buildable</b></td><td>Grams-force at 20&ndash;40 kV. MIT flew 2.5 kg, no moving parts (Nature 2018). Ion wind.</td></tr>
+    <tr><td>Human-scale free-air acoustic hover</td><td style="color:var(--blood)"><b>Forbidden</b></td><td>Excluded by the ~194 dB / 1-atm energy ceiling and sub-&#955;/2 trapping. Lethal long before lift.</td></tr>
+    <tr><td>Human-scale EHD / lifter craft</td><td style="color:var(--blood)"><b>Forbidden</b></td><td>~330 m&sup2; electrode and ~170 kW per person; zero thrust in vacuum.</td></tr>
+    <tr><td>Biefeld&ndash;Brown &ldquo;electrogravitics&rdquo;</td><td style="color:var(--steel)"><b>Refuted</b></td><td>Vacuum nulls (Talley 1988; Tajmar &amp; Schreiber 2021, ±0.3 mg). It is ion wind.</td></tr>
+    <tr><td>Li&ndash;Torr rotating-superconductor gravitomagnetism</td><td style="color:var(--steel)"><b>Refuted (theory)</b></td><td>Harris 1999: predicted fields too large by orders of magnitude. AC Gravity: no results.</td></tr>
+    <tr><td>Podkletnov gravity shielding / impulse beam</td><td style="color:var(--steel)"><b>Unreplicated</b></td><td>NASA Marshall &amp; Göde nulls to 0.001%. 30 years, no receipt.</td></tr>
+    <tr><td>Buhler &ldquo;Exodus&rdquo; vacuum thrust</td><td style="color:var(--amber)"><b>Open thread</b></td><td>Claimed ~mN in vacuum; not peer-reviewed, not replicated. Watch it.</td></tr>
+    <tr><td>Tesla wireless power / earth resonance</td><td style="color:var(--green)"><b>Real, modest</b></td><td>Schumann 7.83 Hz and the ~1 kA global circuit are real; not a tappable free-energy source.</td></tr>
+    <tr><td>Schauberger implosion / Repulsine</td><td style="color:var(--steel)"><b>Pseudoscience</b></td><td>No demonstrated over-unity or lift. Legitimate residue: vortex micro-hydro.</td></tr>
+    <tr><td>Over-unity / self-powered disc (Searl, etc.)</td><td style="color:var(--blood)"><b>Forbidden</b></td><td>Violates conservation of energy; never replicated closed-loop.</td></tr>
+    <tr><td>&chi;<sub>&nu;</sub> lattice-coupling effect (framework)</td><td style="color:var(--amber)"><b>Under test</b></td><td>Hypothesis with a pre-registered bench protocol. No receipt yet; allowed to stay open.</td></tr>
+  </tbody>
+</table>
+
+<h2><span class="num">&sect;11</span>The honest build program</h2>
+<p>
+  Gathering everything leads to one program, and it is the same discipline the
+  rest of this network already runs on its mining benches: build the real
+  effect, instrument it past the point where the real effect can explain the
+  reading, and let a pre-registered control battery &mdash; not enthusiasm
+  &mdash; decide whether anything else is there.
+</p>
+<ol>
+  <li><strong>Build both demonstrators this weekend.</strong> The TinyLev
+    (&sect;2.1) and the lifter (&sect;3.2). Feel category-1 lift directly; it
+    cures the urge to over-read it later.</li>
+  <li><strong>Measure them honestly.</strong> Log thrust vs. current and gap on
+    the lifter; log trapped mass vs. drive on the levitator. Confirm they sit on
+    the conventional curves of &sect;2 and &sect;3. (They will.)</li>
+  <li><strong>Run the vacuum and orientation controls.</strong> The lifter dies
+    in a bell jar; the levitator dies without a node. Reproducing the published
+    nulls yourself is how you earn the right to claim a positive later.</li>
+  <li><strong>Only then, test category 2.</strong> Move to the
+    twelve-piezo coherent-body bench of <code>oph_chi_nu_potlid_first_build.html</code>
+    with its full controls battery (drive-off, orientation flip, phase flip,
+    null pattern, dummy mass, amplitude-slope). A &chi;<sub>&nu;</sub> receipt is
+    a force that survives every one of those after the acoustic and EHD
+    contributions are subtracted.</li>
+  <li><strong>Refuse the package deal.</strong> If any result also seems to make
+    energy, that is the signal to look harder for the artifact, not the moment
+    to announce a breakthrough &mdash; because lift-plus-free-energy is the one
+    combination the physics rules out.</li>
+</ol>
+<div class="doctrine">
+  Two effects are real and you can hold them in your hand by Sunday. Every
+  legend in this paper is one of those two effects, a refuted theory, an
+  unreplicated claim, or an impossibility &mdash; and the only thing that has
+  ever moved a claim across those lines is a measurement that survived its
+  controls. Build the demonstrators. Run the nulls. Keep the &chi;<sub>&nu;</sub>
+  door open and unforced. Let the receipt speak.
+</div>
+
+<hr class="softrule">
+<h3>References</h3>
+<ol>
+  <li>Marzo, A., Barnes, A. &amp; Drinkwater, B.W. (2017). &ldquo;TinyLev: A multi-emitter single-axis acoustic levitator.&rdquo; <em>Review of Scientific Instruments</em> 88, 085105. <a href="https://doi.org/10.1063/1.4989995">DOI:10.1063/1.4989995</a>.</li>
+  <li>Brandt, E.H. (2001). &ldquo;Acoustic physics: Suspended by sound.&rdquo; <em>Nature</em> 413, 474.</li>
+  <li>Xu, H., He, Y., Barrett, S.R.H. <em>et al.</em> (2018). &ldquo;Flight of an aeroplane with solid-state propulsion.&rdquo; <em>Nature</em> 563, 532&ndash;535. <a href="https://doi.org/10.1038/s41586-018-0707-9">DOI:10.1038/s41586-018-0707-9</a>.</li>
+  <li>Masuyama, K. &amp; Barrett, S.R.H. (2013). &ldquo;On the performance of electrohydrodynamic propulsion.&rdquo; <em>Proc. R. Soc. A</em> 469, 20120623. (The 110 N/kW static-bench figure.)</li>
+  <li>Bahder, T.B. &amp; Fazi, C. (2003). &ldquo;Force on an Asymmetric Capacitor.&rdquo; U.S. Army Research Laboratory, ARL-TR-3005. <a href="https://arxiv.org/abs/physics/0211001">arXiv:physics/0211001</a>.</li>
+  <li>Tajmar, M. &amp; Schreiber, M. (2021). &ldquo;Put strong limits on all proposed theories&hellip;: Does a charged high-voltage capacitor produce thrust?&rdquo; <em>Acta Astronautica</em> 181, 482&ndash;491.</li>
+  <li>Talley, R.L. (1988). <em>Twenty First Century Propulsion Concept.</em> Air Force Astronautics Laboratory (vacuum null on the Brown effect at 10<sup>&minus;6</sup> torr).</li>
+  <li>Brown, T.T. Patents GB 300,311 (1928); US 2,949,550 (1960); US 3,018,394 (1962); US 3,022,430 (1962, &ldquo;Electrokinetic Generator&rdquo;).</li>
+  <li><em>Electrogravitics Systems</em> (1956). Aviation Studies (International) Ltd., Gravity Research Group. <a href="http://www.rexresearch.com/perl/elgsys.htm">Full text</a>.</li>
+  <li>Buhler, C. <em>et al.</em> Patent US 11,511,891 (2022), &ldquo;System and method for generating forces using asymmetrical electrostatic pressure.&rdquo; APEC presentation, December 2023.</li>
+  <li>Li, N. &amp; Torr, D.G. (1991). &ldquo;Effects of a gravitomagnetic field on pure superconductors.&rdquo; <em>Phys. Rev. D</em> 43, 457. (1992) <em>Phys. Rev. B</em> 46, 5489; Torr &amp; Li (1993) <em>Found. Phys. Lett.</em> 6, 371.</li>
+  <li>Harris, E.G. (1999). &ldquo;Comments on &lsquo;Gravitoelectric-Electric Coupling via Superconductivity&rsquo;.&rdquo; <em>Found. Phys. Lett.</em> 12, 201.</li>
+  <li>Podkletnov, E. &amp; Nieminen, R. (1992). &ldquo;A possibility of gravitational force shielding by bulk YBa<sub>2</sub>Cu<sub>3</sub>O<sub>7&minus;x</sub> superconductor.&rdquo; <em>Physica C</em> 203, 441.</li>
+  <li>Hathaway, G., Cleveland, B. &amp; Bao, Y. (2003). &ldquo;Gravity modification experiment using a rotating superconducting disk and radio-frequency fields.&rdquo; <em>Physica C</em> 385, 488. (Null.)</li>
+  <li>Podkletnov, E. &amp; Modanese, G. (2001). &ldquo;Impulse Gravity Generator&hellip;.&rdquo; <a href="https://arxiv.org/abs/physics/0108005">arXiv:physics/0108005</a>.</li>
+  <li>Tajmar, M. <em>et al.</em> (2006). &ldquo;Measurement of Gravitomagnetic and Acceleration Fields Around Rotating Superconductors.&rdquo; <a href="https://arxiv.org/abs/gr-qc/0610015">arXiv:gr-qc/0610015</a>. (Later attributed to artifacts by the authors.)</li>
+  <li>Schumann, W.O. (1952); Balser, M. &amp; Wagner, C.A. (1960). &ldquo;Observations of Earth&ndash;ionosphere cavity resonances.&rdquo; <em>Nature</em> 188, 638.</li>
+  <li>Tesla, N. Patents US 645,576 &amp; 649,621 (1900); US 1,119,732 (1914); US 685,957 &amp; 685,958 (1901, radiant energy).</li>
+  <li>Lamoreaux, S.K. (1997). &ldquo;Demonstration of the Casimir force&hellip;.&rdquo; <em>Phys. Rev. Lett.</em> 78, 5; Wilson, C.M. <em>et al.</em> (2011). &ldquo;Observation of the dynamical Casimir effect&hellip;.&rdquo; <em>Nature</em> 479, 376.</li>
+  <li>Zotlöterer, F. <em>Gravitation water vortex power plant.</em> (Low-head vortex micro-hydro &mdash; the legitimate Schauberger residue.)</li>
+  <li>Eskridge, A. (2018). &ldquo;A Historical Perspective on Anti-Gravity Technology.&rdquo; Talk, Huntsville Alabama L5 Society, December 2018. Biographical detail per Newsweek reporting (2026).</li>
+</ol>
+
+<div class="disclaimer">
+  Draft document, build guide and survey in one. The two demonstrators (TinyLev,
+  ion lifter) work on conventional physics and lift small masses; their
+  human-scale and vacuum versions are excluded as marked. The fringe-scientist
+  and free-energy sections report the record and the controlled-experiment
+  verdicts, not the author&rsquo;s wishes. The &chi;<sub>&nu;</sub>
+  lattice-coupling hypothesis is explicitly held open and unproven, with its
+  test specified in the companion pot-lid paper. <strong>High voltage and
+  high-intensity ultrasound are both genuinely dangerous &mdash; read &sect;3.4
+  and &sect;2.3 before building anything.</strong>
+</div>
+
+</body>
+</html>

@@ -1,67 +1,48 @@
-# Attachment And Link Manifest
+# Resource Manifest
 
-## Recommended Email Attachments
+This manifest maps the repository contents. The concrete experiment designs are the root documents. The source papers and articles live under `reference/`.
 
-Attach these generated handoff files first, either as Markdown or from the matching files in the PDF folder:
+## Lab Instructions
 
-- `project-brief.md`
-- `build-01-piezo-crystal-plate-pendulum.md`
-- `build-02-acoustic-cymbal-hoverboard-bench.md`
-- `controls-and-data-protocol.md`
-- `templates/run_manifest_template.yaml`
-- `templates/data_columns.csv`
+- [project-brief.md](project-brief.md)  
+  Short project framing, claim boundaries, and student deliverables.
 
-Keep these source files in reserve for provenance. Link them or send them only if Krit asks for the underlying source material:
+- [build-01-piezo-crystal-plate-pendulum.md](build-01-piezo-crystal-plate-pendulum.md)  
+  Primary student build. Use this for the low-voltage plate, self-read schedule, pendulum force measurement, dummy, sham, sign reversal, and physical flip controls.
 
-- Hacking the Simulation PDF
-- Antigravity Devices HTML
-- DIY Hoverbike PDF
+- [build-02-acoustic-cymbal-hoverboard-bench.md](build-02-acoustic-cymbal-hoverboard-bench.md)  
+  Larger bench build. Use the single-dish calibration station before the four-dish platform.
 
-Keep the supplemental theory PDFs as follow-up material:
+- [controls-and-data-protocol.md](controls-and-data-protocol.md)  
+  Shared control logic, artifact rejection, run naming, and data protocol.
 
-- OPH dark matter paper
-- Compact OPH paper
-- Chi_nu susceptibility bounds paper
+- [Run manifest template](templates/run_manifest_template.yaml) and [data columns template](templates/data_columns.csv)  
+  Fixed logging templates for each run.
 
-## Best Source Material For Krit
+Compiled versions of the lab instructions live in [pdf/](pdf/).
 
-### Most Build-Relevant
+## Included Build Background
 
-Hacking the Simulation PDF
+- [Hacking the Simulation PDF](reference/build-source/hacking-the-simulation-anti-gravity-exploit.pdf)  
+  Self-reading PoC logic, plate build, pendulum or balance protocol, dummy design, and artifact controls.
 
-Use for the self-reading PoC logic, the plate build, the pendulum/balance protocol, the dummy, and the artifact controls.
+- [Antigravity Devices HTML](reference/build-source/antigravity_devices.html)  
+  Claim boundaries across conventional acoustic lift, ion-wind lift, refuted claims, and the open `chi_nu` hypothesis.
 
-Antigravity Devices HTML
+- [DIY Hoverboard Cymbal PDF](reference/build-source/diy-hoverbike-four-cymbals.pdf)  
+  Cymbal geometry and pot-lid precursor: four dishes, three transducers per dish, 60 percent radius placement, and phase-locked drive.
 
-Use for claim boundaries. It separates conventional acoustic lift, ion-wind lift, refuted claims, and the open chi_nu hypothesis.
+- [Hover Disk HTML](reference/build-source/hover_disk.html)  
+  Materials and coherent-substrate background.
 
-DIY Hoverbike PDF
+- [How To Build A UFO HTML](reference/build-source/how_to_build_a_ufo.html) and [controlled-motion PDF](reference/build-source/how-to-build-a-ufo-controlled-motion.pdf)  
+  Broad architecture and motivation. Use as background after the lab plan.
 
-Use only for the cymbal geometry and first-light pot-lid details: four dishes, three transducers per dish, 60 percent radius placement, phase-locked drive, and the single pot-lid pendulum precursor. Do not present the human-carrying claims as established.
+## Included Supplemental Theory
 
-### Useful But More Speculative
-
-Hover Disk HTML
-
-Use for materials ranking and the larger coherent-substrate story. Put the build guides ahead of it.
-
-How To Build A UFO HTML
-
-Use for the broad architecture and motivation. Treat the build guides as the lab manuals.
-
-### Supplemental Theory
-
-OPH dark matter paper
-
-Use for the dark-sector motivation.
-
-Compact OPH paper
-
-Use for the compact OPH technical foundation.
-
-Chi_nu susceptibility bounds paper
-
-Use for chi_nu bounds and force-law motivation. This is technical and should not be the first file a student reads.
+- [OPH dark matter paper](reference/supplemental-theory/oph_dark_matter_paper.pdf)
+- [Compact OPH paper](reference/supplemental-theory/recovering_relativity_and_standard_model_structure_from_observer_overlap_consistency_compact.pdf)
+- [chi_nu susceptibility bounds paper](reference/supplemental-theory/chi_nu_susceptibility_bounds.pdf)
 
 ## Public Links
 
@@ -70,22 +51,16 @@ Use for chi_nu bounds and force-law motivation. This is technical and should not
 - [NotebookLM for questions](https://notebooklm.google.com/notebook/d5249760-6ce8-44a0-927b-ccf90402711a)
 - [TinyLev acoustic levitator paper](https://doi.org/10.1063/1.4989995)
 
-## Suggested Email Attachment Bundle
+## Compact Email Bundle
 
-If you want one folder to send, zip:
-
-```text
-krit-antigravity-student-project-package/
-```
-
-If you want a smaller first message, attach only:
+For a compact email, attach or link these files:
 
 ```text
-email-draft.md
+README.md
 project-brief.md
 build-01-piezo-crystal-plate-pendulum.md
 build-02-acoustic-cymbal-hoverboard-bench.md
 controls-and-data-protocol.md
+templates/run_manifest_template.yaml
+templates/data_columns.csv
 ```
-
-Then link the public pages and offer the longer PDFs as follow-up.
