@@ -4,38 +4,38 @@ This manifest maps the repository contents. The concrete experiment designs are 
 
 ## Lab Instructions
 
-- [project-brief.md](project-brief.md)  
+- [project-brief.md](project-brief.md)
   Short project framing, claim boundaries, and student deliverables.
 
-- [build-01-piezo-crystal-plate-pendulum.md](build-01-piezo-crystal-plate-pendulum.md)  
-  Primary student build. Use this for the low-voltage plate, self-read schedule, pendulum force measurement, dummy, sham, sign reversal, and physical flip controls.
+- [build-01-piezo-plate-balance-and-pendulum.md](build-01-piezo-plate-balance-and-pendulum.md)
+  Primary student build. Use this for the low-voltage plate, self-read schedule, balance support-force measurement, pendulum artifact mapping, dummy, sham, sign reversal, and physical flip controls.
 
-- [build-02-acoustic-cymbal-hoverboard-bench.md](build-02-acoustic-cymbal-hoverboard-bench.md)  
+- [build-02-acoustic-cymbal-bench-rig.md](build-02-acoustic-cymbal-bench-rig.md)
   Larger bench build. Use the single-dish calibration station before the four-dish platform.
 
-- [controls-and-data-protocol.md](controls-and-data-protocol.md)  
+- [controls-and-data-protocol.md](controls-and-data-protocol.md)
   Shared control logic, artifact rejection, run naming, and data protocol.
 
-- [Run manifest template](templates/run_manifest_template.yaml) and [data columns template](templates/data_columns.csv)  
+- [Run manifest template](templates/run_manifest_template.yaml) and [data columns template](templates/data_columns.csv)
   Fixed logging templates for each run.
 
 Read the root `.md` files directly in GitHub. PDF files appear under `reference/` as source papers and background material.
 
 ## Included Build Background
 
-- [Hacking the Simulation PDF](reference/build-source/hacking-the-simulation-anti-gravity-exploit.pdf)  
-  Self-reading PoC logic, plate build, pendulum or balance protocol, dummy design, and artifact controls.
+- [Hacking the Simulation PDF](reference/build-source/hacking-the-simulation-anti-gravity-exploit.pdf)
+  Self-reading PoC logic, plate build, balance protocol, dummy design, and artifact controls.
 
-- [Antigravity Devices HTML](reference/build-source/antigravity_devices.html)  
+- [Antigravity Devices HTML](reference/build-source/antigravity_devices.html)
   Claim boundaries across conventional acoustic lift, ion-wind lift, refuted claims, and the open `chi_nu` hypothesis.
 
-- [DIY Hoverboard Cymbal PDF](reference/build-source/diy-hoverbike-four-cymbals.pdf)  
-  Cymbal geometry and pot-lid precursor: four dishes, three transducers per dish, 60 percent radius placement, and phase-locked drive.
+- [DIY Cymbal Source PDF](reference/build-source/diy-hoverbike-four-cymbals.pdf)
+  Cymbal geometry and pot-lid precursor: four dishes, three transducers per dish, 60 percent radius placement, and phase-locked drive. The human-carrying lift claim is background only and is not adopted by the lab plan.
 
-- [Hover Disk HTML](reference/build-source/hover_disk.html)  
+- [Hover Disk HTML](reference/build-source/hover_disk.html)
   Materials and coherent-substrate background.
 
-- [How To Build A UFO HTML](reference/build-source/how_to_build_a_ufo.html) and [controlled-motion PDF](reference/build-source/how-to-build-a-ufo-controlled-motion.pdf)  
+- [How To Build A UFO HTML](reference/build-source/how_to_build_a_ufo.html) and [controlled-motion PDF](reference/build-source/how-to-build-a-ufo-controlled-motion.pdf)
   Broad architecture and motivation. Use as background after the lab plan.
 
 ## Included Supplemental Theory
@@ -58,8 +58,8 @@ Point students to these root files first:
 ```text
 README.md
 project-brief.md
-build-01-piezo-crystal-plate-pendulum.md
-build-02-acoustic-cymbal-hoverboard-bench.md
+build-01-piezo-plate-balance-and-pendulum.md
+build-02-acoustic-cymbal-bench-rig.md
 controls-and-data-protocol.md
 templates/run_manifest_template.yaml
 templates/data_columns.csv

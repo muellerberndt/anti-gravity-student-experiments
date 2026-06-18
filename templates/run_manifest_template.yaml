@@ -7,7 +7,7 @@ lab:
   observer:
 device:
   device_id:
-  device_type: piezo_plate_pendulum
+  device_type: piezo_plate_balance
   moving_mass_g:
   plate_material:
   plate_dimensions_mm:
@@ -16,12 +16,20 @@ device:
   firmware_hash:
   battery_id:
   dummy_device_id:
+geometry:
+  mode: balance
+  force_axis: lab_vertical
+  zone_definition: top_bottom
+  physical_flip_axis:
+  reflector_plate: false
 measurement:
-  method: pendulum
+  method: balance
   pendulum_length_m:
   laser_screen_distance_m:
   balance_model:
   load_cell_model:
+  dish_load_cell_model:
+  reflector_load_cell_model:
 environment:
   temperature_sensor_id:
   pressure_sensor_id:

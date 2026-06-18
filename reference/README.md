@@ -4,19 +4,19 @@ These files support the two build guides in the repository root. Use the root bu
 
 ## Build-Source References
 
-- [hacking-the-simulation-anti-gravity-exploit.pdf](build-source/hacking-the-simulation-anti-gravity-exploit.pdf)  
-  Best background for the self-reading plate idea, the pendulum or balance protocol, dummy construction, sham schedules, and artifact controls.
+- [hacking-the-simulation-anti-gravity-exploit.pdf](build-source/hacking-the-simulation-anti-gravity-exploit.pdf)
+  Best background for the self-reading plate idea, the balance protocol, dummy construction, sham schedules, and artifact controls.
 
-- [antigravity_devices.html](build-source/antigravity_devices.html)  
+- [antigravity_devices.html](build-source/antigravity_devices.html)
   Survey and claim-boundary document. Useful for separating conventional acoustic lift, ion-wind lift, refuted claims, and the open `chi_nu` hypothesis.
 
-- [diy-hoverbike-four-cymbals.pdf](build-source/diy-hoverbike-four-cymbals.pdf)  
-  Source for the cymbal geometry: four dishes, three transducers per dish, 60 percent radius placement, phase-locked drive, and the pot-lid precursor. Treat human-carrying language as outside the student scope.
+- [diy-hoverbike-four-cymbals.pdf](build-source/diy-hoverbike-four-cymbals.pdf)
+  Source for cymbal geometry: four dishes, three transducers per dish, 60 percent radius placement, phase-locked drive, and the pot-lid precursor. Treat human-carrying language as background only. The lab plan uses this as a bench acoustic rig.
 
-- [hover_disk.html](build-source/hover_disk.html)  
+- [hover_disk.html](build-source/hover_disk.html)
   Background on coherent substrates, material choices, and larger hover-disk framing. Use after the concrete build guides.
 
-- [how_to_build_a_ufo.html](build-source/how_to_build_a_ufo.html) and [how-to-build-a-ufo-controlled-motion.pdf](build-source/how-to-build-a-ufo-controlled-motion.pdf)  
+- [how_to_build_a_ufo.html](build-source/how_to_build_a_ufo.html) and [how-to-build-a-ufo-controlled-motion.pdf](build-source/how-to-build-a-ufo-controlled-motion.pdf)
   Broad architecture and motivation. Use for context after the lab plan is clear.
 
 ## Supplemental Theory

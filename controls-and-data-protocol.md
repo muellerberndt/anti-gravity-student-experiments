@@ -4,10 +4,17 @@
 
 A force reading is not interpretable until the test article has produced a self-read receipt. The order is:
 
-1. prove the active device has repeatable drive/read behavior,
-2. prove `ACTIVE_PLUS` and `ACTIVE_MINUS` produce opposite signed internal contrast,
-3. measure force with the device running from onboard power,
-4. reject ordinary artifacts with sham, dummy, flip, thermal, electrostatic, magnetic, and vibration controls.
+1. declare the measurement geometry,
+2. prove the active device has repeatable drive/read behavior,
+3. prove `ACTIVE_PLUS` and `ACTIVE_MINUS` produce opposite signed internal contrast,
+4. measure force with the device running from onboard power,
+5. reject ordinary artifacts with sham, dummy, flip, thermal, electrostatic, magnetic, and vibration controls.
+
+Geometry declaration:
+
+- Balance mode: top and bottom zones define the vertical support-force scalar.
+- Pendulum mode: left/right or A/B zones define a horizontal force axis. Use this for acoustic recoil, artifact mapping, and pot-lid first-light measurements.
+- Acoustic bench mode: dish and reflector forces are measured as reaction pairs. A closed fixture should sum close to zero for ordinary acoustic interaction.
 
 ## Required States
 
@@ -28,6 +35,7 @@ Before any force claim, save:
 - port layout and photos,
 - firmware hash,
 - state schedule,
+- declared geometry and force axis,
 - frequency sweep,
 - coupling matrix,
 - ringdown or phase features,
@@ -45,7 +53,7 @@ Minimum pass:
 
 ## Pendulum Protocol
 
-Use for the piezo-crystal plate.
+Use for the piezo-crystal plate when the declared force axis is horizontal.
 
 1. Measure moving mass `m`.
 2. Measure pendulum length `L`.
@@ -53,7 +61,7 @@ Use for the piezo-crystal plate.
 4. Record camera or laser baseline in `OFF`.
 5. Run `SHAM`, `ACTIVE_PLUS`, `ACTIVE_PLUS`, `SHAM`.
 6. Run `SHAM`, `ACTIVE_MINUS`, `ACTIVE_MINUS`, `SHAM`.
-7. Rotate the device 180 degrees and repeat.
+7. Rotate the device 180 degrees around the vertical suspension axis and repeat.
 8. Run the dummy with the same schedule.
 9. Run heater-only or resistor-only at the same average power.
 
@@ -71,9 +79,11 @@ F = m * g * s / (2 * D)
 
 where `x` is bob displacement, `s` is laser spot displacement, and `D` is mirror-to-screen distance.
 
+Do not use this as the primary vertical support-force test. Use the balance protocol for the top/bottom PoC described in the Hacking PDF.
+
 ## Balance Protocol
 
-Use for the plate if a 0.1 mg or 1 mg balance is available.
+Use for the plate vertical support-force test.
 
 1. Put the balance on stone or an anti-vibration table.
 2. Close the draft shield.
@@ -96,17 +106,21 @@ delta_m_X = mean(X_1, X_2) - mean(SHAM_1, SHAM_2)
 F_lift = -g * delta_m_X
 ```
 
+Use kg for `delta_m_X` when converting to newtons.
+
 ## Acoustic Force Protocol
 
 Use for the cymbal or dish rigs.
 
-1. Keep the driven dish support independent of the ground-plate load cell.
-2. Sweep standoff: 0.5, 1, 2, 5, 10, 20, 30 mm.
-3. Sweep frequency around resonances.
-4. Sweep drive amplitude.
-5. Repeat on reflective and lossy surfaces.
-6. Record temperature and acceleration at each dish.
-7. Repeat `ACTIVE_PLUS`, `ACTIVE_MINUS`, and `SHAM` at matched power.
+1. Keep the driven dish support independent of the reflector plate.
+2. Sweep standoff: 0.05, 0.1, 0.2, 0.5, 1, 2, 5 mm for squeeze-film coupling if the fixture is safe at those gaps.
+3. Add 10, 20, and 30 mm as acoustic leakage or reflector-distance scans.
+4. Sweep frequency around resonances.
+5. Sweep drive amplitude.
+6. Repeat on reflective and lossy surfaces.
+7. Record temperature and acceleration at each dish.
+8. Record dish-side and reflector-side load cells separately if both are instrumented.
+9. Repeat `ACTIVE_PLUS`, `ACTIVE_MINUS`, and `SHAM` at matched power.
 
 Conventional acoustic force should change with standoff, surface, resonance, and drive amplitude. A residual that ignores those variables needs extra scrutiny, then flip and dummy tests.
 
@@ -154,6 +168,7 @@ Save one directory per run:
 ```text
 run_id/
   manifest.yaml
+  geometry.md
   firmware/
   photos/
   raw/

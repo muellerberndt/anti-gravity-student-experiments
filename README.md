@@ -1,7 +1,7 @@
 # Anti-Gravity Student Experiments
 
-Status: student lab package, research draft  
-Prepared: 2026-06-18  
+Status: student lab package, research draft
+Prepared: 2026-06-18
 Audience: Krit's student project group at Chiang Mai University
 
 This repository gives students two concrete lab builds for testing small force effects from coherent vibration systems. The Markdown files in the root directory are the working instructions. The `reference/` folder contains background papers, source articles, and supplemental theory material.
@@ -10,19 +10,19 @@ This repository gives students two concrete lab builds for testing small force e
 
 Start with the small plate. Move to the acoustic bench rig after the measurement and control discipline is solid.
 
-1. [Project Brief](project-brief.md)  
+1. [Project Brief](project-brief.md)
    Short explanation of the idea, claim boundaries, student goals, and expected deliverables.
 
-2. [Build 01: Piezo-Crystal Plate Pendulum](build-01-piezo-crystal-plate-pendulum.md)  
-   Cheap, safe at low voltage, quick to instrument, and the best place to learn the control protocol. This build measures pendulum deflection from a self-reading resonant plate.
+2. [Build 01: Piezo-Crystal Plate Balance And Pendulum](build-01-piezo-plate-balance-and-pendulum.md)
+   Cheap, safe at low voltage, quick to instrument, and the best place to learn the control protocol. The analytical balance is the primary vertical support-force readout. The pendulum is a horizontal calibration and artifact-mapping readout.
 
-3. [Build 02: Acoustic Cymbal Hoverboard Bench Rig](build-02-acoustic-cymbal-hoverboard-bench.md)  
+3. [Build 02: Acoustic Cymbal Bench Rig](build-02-acoustic-cymbal-bench-rig.md)
    Bench-scale cymbal, pot-lid, or bowl rig. The required entry stage is a single-dish calibration station. The four-dish platform comes after force curves, resonance maps, standoff maps, and safety checks are complete.
 
-4. [Controls And Data Protocol](controls-and-data-protocol.md)  
+4. [Controls And Data Protocol](controls-and-data-protocol.md)
    Sham runs, dummy runs, sign reversal, physical flips, thermal controls, artifact rejection, and data columns.
 
-5. [Templates](templates/)  
+5. [Templates](templates/)
    `run_manifest_template.yaml` and `data_columns.csv` give students a fixed logging format.
 
 Read the root `.md` files directly in GitHub. PDF files appear under `reference/` as source papers and background material.
@@ -31,13 +31,13 @@ Read the root `.md` files directly in GitHub. PDF files appear under `reference/
 
 The experiments drive resonant plates or dishes in controlled phase patterns, read back their vibrational state, and compare active states against sham, dummy, sign-reversed, and physically flipped controls.
 
-Ordinary acoustic and vibration effects are expected. The experiment asks a narrower question: after those effects are mapped and rejected, is there any repeatable residual force that tracks the self-read coherent state and reverses sign under the planned controls?
+Ordinary acoustic and vibration effects are expected. A positive new-force result is not expected from these student builds. The useful result is either a conventional force map with clean controls or an upper bound on any residual that tracks the self-read coherent state and reverses sign under the planned controls.
 
 ## Claim Boundaries
 
 - Conventional acoustic force is expected and useful. Piezo plates, pot lids, bowls, cymbals, and ultrasonic arrays can produce measurable radiation pressure, squeeze-film forces, vibration coupling, heat, and electrostatic artifacts.
 - The OPH `chi_nu` effect is a hypothesis under test. This package makes no positive force claim.
-- Human-carrying anti-gravity is outside the student scope. The cymbal build is a bench force platform and coherence-body test article. It is not a rider vehicle.
+- Human-carrying acoustic hover is outside the student scope. The included antigravity survey marks human-scale free-air acoustic hover as excluded by acoustic intensity, wavelength, and safety limits. The cymbal build is a bench force platform and coherence-body test article.
 
 ## Background References
 
@@ -46,7 +46,7 @@ Use the root build guides as the lab manuals. Use [reference/](reference/) for s
 - [Reference guide](reference/README.md)
 - [Hacking the Simulation: Anti-Gravity Exploit PDF](reference/build-source/hacking-the-simulation-anti-gravity-exploit.pdf)
 - [Antigravity Devices survey](reference/build-source/antigravity_devices.html)
-- [DIY hoverboard cymbal source](reference/build-source/diy-hoverbike-four-cymbals.pdf)
+- [DIY cymbal source](reference/build-source/diy-hoverbike-four-cymbals.pdf)
 - [Supplemental theory papers](reference/supplemental-theory/)
 
 Public links:
