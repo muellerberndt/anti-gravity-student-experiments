@@ -1,0 +1,56 @@
+run_id: krit-antigravity-YYYYMMDD-001
+date_local: YYYY-MM-DD
+lab:
+  institution: Chiang Mai University
+  room:
+  operator:
+  observer:
+device:
+  device_id:
+  device_type: piezo_plate_pendulum
+  moving_mass_g:
+  plate_material:
+  plate_dimensions_mm:
+  port_count:
+  port_layout_photo:
+  firmware_hash:
+  battery_id:
+  dummy_device_id:
+measurement:
+  method: pendulum
+  pendulum_length_m:
+  laser_screen_distance_m:
+  balance_model:
+  load_cell_model:
+environment:
+  temperature_sensor_id:
+  pressure_sensor_id:
+  humidity_sensor_id:
+  draft_shield: true
+states:
+  settling_seconds:
+  stable_window_seconds:
+  sequence:
+    - OFF
+    - SHAM
+    - ACTIVE_PLUS
+    - ACTIVE_PLUS
+    - SHAM
+    - SHAM
+    - ACTIVE_MINUS
+    - ACTIVE_MINUS
+    - SHAM
+controls:
+  physical_flip: false
+  dummy_run: false
+  heater_only: false
+  discharge_protocol: false
+  no_external_cables: true
+analysis:
+  preregistered_formula: ABBA
+  exclusion_rules:
+    max_temperature_drift_c:
+    max_accel_artifact_g:
+    max_magnetometer_change_uT:
+  candidate_threshold:
+notes:

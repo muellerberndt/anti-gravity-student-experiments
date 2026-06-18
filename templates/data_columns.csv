@@ -1,0 +1,1 @@
+timestamp_s,run_id,device_id,state,state_index,sample_index,balance_mg,pendulum_x_mm,laser_spot_s_mm,load_cell_n,drive_frequency_hz,drive_vpp,drive_current_a,drive_power_w,phase_pattern,port_id,ringdown_amp,ringdown_phase_deg,q_estimate,temperature_c,accel_x_g,accel_y_g,accel_z_g,mag_x_ut,mag_y_ut,mag_z_ut,battery_v,pressure_hpa,humidity_pct,operator_note
