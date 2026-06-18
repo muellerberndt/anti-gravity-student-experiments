@@ -1,0 +1,127 @@
+{
+  "scorebook_id": "krit-antigravity-scorebook-v1",
+  "locked_before_force_data": true,
+  "geometry": {
+    "mode": "balance",
+    "force_axis": "lab_vertical",
+    "positive_force_convention": "positive_lift_means_lower_apparent_mass",
+    "zone_convention": {
+      "top_zone": ["T1", "T2"],
+      "bottom_zone": ["B1", "B2"],
+      "delta_s_coh": "S_bottom - S_top"
+    },
+    "required_physical_inversion": {
+      "axis": "horizontal",
+      "effect": "exchange_top_and_bottom_in_lab_frame"
+    }
+  },
+  "feature_extraction": {
+    "drive_window_ms": 50,
+    "dead_time_ms": 2,
+    "read_window_ms": 25,
+    "bandpass_hz": [100, 40000],
+    "features": [
+      "ringdown_rms",
+      "ringdown_phase_deg",
+      "q_estimate",
+      "cross_coupling_phase_deg",
+      "cross_coupling_rms"
+    ],
+    "normalization": "use_discovery_set_median_and_mad",
+    "missing_port_policy": "fail_branch",
+    "saturated_port_policy": "fail_branch",
+    "out_of_band_port_policy": "fail_branch"
+  },
+  "scalar_formula": {
+    "self_read_gate": {
+      "formula": "1 if all required ports pass quality gates else 0",
+      "minimum_required_ports_per_zone": 2
+    },
+    "record_stability_R_U": {
+      "formula": "median_within_state_feature_correlation",
+      "threshold": 0.80,
+      "range": [0.0, 1.0]
+    },
+    "predictive_boundary_coupling_P_U": {
+      "formula": "1 - normalized_prediction_error_against_block_shuffle",
+      "prediction_horizon_cycles": 3,
+      "threshold": 0.20,
+      "range": [0.0, 1.0]
+    },
+    "coherent_mismatch_reduction_C_U": {
+      "formula": "1 - live_mismatch_after_update / replay_mismatch_after_update",
+      "threshold": 0.20,
+      "range": [0.0, 1.0]
+    },
+    "zone_score": {
+      "formula": "self_read_gate * R_U * P_U * C_U",
+      "aggregation": "median_across_ports_in_zone"
+    },
+    "delta_s_coh": {
+      "formula": "S_bottom - S_top",
+      "active_plus_requirement": "delta_s_coh > plus_threshold",
+      "active_minus_requirement": "delta_s_coh < minus_threshold",
+      "plus_threshold": 0.05,
+      "minus_threshold": -0.05
+    }
+  },
+  "live_ablation": {
+    "states": ["LIVE", "REPLAY", "SHUFFLED_RECORD"],
+    "live_rule": "next_drive_packet_depends_on_latest_self_read_record",
+    "replay_rule": "use_identical_prerecorded_drive_packets_with_record_update_disabled",
+    "shuffled_record_rule": "preserve_power_timing_and_packet_order_but_feed_block_shuffled_records_to_controller",
+    "shuffle_method": {
+      "type": "balanced_block_shuffle",
+      "block_seconds": 30,
+      "random_seed_field": "manifest.analysis.randomization_seed"
+    },
+    "pass_rule": "LIVE mismatch reduction exceeds both REPLAY and SHUFFLED_RECORD by threshold_with_uncertainty"
+  },
+  "force_decision": {
+    "primary_estimator": "ABBA_active_minus_sham_mass_shift",
+    "minimum_blocks_per_state": 12,
+    "settling_interval_seconds": 20,
+    "stable_window_seconds": 60,
+    "allan_deviation_file": "analysis/allan_deviation.csv",
+    "candidate_threshold": {
+      "minimum_abs_force_n": null,
+      "minimum_sigma": 5.0,
+      "must_track_delta_s_coh": true,
+      "must_reverse_active_minus": true,
+      "must_reverse_horizontal_axis_inversion": true,
+      "must_reject_dummy": true,
+      "must_reject_sham": true,
+      "must_reject_replay": true,
+      "must_reject_shuffled_record": true
+    }
+  },
+  "exclusions": {
+    "max_temperature_drift_c": 0.5,
+    "max_battery_voltage_drift_v": 0.2,
+    "max_adc_saturation_fraction": 0.001,
+    "max_magnetometer_change_ut": 5.0,
+    "max_accel_artifact_g": 0.02,
+    "exclude_operator_contact": true,
+    "exclude_external_cables": true
+  },
+  "uncertainty": {
+    "method": "block_bootstrap_with_allan_check",
+    "bootstrap_blocks": 10000,
+    "report_confidence_interval": 0.95,
+    "search_correction": "confirmation_dataset_only_or_bonferroni_over_declared_scan_count"
+  },
+  "verifier": {
+    "command": "python analysis/verify_scorebook.py --manifest manifest.yaml --scorebook scorebook.json",
+    "verifier_hash": "",
+    "analysis_environment_lockfile": "analysis/requirements.lock"
+  },
+  "allowed_claim": {
+    "strongest_allowed_claim": "this hardware shows a candidate residual under the frozen scorebook",
+    "explicit_non_claims": [
+      "no proof of OPH",
+      "no proof of local gravity control",
+      "no human-carrying hover claim",
+      "no universal disproof from a null result"
+    ]
+  }
+}

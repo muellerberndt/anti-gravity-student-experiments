@@ -23,13 +23,15 @@ Start with the small plate. Move to the acoustic bench rig after the measurement
    Sham runs, dummy runs, sign reversal, physical flips, thermal controls, artifact rejection, and data columns.
 
 5. [Templates](templates/)
-   `run_manifest_template.yaml` and `data_columns.csv` give students a fixed logging format.
+   `run_manifest_template.yaml`, `scorebook_template.json`, and `data_columns.csv` give students a fixed logging format.
 
 Read the root `.md` files directly in GitHub. PDF files appear under `reference/` as source papers and background material.
 
 ## Basic Idea
 
-The experiments drive resonant plates or dishes in controlled phase patterns, read back their vibrational state, and compare active states against sham, dummy, sign-reversed, and physically flipped controls.
+The experiments drive resonant plates or dishes in controlled phase patterns, read back their vibrational state, and compare active states against sham, dummy, sign-reversed, replay, record-shuffled, and physically flipped controls.
+
+The direct OPH-style force test is vertical. It requires separately measured upper and lower zones, a frozen scalar for `S_bottom - S_top`, live record-conditioned feedback, and a physical inversion around a horizontal axis. Horizontal pendulum measurements remain useful for acoustic recoil, torque, and artifact mapping.
 
 Ordinary acoustic and vibration effects are expected. A positive new-force result is not expected from these student builds. The useful result is either a conventional force map with clean controls or an upper bound on any residual that tracks the self-read coherent state and reverses sign under the planned controls.
 
@@ -37,6 +39,7 @@ Ordinary acoustic and vibration effects are expected. A positive new-force resul
 
 - Conventional acoustic force is expected and useful. Piezo plates, pot lids, bowls, cymbals, and ultrasonic arrays can produce measurable radiation pressure, squeeze-film forces, vibration coupling, heat, and electrostatic artifacts.
 - The OPH `chi_nu` effect is a hypothesis under test. This package makes no positive force claim.
+- The package tests a downstream OPH `chi_nu` hypothesis. It does not prove OPH or local gravity manipulation.
 - Human-carrying acoustic hover is outside the student scope. The included antigravity survey marks human-scale free-air acoustic hover as excluded by acoustic intensity, wavelength, and safety limits. The cymbal build is a bench force platform and coherence-body test article.
 
 ## Background References

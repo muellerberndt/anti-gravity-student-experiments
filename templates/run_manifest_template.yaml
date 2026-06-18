@@ -1,5 +1,9 @@
 run_id: krit-antigravity-YYYYMMDD-001
 date_local: YYYY-MM-DD
+repository:
+  package_repo_url: https://github.com/muellerberndt/anti-gravity-student-experiments
+  package_commit_hash:
+  analysis_repo_commit_hash:
 lab:
   institution: Chiang Mai University
   room:
@@ -11,17 +15,35 @@ device:
   moving_mass_g:
   plate_material:
   plate_dimensions_mm:
+  body_geometry_hash:
+  body_geometry_file:
   port_count:
   port_layout_photo:
+  wiring_map_hash:
+  wiring_map_file:
   firmware_hash:
+  controller_id:
+  pcb_id:
   battery_id:
   dummy_device_id:
+  transducers:
+    - port_id:
+      serial:
+      face_or_zone:
+      location_mm:
+      capacitance_nf:
+      bonding_material:
+      bonding_date:
 geometry:
   mode: balance
   force_axis: lab_vertical
   zone_definition: top_bottom
   physical_flip_axis:
   reflector_plate: false
+  b0_geometry:
+    dish_and_reflector_independent: false
+  b0_net_geometry:
+    whole_article_on_common_platform: false
 measurement:
   method: balance
   pendulum_length_m:
@@ -30,6 +52,20 @@ measurement:
   load_cell_model:
   dish_load_cell_model:
   reflector_load_cell_model:
+  anti_alias_filter:
+  dynamic_force_sensor_model:
+  accelerometer_model:
+  adc_calibration_file:
+  adc_saturation_margin_pct:
+drive:
+  waveform_hash:
+  state_schedule_hash:
+  frequency_hz:
+  vrms_by_channel:
+  irms_by_channel:
+  real_power_w:
+  reactive_power_var:
+  harmonic_spectrum_file:
 environment:
   temperature_sensor_id:
   pressure_sensor_id:
@@ -48,17 +84,37 @@ states:
     - ACTIVE_MINUS
     - ACTIVE_MINUS
     - SHAM
+    - LIVE
+    - REPLAY
+    - SHUFFLED_RECORD
 controls:
   physical_flip: false
+  horizontal_axis_inversion: false
   dummy_run: false
   heater_only: false
+  live_replay_ablation: false
+  shuffled_record_ablation: false
+  pressure_sweep: false
+  enclosure_geometry_sweep: false
   discharge_protocol: false
   no_external_cables: true
 analysis:
   preregistered_formula: ABBA
+  scorebook_file: scorebook.json
+  scorebook_hash:
+  randomization_seed:
+  verifier_hash:
+  verifier_command:
+  analysis_environment_lockfile:
   exclusion_rules:
     max_temperature_drift_c:
     max_accel_artifact_g:
     max_magnetometer_change_uT:
   candidate_threshold:
+claims:
+  strongest_allowed_claim: conventional_force_map_or_upper_bound
+  explicit_non_claims:
+    - no proof of OPH
+    - no human-carrying hover claim
+    - no universal disproof from a null result
 notes:

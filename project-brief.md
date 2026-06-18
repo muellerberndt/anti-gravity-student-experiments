@@ -14,7 +14,7 @@ Piezoelectric transducers convert voltage into strain. If they are bonded or bol
 - thermal convection and buoyancy,
 - electrostatic and magnetic coupling.
 
-The OPH/chi_nu idea asks for a stricter object than a vibrating plate. The object must be a bounded, self-reading test article: it drives a mode, reads the response through the same or co-located ports, records the response onboard, predicts later boundary response better than shuffled controls, and creates a signed top/bottom coherence contrast. The proposed residual force is then tested against that internally measured contrast.
+The OPH/chi_nu idea asks for a stricter object than a vibrating plate. The object must be a bounded, self-reading test article: it drives a mode, reads the response through the same or co-located ports, records the response onboard, lets that record change later drive packets, predicts later boundary response better than shuffled controls, and creates a signed top/bottom coherence contrast. The proposed residual force is then tested against that internally measured contrast.
 
 No student build should assume the residual exists. A clean conventional force map plus an upper bound is the expected successful result.
 
@@ -47,7 +47,7 @@ The plate will show resonances, ringdown, cross-coupling, acoustic leakage, and 
 
 Claim condition:
 
-A candidate chi_nu residual requires sign reversal, physical flip reversal, dummy rejection, matched-power sham rejection, and no explanatory correlation with temperature, electrostatics, magnetics, vibration leakage, or handling.
+A candidate chi_nu residual requires a frozen scorebook, `LIVE` versus `REPLAY` separation, `SHUFFLED_RECORD` rejection, sign reversal, horizontal-axis physical inversion for top/bottom exchange, dummy rejection, matched-power sham rejection, and no explanatory correlation with temperature, electrostatics, magnetics, vibration leakage, or handling.
 
 ### Version 2: Acoustic Cymbal Bench Rig
 
@@ -58,6 +58,8 @@ Main deliverables:
 - one-dish calibration rig,
 - four-dish bench platform with no rider and no free-flight claim,
 - twelve phase-locked drive channels,
+- independent top and bottom self-read zones for any OPH-style force test,
+- conventional B0 acoustic force geometry and closed-system B0-net geometry,
 - force versus standoff, frequency, phase, and amplitude curves,
 - temperature and accelerometer logs,
 - safety enclosure and remote kill switch.
@@ -68,7 +70,16 @@ Near-field acoustic levitation can produce measurable force close to a smooth re
 
 Claim condition:
 
-The same residual criteria as Version 1 apply. The larger rig is valuable because it stores more coherent vibrational energy, and it creates larger ordinary artifacts.
+The same residual criteria as Version 1 apply. The larger rig is valuable because it stores more coherent vibrational energy and creates larger ordinary artifacts. Its OPH-style stage requires separate upper and lower self-read zones plus a whole-article weighing platform that includes dish, reflector, frame, electronics, battery, and enclosure.
+
+## Corrected Experiment Order
+
+1. Conventional characterization: modal maps, electrical transfer functions, acoustic maps, thermal maps, and force-sensor rectification tests.
+2. Valid OPH primitive: two physical vertical zones, reversible ports, live record-conditioned feedback, frozen scorebook, and a demonstrated signed `S_bottom - S_top`.
+3. Causal self-read ablation: `LIVE` feedback versus waveform-identical `REPLAY` and `SHUFFLED_RECORD` controls.
+4. Vertical force test: whole self-contained article on a balance, randomized blinded blocks, true top/bottom inversion, and no external cables.
+5. Artifact escalation: pressure sweep, enclosure-geometry sweep, electromagnetic and thermal perturbations, and a matched active mechanical twin.
+6. Independent replication: another balance type, another operator, another lab, and a second geometry with a preregistered area or scalar-scaling prediction.
 
 ## Other Useful Combinations
 
@@ -84,6 +95,7 @@ A good student project does not require a positive anomaly. It requires:
 - a working active test article,
 - reproducible resonance and coupling data,
 - a frozen run manifest,
+- a frozen machine-readable scorebook,
 - raw logs and analysis scripts,
 - clean conventional force curves,
 - a matched dummy,

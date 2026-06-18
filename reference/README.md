@@ -2,6 +2,8 @@
 
 These files support the two build guides in the repository root. Use the root build guides as the lab instructions. Use this folder for source context, design provenance, and deeper theory.
 
+For runs, use the templates in the repository root path `templates/`. The scorebook template is the required starting point for a locked force-analysis definition.
+
 ## Build-Source References
 
 - [hacking-the-simulation-anti-gravity-exploit.pdf](build-source/hacking-the-simulation-anti-gravity-exploit.pdf)
@@ -33,3 +35,11 @@ These papers are useful for faculty discussion and motivated students. They are 
 - [Public overview](https://omega.floatingpragma.io/antigravity)
 - [NotebookLM for questions](https://notebooklm.google.com/notebook/d5249760-6ce8-44a0-927b-ccf90402711a)
 - [TinyLev acoustic levitator paper](https://doi.org/10.1063/1.4989995)
+
+## Instrumentation And Safety References
+
+- [RP2040 datasheet](https://pip.raspberrypi.com/documents/RP-008371-DS-rp2040-datasheet.pdf)
+- [TI piezo sensor conditioning note](https://www.ti.com/lit/an/sloa033a/sloa033a.pdf)
+- [HX711 datasheet](https://cdn.sparkfun.com/datasheets/Sensors/ForceFlex/hx711_english.pdf)
+- [Controlled near-field acoustic levitation study](https://mediatum.ub.tum.de/doc/1740166/document.pdf)
+- [PZT material background](https://www.physikinstrumente.com/en/expertise/technology/piezo-technology/piezoelectric-materials)

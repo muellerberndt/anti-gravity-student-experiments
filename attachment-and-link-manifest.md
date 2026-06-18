@@ -16,7 +16,7 @@ This manifest maps the repository contents. The concrete experiment designs are 
 - [controls-and-data-protocol.md](controls-and-data-protocol.md)
   Shared control logic, artifact rejection, run naming, and data protocol.
 
-- [Run manifest template](templates/run_manifest_template.yaml) and [data columns template](templates/data_columns.csv)
+- [Run manifest template](templates/run_manifest_template.yaml), [scorebook template](templates/scorebook_template.json), and [data columns template](templates/data_columns.csv)
   Fixed logging templates for each run.
 
 Read the root `.md` files directly in GitHub. PDF files appear under `reference/` as source papers and background material.
@@ -51,6 +51,23 @@ Read the root `.md` files directly in GitHub. PDF files appear under `reference/
 - [NotebookLM for questions](https://notebooklm.google.com/notebook/d5249760-6ce8-44a0-927b-ccf90402711a)
 - [TinyLev acoustic levitator paper](https://doi.org/10.1063/1.4989995)
 
+## External Technical References
+
+- [RP2040 datasheet](https://pip.raspberrypi.com/documents/RP-008371-DS-rp2040-datasheet.pdf)
+  ADC input constraints and front-end design checks.
+
+- [TI piezo sensor conditioning note](https://www.ti.com/lit/an/sloa033a/sloa033a.pdf)
+  Voltage-mode and charge-amplifier piezo front-end examples.
+
+- [HX711 datasheet](https://cdn.sparkfun.com/datasheets/Sensors/ForceFlex/hx711_english.pdf)
+  Slow load-cell readout data rates and saturation behavior.
+
+- [Controlled near-field acoustic levitation study](https://mediatum.ub.tum.de/doc/1740166/document.pdf)
+  Example of fine-gap acoustic force metrology.
+
+- [PZT material background](https://www.physikinstrumente.com/en/expertise/technology/piezo-technology/piezoelectric-materials)
+  Safety context for lead zirconate titanate piezoceramics.
+
 ## First Reading Order
 
 Point students to these root files first:
@@ -62,5 +79,6 @@ build-01-piezo-plate-balance-and-pendulum.md
 build-02-acoustic-cymbal-bench-rig.md
 controls-and-data-protocol.md
 templates/run_manifest_template.yaml
+templates/scorebook_template.json
 templates/data_columns.csv
 ```

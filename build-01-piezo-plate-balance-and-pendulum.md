@@ -8,9 +8,9 @@ The device is a small plate with piezoelectric ports. It drives its own resonant
 
 Primary goal:
 
-Map ordinary vibration and acoustic forces, then test whether a sign-reversible coherent state produces any residual force after sham, dummy, phase-flip, and physical-flip controls.
+Map ordinary vibration and acoustic forces, then test whether a sign-reversible vertical coherent state produces any residual force after sham, dummy, replay, record-shuffled, phase-flip, and physical-flip controls.
 
-The analytical balance is the primary readout for a vertical support-force test, because the Hacking PDF defines the first PoC as a self-contained active object with a top/bottom coherence contrast on a balance. The pendulum is useful for horizontal force calibration, acoustic recoil, and artifact mapping. Do not treat a single-sided horizontal pendulum as the vertical support-force experiment.
+The analytical balance is the primary readout for a vertical support-force test, because the Hacking PDF defines the first PoC as a self-contained active object with a top/bottom coherence contrast on a balance. The pendulum is useful for horizontal force calibration, acoustic recoil, torque, and artifact mapping. Do not treat a single-sided horizontal pendulum as the vertical support-force experiment.
 
 ## Target Specification
 
@@ -24,7 +24,7 @@ The analytical balance is the primary readout for a vertical support-force test,
 | Drive range | Start 100 Hz to 40 kHz sweep |
 | Drive voltage | Start below 24 Vpp. Increase only after thermal checks |
 | Power | Onboard battery during force measurements |
-| Readout | Same-port ringdown preferred. Co-located pickup piezos acceptable |
+| Readout | Same-port ringdown preferred. Co-located pickup piezos acceptable if declared as logical self-read |
 | Sensors | Temperature, accelerometer, magnetometer, battery voltage, drive monitor |
 | Logger | MicroSD or onboard flash with timestamps |
 | Suspension | 1.5 to 2.0 m nonconductive line |
@@ -39,8 +39,9 @@ Minimum active plate:
 - Thin epoxy or cyanoacrylate for bonding piezos to the plate.
 - RP2040, RP2350, Teensy, or ESP32-class microcontroller.
 - 4 to 12 drive channels. Low-power first pass: MOSFET half-bridge or small H-bridge per port. Higher-power pass: class-D audio amplifier channels.
-- Analog switch or relay network to disconnect the driver during ringdown sensing.
-- ADC front end with input protection. Use a high-value divider, series resistance, and clamp diodes or TVS protection.
+- Voltage-rated bidirectional solid-state switch to disconnect the driver during ringdown sensing.
+- High-impedance voltage-mode or charge-amplifier piezo front end with mid-supply bias, input protection, discharge path, and defined bandpass.
+- Per-channel terminal voltage and current monitoring for calibration runs.
 - MicroSD module or onboard flash.
 - IMU/accelerometer, 3-axis magnetometer, and at least one temperature sensor.
 - LiPo or Li-ion battery, regulator, fuse, and physical kill switch.
@@ -73,13 +74,28 @@ Each piezo port should support two modes:
 - Drive window: the MCU commands a sine, square, or PWM waveform through a protected driver.
 - Read window: the driver disconnects, the piezo sits behind a high impedance, and the ADC records ringdown and cross-coupled response.
 
-Minimum safe same-port circuit:
+Minimum same-port circuit:
 
 - driver output through 47 to 220 ohm series resistance,
-- analog switch or relay disconnect before ADC read,
-- ADC input through 1 Mohm / 100 kohm divider or similar,
-- clamp diodes to ADC rails,
+- voltage-rated bidirectional solid-state disconnect before ADC read,
+- voltage-mode or charge-amplifier input with high impedance,
+- mid-supply ADC bias so bipolar piezo ringdown swings around `VCC / 2`,
+- input protection that does not rail-clip the signal during normal ringdown,
+- defined discharge path and bandpass,
 - firmware dead time between drive and read windows.
+
+Do not use mechanical relays during force runs. Relay motion, magnetic fields, and contact bounce create center-of-mass and EMI artifacts.
+
+Do not feed a bipolar piezo ringdown into a microcontroller ADC through only a divider and rail clamps. That clips the negative half-cycle and corrupts phase, Q, and cross-coupling. Keep the divider-plus-clamp approach for rough bench abuse tests only.
+
+Drive calibration:
+
+- measure terminal voltage and current at each port,
+- measure each piezo capacitance after bonding,
+- keep driver current below the capacitive estimate `I_rms ~= 2 * pi * f * C * V_rms`,
+- calibrate electrical phase at the transducer terminals, not only at the MCU pins,
+- use filtered sine drive or record the full voltage, current, acceleration, and acoustic spectra for confirmation,
+- make `SHAM` match RMS voltage, RMS current, real power, reactive power, harmonics, battery waveform, temperature, RF/logging activity, acoustic spectrum, and momentum direction as closely as the hardware allows.
 
 For a first student prototype, co-located transmit/receive pairs are acceptable if the geometry is fixed and documented. Label that as logical self-read. Strict same-port status belongs to reversible drive/sense ports.
 
@@ -93,6 +109,9 @@ Implement fixed, timestamped state blocks:
 | `SHAM` | Same average power as active, with incoherent or phase-scrambled drive. |
 | `ACTIVE_PLUS` | Coherent phase/amplitude pattern with the intended force-axis sign. |
 | `ACTIVE_MINUS` | Same power and frequency set, reversed phase gradient or zone assignment. |
+| `LIVE` | Next drive packet computed from the latest self-read record. |
+| `REPLAY` | Identical prerecorded drive packets with live record updating disabled. |
+| `SHUFFLED_RECORD` | Same power and timing while the controller receives block-shuffled or time-shifted records. |
 | `DUMMY` | Same schedule on the matched dummy. |
 
 A practical `ACTIVE_PLUS` pattern:
@@ -103,6 +122,18 @@ A practical `ACTIVE_PLUS` pattern:
 - compute ringdown amplitude, phase, Q estimate, and cross-coupling matrix.
 
 `ACTIVE_MINUS` reverses the phase gradient, handedness, or zone assignment. The power envelope must remain matched.
+
+For a direct vertical test, compute `S_top` and `S_bottom` independently from the frozen scorebook. `ACTIVE_PLUS` means bottom-over-top by the declared sign convention. `ACTIVE_MINUS` means top-over-bottom. A yaw rotation around the vertical suspension axis does not exchange top and bottom relative to gravity.
+
+Closed-loop repair sequence:
+
+1. drive all ports,
+2. read the complete port-response vector,
+3. calculate the declared mismatch score,
+4. adjust the next phase/amplitude vector to reduce that mismatch,
+5. save the accepted update and repeat until the frozen stopping rule is met.
+
+Force runs must include `LIVE`, waveform-identical `REPLAY`, and `SHUFFLED_RECORD` blocks.
 
 ## Pre-Force Checkout
 
@@ -116,6 +147,8 @@ Required checks:
 4. Prediction test: use records from cycle `t` to predict held-out readouts from later cycles. Compare against shuffled records.
 5. Sign test: show that `ACTIVE_PLUS` and `ACTIVE_MINUS` produce opposite signed feature contrast along the declared measurement axis.
 6. Dummy rejection: dummy logs should not produce the same signed self-read scalar.
+7. Scorebook lock: freeze `templates/scorebook_template.json` or a run-specific derived `scorebook.json` before looking at force data.
+8. Live ablation: prove `LIVE` reduces the declared mismatch relative to `REPLAY` and `SHUFFLED_RECORD`.
 
 ## Balance Measurement
 
@@ -135,7 +168,7 @@ Run sequence:
 1. Record `OFF` for drift.
 2. Run `SHAM`, `ACTIVE_PLUS`, `ACTIVE_PLUS`, `SHAM` in ABBA order.
 3. Run `SHAM`, `ACTIVE_MINUS`, `ACTIVE_MINUS`, `SHAM`.
-4. Physically flip or invert the plate so the same internal command faces the opposite lab-vertical direction, then repeat.
+4. Physically invert the complete test article 180 degrees about a horizontal axis so the physical top and bottom exchange places in the lab frame, then repeat.
 5. Run the matched dummy with the same schedule.
 6. Run heater-only or resistor-only controls at the same average power.
 
@@ -155,7 +188,8 @@ Setup:
 - Put the line on a rigid overhead point.
 - Enclose the rig to block air currents.
 - Let the system thermally settle before recording.
-- Track center-of-mass displacement with a camera, or track reflected laser spot displacement from a small mirror.
+- Use a bifilar suspension, a torsion balance, or camera tracking of at least two separated fiducials. A single laser mirror can turn yaw torque into apparent translation.
+- Track center-of-mass displacement with a camera, or track reflected laser spot displacement from a small mirror only after yaw has been calibrated.
 - Use this mode for horizontal force calibration, acoustic recoil, and artifact mapping. It is not a substitute for the balance support-force test unless the theory axis and lab axis are deliberately declared as horizontal.
 
 Direct camera formula:
@@ -185,6 +219,16 @@ Run sequence:
 
 Use stable windows after a preregistered settling interval. Keep the raw video or optical position log.
 
+Pendulum calibration:
+
+- apply known lateral forces at multiple heights,
+- apply known torques with zero net force,
+- reconstruct translation and yaw separately,
+- map acoustic field or momentum flux around the article,
+- repeat with enclosure changes,
+- use pressure dependence or reduced-pressure testing for any confirmatory pendulum result,
+- use a sealed whole-test-article configuration before interpreting pendulum motion as anomalous thrust.
+
 ## What Students Should Expect
 
 Expected ordinary signals:
@@ -206,8 +250,9 @@ Candidate residual threshold:
 
 - same sign as the pre-force self-read scalar,
 - reversed by `ACTIVE_MINUS`,
-- reversed by physical flip or rotation along the declared measurement axis,
+- reversed by horizontal-axis physical inversion for balance mode, or by the declared rotation test for pendulum mode,
 - absent or much smaller in dummy and sham,
+- absent or much smaller in `REPLAY` and `SHUFFLED_RECORD`,
 - not explained by temperature, battery voltage, vibration leakage, magnetometer changes, electrostatics, or operator timing.
 
 Expected result:
@@ -220,6 +265,10 @@ The expected student result is no residual after controls. A useful report gives
 - Fuse the battery.
 - Keep hands away during high-amplitude sweeps.
 - Wear eye protection. PZT ceramic can crack.
+- Never sand, drill, grind, or cut PZT. Commercial PZT contains lead zirconate titanate.
+- Discard cracked piezo discs in a sealed labeled container.
+- Wash hands after handling PZT. Keep food and drink away from the bench.
+- Clean ceramic fragments with wet methods or a suitable HEPA procedure. Do not use compressed air.
 - Do not use a power or USB cable during force measurements.
 - Let piezos cool. Stop if any port exceeds 60 C.
 - Treat a positive-looking result as an artifact until the dummy, flip, sham, and thermal controls are complete.

@@ -8,13 +8,15 @@ The rig uses cymbals, pot lids, stainless bowls, or similar thin metal dishes as
 
 Primary goal:
 
-Measure force versus frequency, phase, drive amplitude, and standoff distance, then test whether a sign-reversible coherent state produces any residual after conventional acoustic effects are subtracted.
+Measure force versus frequency, phase, drive amplitude, and standoff distance, then test whether a sign-reversible coherent state produces any residual in a closed weighed article.
 
 The included cymbal hoverboard source is useful for geometry and first-light drive ideas, but its human-carrying lift claim is not adopted here. The included antigravity survey corrects that claim and treats the pot-lid result as small bench-scale conventional acoustic force.
 
+The three-transducer dish layout is a useful acoustic radiator. By itself, it is not a vertical OPH scalar. Any OPH-style stage needs separately instrumented upper and lower zones, independent `S_top` and `S_bottom` estimates, and live record-conditioned feedback.
+
 ## Build Stages
 
-### Stage B0: Single-Dish Calibration Station
+### Stage B0: Conventional Single-Dish Calibration Station
 
 Build this before the four-dish platform.
 
@@ -25,15 +27,29 @@ Build this before the four-dish platform.
 | Layout | Ring at about 60 percent radius |
 | Drive | Phase-locked channels from one MCU |
 | Measurement | Driven dish on its own load cell or overhead force gauge, above an independent reflector |
-| Standoff | 0.05 to 5 mm for squeeze-film scans. 5 to 30 mm only for acoustic leakage and reflector-distance scans |
+| Standoff | 0.05 to 5 mm for broad scans. 0.02 to 0.2 mm for true squeeze-film studies only with fine-gap metrology |
 | Output | Force curves and resonance maps |
 
 Correct measurement geometry:
 
 - The driven dish is supported by an overhead force gauge, a dish-side load cell, or a frame independent of the reflector plate.
 - The reflector plate sits on its own support or on a separate load cell if the equal-and-opposite reaction is also being measured.
-- Do not put both dish and reflector plate on the same scale. Internal action and reaction forces will cancel in the reading.
+- Do not put both dish and reflector plate on the same scale for B0 conventional calibration. Internal action and reaction forces cancel in that reading.
 - Report dish-side force and reflector-side force separately. Their sum should be close to zero for ordinary acoustic interaction inside one closed bench fixture.
+
+### Stage B0-net: Closed-System Force Test
+
+Use this geometry after B0 characterizes the ordinary acoustic interaction.
+
+| Item | First build target |
+| --- | --- |
+| Weighed boundary | dish, reflector, frame, electronics, battery, enclosure, and internal wiring on one common weighing platform |
+| External contacts | only balance supports or load-cell supports |
+| Power | onboard battery during force blocks |
+| Readout | slow average balance or load-cell channel plus synchronized acceleration monitoring |
+| Purpose | test whether the complete bounded article has a net external force |
+
+Ordinary acoustic forces between dish and reflector should cancel inside the weighed boundary. A residual claim belongs in B0-net, not in the subtraction of two large B0 conventional forces.
 
 ### Stage B1: Four-Dish Bench Platform
 
@@ -49,7 +65,7 @@ Build this after B0 is stable.
 | Frame | Square frame, 600 to 800 mm side length for large dishes, smaller for bowls |
 | Tilt | 0 degrees for pure vertical force maps. Optional 10 to 15 degrees outward for steering studies |
 | Drive | 12 phase-locked channels |
-| Measurement | Overhead load cells, corner load cells, or separate reflector load cells |
+| Measurement | B0 conventional: overhead load cells, corner load cells, or separate reflector load cells. B0-net: all hardware on one common weighed platform |
 | Test surface | Smooth glass, polished aluminum, or polished concrete |
 
 Expected conventional force:
@@ -71,6 +87,7 @@ Single-dish calibration:
 - Pickup piezo or accelerometer on the dish.
 - Load cell plus HX711 or better ADC, or a lab scale with serial logging.
 - Adjustable standoff fixture with micrometer, screw jack, or spacer set. Include thin shims for 0.05 to 1 mm gaps.
+- Fine-gap stage, contact-zero method, and three-point or full-field gap measurement if claiming squeeze-film behavior below 0.2 mm.
 - Acrylic shield or other fragment guard.
 - Remote kill switch.
 - Hearing protection.
@@ -96,10 +113,12 @@ Four-dish platform:
 4. If drilling thin metal, use a center punch and step drill. Clamp the dish gently to avoid deformation.
 5. Use rubber gaskets for bolt holes where acoustic sealing matters.
 6. Route wires along the dish and frame. Strain-relieve every cable.
-7. Add a pickup piezo or accelerometer to each dish.
+7. Add a pickup piezo or accelerometer to each dish. Add vertically separated or face-separated sensors if the run claims `S_top` and `S_bottom`.
 8. Put a temperature sensor near at least one transducer per dish.
 9. Build the standoff fixture so the gap to the reflector plate can be set repeatably. The squeeze-film scan needs sub-millimeter control.
-10. Add a transparent shield before high-amplitude sweeps.
+10. Measure dish mode shape before permanent transducer placement. Keep the 60 percent radius placement removable until a nodal map confirms it is useful for the chosen mode.
+11. Add tilt and parallelism monitoring for the dish and reflector.
+12. Add a transparent shield before high-amplitude sweeps.
 
 ## Drive Architecture
 
@@ -119,9 +138,28 @@ Drive states:
 | `SHAM` | Same average power, incoherent or phase-scrambled drive. |
 | `ACTIVE_PLUS` | Coherent multichord drive with intended sign. |
 | `ACTIVE_MINUS` | Same power, reversed phase gradient or dish zoning. |
+| `LIVE` | Next drive packet computed from the latest self-read record. |
+| `REPLAY` | Identical prerecorded drive packets with live record updating disabled. |
+| `SHUFFLED_RECORD` | Same power and timing while the controller receives block-shuffled or time-shifted records. |
 | `DUMMY` | Matched non-coherent dish or mechanically damped dish. |
 
 Start with one frequency at a time. Add multichord drive only after the single-frequency force curves are understood.
+
+Drive calibration:
+
+- measure terminal voltage and current on every channel,
+- measure transducer capacitance after mounting,
+- keep driver current below `I_rms ~= 2 * pi * f * C * V_rms`,
+- calibrate channel phase at the transducer terminals,
+- use filtered sine drive or log complete voltage, current, acceleration, and acoustic spectra during confirmation,
+- make `SHAM` match RMS voltage, RMS current, real power, reactive power, harmonics, battery waveform, temperature, RF/logging activity, acoustic spectrum, and momentum direction as closely as the hardware allows.
+
+Force readout:
+
+- HX711-class ADCs are suitable only for slow average force channels.
+- Add an analog anti-alias filter before a slow force ADC.
+- Use a synchronized accelerometer or dynamic force sensor to measure kHz vibration and frame rectification.
+- Run inert vibration-source calibrations to learn how the load cell and frame turn vibration into DC offsets.
 
 ## Measurement Plan
 
@@ -129,12 +167,14 @@ Start with one frequency at a time. Add multichord drive only after the single-f
 
 For each dish:
 
-1. Set standoff distance: 0.05, 0.1, 0.2, 0.5, 1, 2, and 5 mm for the squeeze-film scan if the fixture can do this safely.
+1. Set standoff distance: 0.05, 0.1, 0.2, 0.5, 1, 2, and 5 mm for the broad near-field scan if the fixture can do this safely.
 2. Add 10, 20, and 30 mm only as a reflector-distance or acoustic-leakage scan.
-3. Sweep frequency around measured resonances.
-4. Sweep drive amplitude at fixed frequency.
-5. Record dish acceleration, transducer temperature, load-cell force, supply voltage, current, and acoustic level if available.
-6. Repeat on different surfaces: glass, aluminum, polished concrete, and a lossy surface such as foam or carpet.
+3. For true squeeze-film claims, add a fine-gap set such as 0.02, 0.05, 0.10, 0.15, and 0.20 mm with contact-zero, tilt, and parallelism logs.
+4. Classify each point as squeeze-film, near-field acoustic, or acoustic leakage using gap, frequency, radiator amplitude, and geometry.
+5. Sweep frequency around measured resonances.
+6. Sweep drive amplitude at fixed frequency.
+7. Record dish acceleration, transducer temperature, load-cell force, supply voltage, current, and acoustic level if available.
+8. Repeat on different surfaces: glass, aluminum, polished concrete, and a lossy surface such as foam or carpet.
 
 Expected conventional signatures:
 
@@ -155,6 +195,16 @@ After each dish has a force curve:
 5. Test differential drive only as a lateral-force measurement.
 6. Compare `ACTIVE_PLUS`, `ACTIVE_MINUS`, and `SHAM` at matched average power.
 
+### OPH-Style Vertical Scalar Test
+
+Use this only after the conventional maps are reproducible.
+
+1. Add two physical vertical zones to the article: upper and lower dish layers, face-separated sensors, or another geometry that gives independent upper and lower records.
+2. Freeze `scorebook.json` with formulas for `S_top`, `S_bottom`, pass thresholds, exclusions, shuffle method, and uncertainty propagation.
+3. Demonstrate a signed `S_bottom - S_top` that reverses between `ACTIVE_PLUS` and `ACTIVE_MINUS`.
+4. Run `LIVE`, waveform-identical `REPLAY`, and `SHUFFLED_RECORD` at matched power and timing.
+5. Move to B0-net only after the scalar and live ablation pass.
+
 ## Claim Boundary
 
 This rig can demonstrate conventional near-field acoustic force. That measurement is a valid student result.
@@ -164,9 +214,11 @@ A human-carrying hoverboard is outside scope. The source material itself contain
 Treat any residual force claim as provisional until:
 
 - the conventional force map is complete,
+- the frozen scorebook passes on self-read data,
+- `LIVE` separates from `REPLAY` and `SHUFFLED_RECORD`,
 - the residual survives standoff changes,
 - the residual reverses with `ACTIVE_MINUS`,
-- the residual reverses under physical flip or rotation,
+- the residual reverses under horizontal-axis physical inversion of the top/bottom article,
 - the matched dummy rejects it,
 - thermal, electrostatic, magnetic, acoustic, and vibration artifacts are rejected.
 
@@ -181,6 +233,9 @@ The expected student result is a resonance map, a conventional acoustic force or
 - Keep a hard kill switch within reach.
 - Use hearing protection. Harmonics can be loud even when the drive frequency seems harmless.
 - Shield the rig. Cymbals, bowls, and piezos can crack under overdrive.
+- Never sand, drill, grind, or cut PZT. Discard cracked piezo parts in a sealed labeled container.
+- Wash hands after handling PZT. Keep food and drink away from the bench.
+- Clean ceramic fragments with wet methods or a suitable HEPA procedure. Do not use compressed air.
 - Stop if any transducer reaches 60 C.
 - Use current-limited supplies.
 - Do not run high-amplitude tests near loose objects, dust, paper, or uncovered sensors.
