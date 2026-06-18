@@ -1,6 +1,11 @@
 run_id: synthetic-thermal-artifact
 date_local: 2026-06-18
 run_directory: runs/confirmation/locked_scorebook_hash___SCOREBOOK_SHA256__/synthetic-thermal-artifact
+theory:
+  selected_branch: oph_chi_nu_canonical_linear_v1
+  theory_branch_file: theory_branch.yaml
+  canonical_scalar_claim: false
+  allowed_quantitative_output: K_S_hat
 repository:
   package_repo_url: https://github.com/muellerberndt/anti-gravity-student-experiments
   package_commit_hash: synthetic-package-commit
@@ -35,6 +40,10 @@ measurement:
   adc_calibration_file: calibration/adc.csv
   adc_saturation_margin_pct: 12
   allan_deviation_file: analysis/allan_deviation.csv
+  systematic_floor_n: 0.000001
+  vibration_rectification_calibration_file: calibration/rectification.csv
+  blind_code_file: analysis/blind_code.csv
+  blind_code_opened_after_lock: false
 drive:
   waveform_hash: synthetic-waveform-hash
   state_schedule_hash: synthetic-schedule-hash
@@ -42,13 +51,19 @@ drive:
 states:
   sequence:
     - LIVE
-    - REPLAY
-    - SHUFFLED_RECORD
+    - OPEN_LOOP_REPLAY
+    - CAUSAL_SHUFFLE
+    - YOKED_SHUFFLE_REPLAY
 controls:
   horizontal_axis_inversion: true
   dummy_run: true
   live_replay_ablation: true
-  shuffled_record_ablation: true
+  open_loop_replay_ablation: true
+  causal_shuffle_ablation: true
+  yoked_shuffle_replay_ablation: true
+  inert_shaker_balance_rectification: true
+  two_mount_topologies: true
+  two_pan_positions: true
   no_external_cables: true
 analysis:
   phase: confirmation
@@ -57,6 +72,8 @@ analysis:
   verifier_hash: __VERIFIER_SHA256__
   verifier_command: python analysis/verify_scorebook.py --manifest manifest.yaml --scorebook scorebook.json --data raw/device_log.csv --confirmation
   analysis_environment_lockfile: analysis/requirements.lock
+  canonical_scalar_claim: false
+  minimum_abs_force_n: 0.000001
 claims:
   strongest_allowed_claim: candidate_residual_under_frozen_scorebook
   explicit_non_claims:

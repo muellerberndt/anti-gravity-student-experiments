@@ -7,6 +7,9 @@ This manifest maps the repository contents. The concrete experiment designs are 
 - [project-brief.md](project-brief.md)
   Short project framing, claim boundaries, and student deliverables.
 
+- [theory_branch.yaml](theory_branch.yaml)
+  Versioned source of truth for the conditional force branch used by the student package.
+
 - [build-01-piezo-plate-balance-and-pendulum.md](build-01-piezo-plate-balance-and-pendulum.md)
   Primary student build. Use this for the low-voltage plate, self-read schedule, balance support-force measurement, pendulum artifact mapping, dummy, sham, sign reversal, and physical flip controls.
 
@@ -16,7 +19,7 @@ This manifest maps the repository contents. The concrete experiment designs are 
 - [controls-and-data-protocol.md](controls-and-data-protocol.md)
   Shared control logic, artifact rejection, run naming, and data protocol.
 
-- [Run manifest template](templates/run_manifest_template.yaml), [scorebook template](templates/scorebook_template.json), and [data columns template](templates/data_columns.csv)
+- [Run manifest template](templates/run_manifest_template.yaml), [OPH proxy scorebook](templates/scorebook_template.json), [B0/NFAL scorebook](templates/scorebook_b0_nfal_template.json), [B0-net scorebook](templates/scorebook_b0_net_template.json), and [data columns template](templates/data_columns.csv)
   Fixed logging templates for each run.
 
 - [analysis/](analysis/)
@@ -78,6 +81,7 @@ Point students to these root files first:
 ```text
 README.md
 project-brief.md
+theory_branch.yaml
 build-01-piezo-plate-balance-and-pendulum.md
 build-02-acoustic-cymbal-bench-rig.md
 controls-and-data-protocol.md

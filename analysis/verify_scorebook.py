@@ -29,18 +29,26 @@ CONFIRMATION_FIELDS = [
     "device.body_geometry_hash",
     "drive.state_schedule_hash",
     "drive.waveform_hash",
+    "theory.selected_branch",
+    "theory.theory_branch_file",
     "analysis.randomization_seed",
     "geometry.physical_flip_axis",
     "controls.horizontal_axis_inversion",
     "controls.dummy_run",
     "controls.live_replay_ablation",
-    "controls.shuffled_record_ablation",
+    "controls.open_loop_replay_ablation",
+    "controls.causal_shuffle_ablation",
+    "controls.yoked_shuffle_replay_ablation",
     "controls.no_external_cables",
     "measurement.adc_calibration_file",
     "measurement.adc_saturation_margin_pct",
     "measurement.allan_deviation_file",
+    "measurement.systematic_floor_n",
+    "measurement.vibration_rectification_calibration_file",
+    "measurement.blind_code_file",
     "analysis.analysis_environment_lockfile",
     "analysis.verifier_hash",
+    "analysis.minimum_abs_force_n",
 ]
 
 
@@ -118,7 +126,12 @@ def check_confirmation_fields(manifest: dict[str, Any]) -> list[str]:
         "controls.horizontal_axis_inversion",
         "controls.dummy_run",
         "controls.live_replay_ablation",
-        "controls.shuffled_record_ablation",
+        "controls.open_loop_replay_ablation",
+        "controls.causal_shuffle_ablation",
+        "controls.yoked_shuffle_replay_ablation",
+        "controls.inert_shaker_balance_rectification",
+        "controls.two_mount_topologies",
+        "controls.two_pan_positions",
         "controls.no_external_cables",
     ]:
         if get_path(manifest, dotted) is not True:
@@ -126,6 +139,10 @@ def check_confirmation_fields(manifest: dict[str, Any]) -> list[str]:
     if get_path(manifest, "geometry.oph_vertical_scalar_claim") is True:
         if get_path(manifest, "geometry.zone_definition") != "top_bottom":
             errors.append("OPH vertical scalar claim requires geometry.zone_definition: top_bottom")
+    if get_path(manifest, "measurement.blind_code_opened_after_lock") is not False:
+        errors.append("blind code must remain closed until after analysis lock")
+    if get_path(manifest, "analysis.canonical_scalar_claim") is not False:
+        errors.append("analysis.canonical_scalar_claim must be false without a proxy-to-canonical bridge")
     return errors
 
 
@@ -164,6 +181,34 @@ def check_vertical_scalar_instrumentation(manifest: dict[str, Any]) -> list[str]
     return errors
 
 
+def check_theory_branch(manifest: dict[str, Any], scorebook: dict[str, Any]) -> list[str]:
+    errors = []
+    manifest_branch = get_path(manifest, "theory.selected_branch")
+    scorebook_branch = scorebook.get("theory_branch")
+    if manifest_branch != "oph_chi_nu_canonical_linear_v1":
+        errors.append("selected theory branch must be oph_chi_nu_canonical_linear_v1")
+    if scorebook_branch != manifest_branch:
+        errors.append("scorebook theory_branch does not match manifest theory.selected_branch")
+    if scorebook.get("canonical_scalar_claim") is not False:
+        errors.append("scorebook must mark canonical_scalar_claim as false unless a bridge is supplied")
+    bridge_status = get_path(scorebook, "proxy_scalar.canonical_bridge_status")
+    if bridge_status != "absent":
+        errors.append("non-absent canonical bridge requires a separate bridge verifier")
+    return errors
+
+
+def check_scorebook_force_threshold(scorebook: dict[str, Any]) -> list[str]:
+    value = get_path(scorebook, "force_decision.candidate_threshold.minimum_abs_force_n")
+    if value is None:
+        return ["scorebook minimum_abs_force_n must be set from the measured systematic floor"]
+    try:
+        if float(value) <= 0:
+            return ["scorebook minimum_abs_force_n must be positive"]
+    except (TypeError, ValueError):
+        return ["scorebook minimum_abs_force_n must be numeric"]
+    return []
+
+
 def load_rows(path: Path) -> list[dict[str, str]]:
     with path.open(newline="") as handle:
         return list(csv.DictReader(handle))
@@ -190,34 +235,46 @@ def median_float(rows: list[dict[str, str]], column: str) -> float | None:
 def check_packet_identity(rows: list[dict[str, str]]) -> list[str]:
     errors = []
     live_by_block: dict[str, dict[str, str]] = {}
+    causal_shuffle_by_block: dict[str, dict[str, str]] = {}
     for row in rows:
         if row.get("state") == "LIVE":
             block_id = row.get("block_id", "")
             if block_id and block_id not in live_by_block:
                 live_by_block[block_id] = row
+        if row.get("state") == "CAUSAL_SHUFFLE":
+            block_id = row.get("block_id", "")
+            if block_id and block_id not in causal_shuffle_by_block:
+                causal_shuffle_by_block[block_id] = row
 
     for row in rows:
         state = row.get("state")
-        if state not in {"REPLAY", "SHUFFLED_RECORD"}:
+        if state not in {"OPEN_LOOP_REPLAY", "YOKED_SHUFFLE_REPLAY", "CAUSAL_SHUFFLE"}:
+            continue
+        if state == "CAUSAL_SHUFFLE":
+            if not row.get("shuffle_seed"):
+                errors.append("CAUSAL_SHUFFLE row missing shuffle_seed")
+            if not row.get("feedback_input_hash"):
+                errors.append("CAUSAL_SHUFFLE row missing feedback_input_hash")
             continue
         source = row.get("replay_source_run_id", "")
         if not source:
             errors.append(f"{state} row missing replay_source_run_id")
             continue
-        source_row = live_by_block.get(source)
+        source_map = live_by_block if state == "OPEN_LOOP_REPLAY" else causal_shuffle_by_block
+        source_label = "LIVE" if state == "OPEN_LOOP_REPLAY" else "CAUSAL_SHUFFLE"
+        source_row = source_map.get(source)
         if source_row is None:
-            errors.append(f"{state} row references missing LIVE block: {source}")
+            errors.append(f"{state} row references missing {source_label} block: {source}")
             continue
         for column in [
             "drive_packet_hash",
             "drive_vector_json_sha256",
             "terminal_voltage_trace_hash",
             "terminal_current_trace_hash",
+            "timing_hash",
         ]:
             if row.get(column) != source_row.get(column):
                 errors.append(f"{state} packet is not waveform-identical for {column}")
-        if state == "SHUFFLED_RECORD" and not row.get("shuffle_seed"):
-            errors.append("SHUFFLED_RECORD row missing shuffle_seed")
     return errors
 
 
@@ -228,9 +285,18 @@ def check_environment(rows: list[dict[str, str]], scorebook: dict[str, Any]) -> 
         return []
     drift = max(clean_temps) - min(clean_temps)
     max_drift = get_path(scorebook, "exclusions.max_temperature_drift_c", 0.5)
+    errors = []
     if drift > float(max_drift):
-        return [f"temperature drift exceeds scorebook limit: {drift:.3f} C"]
-    return []
+        errors.append(f"temperature drift exceeds scorebook limit: {drift:.3f} C")
+    clipping_limit = float(get_path(scorebook, "exclusions.max_sensor_clipping_rate", 0.001))
+    clipping = [
+        compute_self_read_scalar.safe_float(row.get("sensor_clipping_rate"))
+        for row in rows
+    ]
+    clean_clipping = [value for value in clipping if value is not None]
+    if clean_clipping and max(clean_clipping) > clipping_limit:
+        errors.append("sensor clipping rate exceeds scorebook limit")
+    return errors
 
 
 def check_run_directory(args: argparse.Namespace, manifest: dict[str, Any], confirmation: bool) -> list[str]:
@@ -251,12 +317,16 @@ def verify(args: argparse.Namespace) -> tuple[bool, list[str], dict[str, Any] | 
     manifest = load_yaml(args.manifest)
     scorebook = load_json(args.scorebook)
 
-    errors.extend(schema_validate("manifest.schema.json", manifest))
+    errors.extend(schema_validate("run_manifest.schema.json", manifest))
     errors.extend(schema_validate("scorebook.schema.json", scorebook))
+    errors.extend(check_theory_branch(manifest, scorebook))
+    errors.extend(check_scorebook_force_threshold(scorebook))
 
     confirmation = confirmation_requested(args, manifest)
     if confirmation:
         errors.extend(check_confirmation_fields(manifest))
+        if args.data is None:
+            errors.append("confirmation verification requires --data raw packet log")
     errors.extend(check_hashes(manifest, args.scorebook, Path(__file__).resolve()))
     errors.extend(check_vertical_scalar_instrumentation(manifest))
     errors.extend(check_run_directory(args, manifest, confirmation))

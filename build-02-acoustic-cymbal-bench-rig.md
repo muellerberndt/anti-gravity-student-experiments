@@ -12,7 +12,7 @@ Measure force versus frequency, phase, drive amplitude, and standoff distance, t
 
 The included cymbal hoverboard source is useful for geometry and first-light drive ideas, but its human-carrying lift claim is not adopted here. The included antigravity survey corrects that claim and treats the pot-lid result as small bench-scale conventional acoustic force.
 
-The three-transducer dish layout is a useful acoustic radiator. By itself, it is not a vertical OPH scalar. Any OPH-style stage needs separately instrumented upper and lower zones, independent `S_top` and `S_bottom` estimates, and live record-conditioned feedback.
+The three-transducer dish layout is a useful acoustic radiator. By itself, it is not a vertical OPH proxy scalar. Any OPH-style stage needs separately instrumented upper and lower zones, independent `S_hat_top` and `S_hat_bottom` estimates, and live record-conditioned feedback.
 
 ## Build Stages
 
@@ -117,12 +117,15 @@ Four-dish platform:
 4. If drilling thin metal, use a center punch and step drill. Clamp the dish gently to avoid deformation.
 5. Use rubber gaskets for bolt holes where acoustic sealing matters.
 6. Route wires along the dish and frame. Strain-relieve every cable.
-7. Add a pickup piezo or accelerometer to each dish. Add vertically separated or face-separated sensors if the run claims `S_top` and `S_bottom`.
+7. Add a pickup piezo or accelerometer to each dish. Add vertically separated or face-separated sensors if the run claims `S_hat_top` and `S_hat_bottom`.
 8. Put a temperature sensor near at least one transducer per dish.
 9. Build the standoff fixture so the gap to the reflector plate can be set repeatably. The squeeze-film scan needs sub-millimeter control.
 10. Measure dish mode shape before permanent transducer placement. Keep the 60 percent radius placement removable until a nodal map confirms it is useful for the chosen mode.
 11. Add tilt and parallelism monitoring for the dish and reflector.
 12. Add a transparent shield before high-amplitude sweeps.
+13. Log bolt torque, preload, adhesive batch, adhesive mass, cure time, adhesive thickness, piezo capacitance before testing, and piezo capacitance after testing.
+14. Record pre-test and post-test modal frequencies, Q estimates, and permanent center displacement.
+15. Invalidate the run series after cymbal deformation, modal jump, solder failure, or transducer temperature above the declared limit.
 
 ## Drive Architecture
 
@@ -154,8 +157,9 @@ Drive states:
 | `ACTIVE_PLUS` | Coherent multichord drive with intended sign. |
 | `ACTIVE_MINUS` | Same power, reversed phase gradient or dish zoning. |
 | `LIVE` | Next drive packet computed from the latest self-read record. |
-| `REPLAY` | Identical prerecorded drive packets with live record updating disabled. |
-| `SHUFFLED_RECORD` | Same power and timing while the controller receives block-shuffled or time-shifted records. |
+| `OPEN_LOOP_REPLAY` | Exact packet sequence from a named `LIVE` run, with current records measured and ignored. |
+| `CAUSAL_SHUFFLE` | Block-shuffled or time-shifted records feed the controller, so the generated packet sequence may change. |
+| `YOKED_SHUFFLE_REPLAY` | Exact packet sequence from a named `CAUSAL_SHUFFLE` run, replayed open-loop. |
 | `DUMMY` | Matched non-coherent dish or mechanically damped dish. |
 
 Start with one frequency at a time. Add multichord drive only after the single-frequency force curves are understood.
@@ -184,12 +188,15 @@ For each dish:
 
 1. Set standoff distance: 0.05, 0.1, 0.2, 0.5, 1, 2, and 5 mm for the broad near-field scan if the fixture can do this safely.
 2. Add 10, 20, and 30 mm only as a reflector-distance or acoustic-leakage scan.
-3. For true squeeze-film claims, add a fine-gap set such as 0.02, 0.05, 0.10, 0.15, and 0.20 mm with contact-zero, tilt, and parallelism logs.
+3. For true squeeze-film claims, add a fine-gap set such as 0.02, 0.05, 0.10, 0.15, and 0.20 mm with contact-zero, tilt, parallelism logs, and direct displacement measurement.
 4. Classify each point as squeeze-film, near-field acoustic, or acoustic leakage using gap, frequency, radiator amplitude, and geometry.
 5. Sweep frequency around measured resonances.
 6. Sweep drive amplitude at fixed frequency.
 7. Record dish acceleration, transducer temperature, load-cell force, supply voltage, current, and acoustic level if available.
 8. Repeat on different surfaces: glass, aluminum, polished concrete, and a lossy surface such as foam or carpet.
+9. For quantitative squeeze-film claims, record LDV, scanning vibrometry, or a calibrated displacement-sensor trace, three-point gap measurement, pre/post modal fingerprint, cool-down period, gap uncertainty, tilt uncertainty, displacement uncertainty, force-versus-pressure scaling, and force-versus-gap scaling.
+10. Use shorter force windows and declared cool-down periods when fine-gap heating moves resonance or load-cell zero during a block. Do not use a universal 60-second stable window for high-power fine-gap work.
+11. Invalidate later runs after a modal jump, plastic deformation, solder failure, or permanent center displacement.
 
 Expected conventional signatures:
 
@@ -215,11 +222,12 @@ After each dish has a force curve:
 Use this only after the conventional maps are reproducible.
 
 1. Add two physical vertical zones to the article: upper and lower dish layers, face-separated sensors, or another geometry that gives independent upper and lower records.
-2. Freeze `scorebook.json` with formulas for `S_top`, `S_bottom`, pass thresholds, exclusions, shuffle method, and uncertainty propagation.
-3. Demonstrate a signed `S_bottom - S_top` that reverses between `ACTIVE_PLUS` and `ACTIVE_MINUS`.
-4. Run `LIVE`, waveform-identical `REPLAY`, and `SHUFFLED_RECORD` at matched power and timing.
+2. Freeze `scorebook.json` with formulas for `S_hat_top`, `S_hat_bottom`, proxy pass thresholds, exclusions, surrogate method, and uncertainty propagation.
+3. Demonstrate a signed `S_hat_bottom - S_hat_top` that reverses between `ACTIVE_PLUS` and `ACTIVE_MINUS`.
+4. Run `LIVE`, `OPEN_LOOP_REPLAY`, `CAUSAL_SHUFFLE`, and `YOKED_SHUFFLE_REPLAY` at matched power and timing where the replay states point to named source runs.
 5. Move to B0-net only after the scalar and live ablation pass.
 6. Do not use B0 subtraction as an anomaly estimate. The candidate force test is the whole B0-net article on one weighed platform.
+7. Use separate scorebooks for conventional B0/NFAL mapping, B0-net residual testing, and optional OPH self-read force testing.
 
 ## Claim Boundary
 
@@ -231,7 +239,7 @@ Treat any residual force claim as provisional until:
 
 - the conventional force map is complete,
 - the frozen scorebook passes on self-read data,
-- `LIVE` separates from `REPLAY` and `SHUFFLED_RECORD`,
+- `LIVE` separates from `OPEN_LOOP_REPLAY` and `YOKED_SHUFFLE_REPLAY`,
 - the residual survives standoff changes,
 - the residual reverses with `ACTIVE_MINUS`,
 - the residual reverses under horizontal-axis physical inversion of the top/bottom article,

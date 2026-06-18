@@ -5,10 +5,13 @@
   "required": [
     "scorebook_id",
     "locked_before_force_data",
+    "theory_branch",
+    "canonical_scalar_claim",
+    "proxy_scalar",
     "geometry",
     "feature_extraction",
     "scalar_formula",
-    "live_ablation",
+    "causal_controls",
     "force_decision",
     "exclusions",
     "uncertainty",
@@ -30,13 +33,18 @@
         "predictive_boundary_coupling_P_U",
         "coherent_mismatch_reduction_C_U",
         "zone_score",
-        "delta_s_coh",
+        "delta_S_hat",
         "output_table"
       ]
     },
-    "live_ablation": {
+    "canonical_scalar_claim": { "const": false },
+    "proxy_scalar": {
       "type": "object",
-      "required": ["states", "live_rule", "replay_rule", "shuffled_record_rule", "shuffle_method", "pass_rule"]
+      "required": ["symbol", "delta_symbol", "canonical_bridge_status", "classification_margin_only", "non_claim"]
+    },
+    "causal_controls": {
+      "type": "object",
+      "required": ["states", "live_rule", "open_loop_replay_rule", "causal_shuffle_rule", "yoked_shuffle_replay_rule", "surrogate_method", "pass_rule"]
     },
     "verifier": {
       "type": "object",

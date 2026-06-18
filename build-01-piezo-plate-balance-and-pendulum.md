@@ -117,8 +117,9 @@ Implement fixed, timestamped state blocks:
 | `ACTIVE_PLUS` | Coherent phase/amplitude pattern with the intended force-axis sign. |
 | `ACTIVE_MINUS` | Same power and frequency set, reversed phase gradient or zone assignment. |
 | `LIVE` | Next drive packet computed from the latest self-read record. |
-| `REPLAY` | Identical prerecorded drive packets with live record updating disabled. |
-| `SHUFFLED_RECORD` | Same power and timing while the controller receives block-shuffled or time-shifted records. |
+| `OPEN_LOOP_REPLAY` | Exact packet sequence from a named `LIVE` run, with current records measured and ignored. |
+| `CAUSAL_SHUFFLE` | Block-shuffled or time-shifted records feed the controller, so the generated packet sequence may change. |
+| `YOKED_SHUFFLE_REPLAY` | Exact packet sequence from a named `CAUSAL_SHUFFLE` run, replayed open-loop. |
 | `DUMMY` | Same schedule on the matched dummy. |
 
 A practical `ACTIVE_PLUS` pattern:
@@ -130,7 +131,7 @@ A practical `ACTIVE_PLUS` pattern:
 
 `ACTIVE_MINUS` reverses the phase gradient, handedness, or zone assignment. The power envelope must remain matched.
 
-For a direct vertical test, compute `S_top` and `S_bottom` independently from the frozen scorebook. `ACTIVE_PLUS` means bottom-over-top by the declared sign convention. `ACTIVE_MINUS` means top-over-bottom. A yaw rotation around the vertical suspension axis does not exchange top and bottom relative to gravity.
+For a direct vertical test, compute `S_hat_top` and `S_hat_bottom` independently from the frozen scorebook. `ACTIVE_PLUS` means bottom-over-top by the declared proxy sign convention. `ACTIVE_MINUS` means top-over-bottom. A yaw rotation around the vertical suspension axis does not exchange top and bottom relative to gravity.
 
 Closed-loop repair sequence:
 
@@ -140,7 +141,7 @@ Closed-loop repair sequence:
 4. adjust the next phase/amplitude vector to reduce that mismatch,
 5. save the accepted update and repeat until the frozen stopping rule is met.
 
-Force runs must include `LIVE`, waveform-identical `REPLAY`, and `SHUFFLED_RECORD` blocks.
+Force runs must include `LIVE`, `OPEN_LOOP_REPLAY`, `CAUSAL_SHUFFLE`, and `YOKED_SHUFFLE_REPLAY` blocks. `OPEN_LOOP_REPLAY` keeps the physical waveform fixed from a prior live run. `CAUSAL_SHUFFLE` tests the temporal record relation. `YOKED_SHUFFLE_REPLAY` separates the shuffled waveform from live processing.
 
 ## Pre-Force Checkout
 
@@ -151,15 +152,17 @@ Required checks:
 1. Frequency sweep: identify stable plate modes from 100 Hz to 40 kHz.
 2. Coupling matrix: drive each port, read all ports, and save amplitude, phase, and ringdown features.
 3. Repeatability: repeat each state at least 20 times.
-4. Prediction test: use records from cycle `t` to predict held-out readouts from later cycles. Compare against shuffled records.
+4. Prediction test: use records from cycle `t` to predict held-out readouts from later cycles. Compare against surrogate records that preserve autocorrelation while breaking causal alignment.
 5. Sign test: show that `ACTIVE_PLUS` and `ACTIVE_MINUS` produce opposite signed feature contrast along the declared measurement axis.
 6. Dummy rejection: dummy logs should not produce the same signed self-read scalar.
 7. Scorebook lock: freeze `templates/scorebook_template.json` or a run-specific derived `scorebook.json` before looking at force data.
-8. Live ablation: prove `LIVE` reduces the declared mismatch relative to `REPLAY` and `SHUFFLED_RECORD`.
+8. Live ablation: prove `LIVE` reduces the declared mismatch relative to `OPEN_LOOP_REPLAY` and `YOKED_SHUFFLE_REPLAY`, with `CAUSAL_SHUFFLE` showing the temporal-record dependence.
 9. Zone independence: show `top_drive -> top_read` is stronger than `top_drive -> bottom_read` by the declared margin, or supply the coupled-mode model that explains both.
 10. Reverse zone independence: show `bottom_drive -> bottom_read` is stronger than `bottom_drive -> top_read` by the declared margin, or supply the coupled-mode model that explains both.
 11. Support-loading test: prove the balance pan, pad, or cradle does not erase or invert the pre-balance scalar.
 12. Port identity under inversion: prove horizontal-axis inversion exchanges lab top/bottom while preserving internal port identity.
+13. Zone separability receipt: report `C_TT`, `C_TB`, `C_BT`, `C_BB`, cross-zone leakage, channel-swap sign stability, piezo-polarity sign stability, and mirrored-article sign stability if available.
+14. Balance rectification calibration: drive an inert dummy with the same measured acceleration spectrum and measure any DC balance offset across frequency, amplitude, modulation, duty cycle, and pan position.
 
 ## Balance Measurement
 
@@ -175,6 +178,10 @@ Setup:
 - Let the active plate, dummy, and balance thermally settle before recording.
 - Use a soft pad, three-point fixture, or symmetric cradle if the balance pan mechanically loads the bottom zone.
 - Save pre-balance and on-balance self-read scalar files. A support-loaded scalar is not a confirmation scalar unless the loading is modeled and preregistered.
+- Use a kinematic cradle or gimbal that rotates the article without changing pan contact points.
+- Record physical orientation as `q = +1` or `q = -1`.
+- Repeat at two mounting topologies and two pan positions before treating a residual as a candidate.
+- Run a post-flip coupling matrix and modal check after every inversion.
 
 Run sequence:
 
@@ -188,7 +195,7 @@ Run sequence:
 Balance force:
 
 ```text
-F_lift = -g * delta_m_apparent
+F_lift = -g0 * delta_m_apparent
 ```
 
 where `delta_m_apparent` is the active-state apparent mass shift in kg relative to the matched sham windows. A lighter balance reading gives positive apparent lift by this convention.
@@ -208,7 +215,7 @@ Setup:
 Direct camera formula:
 
 ```text
-F_horizontal = m * g * x / L
+F_horizontal = m * g0 * x / L
 ```
 
 where `m` is moving test-article mass, `L` is pendulum length, and `x` is center-of-mass displacement.
@@ -216,7 +223,7 @@ where `m` is moving test-article mass, `L` is pendulum length, and `x` is center
 Laser mirror formula:
 
 ```text
-F_horizontal = m * g * s / (2 * D)
+F_horizontal = m * g0 * s / (2 * D)
 ```
 
 where `s` is reflected spot displacement on a screen and `D` is mirror-to-screen distance. This assumes small angles.
@@ -266,7 +273,7 @@ Candidate residual threshold:
 - reversed by horizontal-axis physical inversion for balance mode, or by the declared rotation test for pendulum mode,
 - absent or much smaller in dummy and sham,
 - absent or much smaller in the mechanical active twin,
-- absent or much smaller in `REPLAY` and `SHUFFLED_RECORD`,
+- absent or much smaller in `OPEN_LOOP_REPLAY` and `YOKED_SHUFFLE_REPLAY`,
 - not explained by temperature, battery voltage, vibration leakage, magnetometer changes, electrostatics, or operator timing.
 
 Expected result:

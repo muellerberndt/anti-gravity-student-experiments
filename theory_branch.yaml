@@ -1,0 +1,34 @@
+theory_branch: oph_chi_nu_canonical_linear_v1
+status: conditional_continuation
+load_bearing_for_student_package: true
+force_law:
+  equation: F = g0^2/(4*pi*G) * A_perp * chi_can * delta_S_can
+  variables:
+    g0: terrestrial gravitational acceleration
+    G: Newton gravitational constant
+    A_perp: projected horizontal area of the bounded article
+    chi_can: canonical coherent-matter susceptibility on the selected continuation branch
+    delta_S_can: signed canonical bottom-minus-top scalar
+operational_proxy:
+  symbol: delta_S_hat
+  definition: bottom-minus-top proxy score computed from self-read records
+  canonical_status: not canonical
+  bridge_to_canonical:
+    status: absent
+    form_if_supplied_later: delta_S_can = kappa_S * delta_S_hat
+    required_before_chi_can_claim:
+      - kappa_S provenance
+      - kappa_S uncertainty
+      - independent validation data
+allowed_quantitative_output_without_bridge:
+  coefficient: K_S_hat = F_residual / (q * delta_S_hat)
+  meaning: empirical force per operational proxy scalar
+  non_claim: this is not chi_can
+non_load_bearing_sources:
+  - id: hover_disk_energy_gradient_v0
+    reason: energy-gradient continuation with different variables and dimensions
+  - id: ufo_vertex_sharing_v0
+    reason: vertex-sharing notation changes the meaning of g and chi_nu
+symbol_rule:
+  gravitational_acceleration: g0
+  vertex_sharing_strength: g

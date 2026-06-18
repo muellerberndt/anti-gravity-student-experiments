@@ -1,6 +1,12 @@
 run_id: krit-antigravity-YYYYMMDD-001
 date_local: YYYY-MM-DD
 run_directory: runs/exploration/krit-antigravity-YYYYMMDD-001
+theory:
+  selected_branch: oph_chi_nu_canonical_linear_v1
+  theory_branch_file: theory_branch.yaml
+  canonical_scalar_claim: false
+  proxy_to_canonical_bridge_file:
+  allowed_quantitative_output: K_S_hat
 repository:
   package_repo_url: https://github.com/muellerberndt/anti-gravity-student-experiments
   package_commit_hash:
@@ -26,6 +32,7 @@ device:
   controller_id:
   pcb_id:
   battery_id:
+  battery_orientation:
   dummy_device_id:
   electrical_dummy_device_id:
   mechanical_active_twin_device_id:
@@ -35,8 +42,15 @@ device:
       face_or_zone:
       location_mm:
       capacitance_nf:
+      capacitance_after_test_nf:
       bonding_material:
+      adhesive_batch:
+      adhesive_mass_mg:
+      adhesive_cure_time_h:
+      adhesive_thickness_um:
       bonding_date:
+      bolt_torque_n_cm:
+      preload_n:
 geometry:
   mode: balance
   force_axis: lab_vertical
@@ -58,7 +72,15 @@ geometry:
   zone_independence:
     top_drive_top_read_margin:
     bottom_drive_bottom_read_margin:
+    c_tt_fro_norm:
+    c_tb_fro_norm:
+    c_bt_fro_norm:
+    c_bb_fro_norm:
+    cross_zone_leakage:
     coupled_mode_model_file:
+    channel_swap_sign_stability: false
+    piezo_polarity_reversal_sign_stability: false
+    mirrored_article_sign_stability: false
     support_on_balance_preserves_scalar: false
     horizontal_inversion_preserves_internal_port_identity: false
   support_loading:
@@ -67,6 +89,17 @@ geometry:
     fixture_type:
     pre_balance_scalar_file:
     on_balance_scalar_file:
+  inversion:
+    physical_orientation_q:
+    cradle_or_gimbal_id:
+    no_touch_inversion_fixture: false
+    fixed_center_of_mass_reference: false
+    post_flip_coupling_matrix_file:
+  mounting:
+    topology_id:
+    topology_count_for_confirmation:
+    pan_position_id:
+    pan_position_count_for_confirmation:
 measurement:
   method: balance
   pendulum_length_m:
@@ -81,6 +114,15 @@ measurement:
   adc_calibration_file:
   adc_saturation_margin_pct:
   allan_deviation_file:
+  force_calibration_id:
+  systematic_floor_n:
+  balance_uncertainty_mg:
+  vibration_rectification_calibration_file:
+  inert_shaker_spectrum_hash:
+  reduced_pressure_run: false
+  second_force_instrument:
+  blind_code_file:
+  blind_code_opened_after_lock: false
 drive:
   waveform_hash:
   state_schedule_hash:
@@ -88,6 +130,9 @@ drive:
   drive_vector_directory:
   terminal_voltage_trace_directory:
   terminal_current_trace_directory:
+  timing_hash:
+  proposed_packet_hash_log:
+  accepted_packet_hash_log:
   frequency_hz:
   vrms_by_channel:
   irms_by_channel:
@@ -99,6 +144,11 @@ environment:
   pressure_sensor_id:
   humidity_sensor_id:
   draft_shield: true
+  enclosure_geometry_id:
+  acoustic_momentum_flux_file:
+  acoustic_leakage_below_residual_limit: false
+  external_microphone_file:
+  external_accelerometer_file:
 states:
   settling_seconds:
   stable_window_seconds:
@@ -113,8 +163,9 @@ states:
     - ACTIVE_MINUS
     - SHAM
     - LIVE
-    - REPLAY
-    - SHUFFLED_RECORD
+    - OPEN_LOOP_REPLAY
+    - CAUSAL_SHUFFLE
+    - YOKED_SHUFFLE_REPLAY
 controls:
   physical_flip: false
   horizontal_axis_inversion: false
@@ -123,9 +174,16 @@ controls:
   mechanical_active_twin_run: false
   heater_only: false
   live_replay_ablation: false
-  shuffled_record_ablation: false
+  open_loop_replay_ablation: false
+  causal_shuffle_ablation: false
+  yoked_shuffle_replay_ablation: false
   pressure_sweep: false
   enclosure_geometry_sweep: false
+  two_mount_topologies: false
+  two_pan_positions: false
+  reversed_battery_orientation: false
+  dtemp_dt_perturbation: false
+  inert_shaker_balance_rectification: false
   discharge_protocol: false
   no_external_cables: true
 analysis:
@@ -137,6 +195,11 @@ analysis:
   verifier_hash:
   verifier_command:
   analysis_environment_lockfile:
+  proxy_scalar_name: delta_S_hat
+  canonical_scalar_claim: false
+  factorial_model: orientation_proxy_live_v1
+  minimum_abs_force_n:
+  selected_exclusions_file:
   exclusion_rules:
     max_temperature_drift_c:
     max_accel_artifact_g:

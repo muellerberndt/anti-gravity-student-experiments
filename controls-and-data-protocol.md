@@ -8,7 +8,7 @@ A force reading is not interpretable until the test article has produced a self-
 2. prove the active device has repeatable drive/read behavior,
 3. freeze a machine-readable scorebook,
 4. prove `ACTIVE_PLUS` and `ACTIVE_MINUS` produce opposite signed internal contrast,
-5. prove `LIVE` separates from waveform-identical `REPLAY` and `SHUFFLED_RECORD`,
+5. prove `LIVE` separates from `OPEN_LOOP_REPLAY` and `YOKED_SHUFFLE_REPLAY`, with `CAUSAL_SHUFFLE` testing the temporal record relation,
 6. run the executable verifier on the manifest, scorebook, and packet log,
 7. measure force with the device running from onboard power,
 8. reject ordinary artifacts with sham, dummy, active twin, flip, thermal, electrostatic, magnetic, pressure, enclosure, and vibration controls.
@@ -30,8 +30,9 @@ Geometry declaration:
 | `ACTIVE_PLUS` | Coherent state with predicted positive sign along the declared force axis. |
 | `ACTIVE_MINUS` | Same power and timing, reversed sign along the declared force axis. |
 | `LIVE` | Next drive packet computed from the latest self-read record. |
-| `REPLAY` | Identical prerecorded drive packets with live record updating disabled. |
-| `SHUFFLED_RECORD` | Same power and timing while the controller receives block-shuffled or time-shifted records. |
+| `OPEN_LOOP_REPLAY` | Exact packet sequence from a named `LIVE` run, with current records measured and ignored. |
+| `CAUSAL_SHUFFLE` | Block-shuffled or time-shifted records feed the controller, so the generated packet sequence may change. |
+| `YOKED_SHUFFLE_REPLAY` | Exact packet sequence from a named `CAUSAL_SHUFFLE` run, replayed open-loop. |
 | `FLIP` | Same physical device rotated or inverted so the internal command faces the opposite lab direction. |
 | `DUMMY` | Matched artifact witness without a valid coherent self-read branch. |
 | `HEATER_ONLY` | Same thermal envelope without resonant drive. |
@@ -50,10 +51,10 @@ Before any force claim, save:
 - coupling matrix,
 - ringdown or phase features,
 - repeatability plot,
-- shuffled-record prediction control,
+- surrogate-record prediction control,
 - top/bottom or A/B signed contrast,
 - dummy comparison,
-- `LIVE`, `REPLAY`, and `SHUFFLED_RECORD` comparison.
+- `LIVE`, `OPEN_LOOP_REPLAY`, `CAUSAL_SHUFFLE`, and `YOKED_SHUFFLE_REPLAY` comparison.
 
 Packet-level evidence:
 
@@ -68,15 +69,16 @@ Packet-level evidence:
 - `live_update_accepted`,
 - `replay_source_run_id`,
 - `shuffle_seed`.
+- `timing_hash`.
 
-`REPLAY` and `SHUFFLED_RECORD` must match the referenced `LIVE` packet at the electrical terminals. Same script is not enough.
+`OPEN_LOOP_REPLAY` must match the referenced `LIVE` packet at the electrical terminals. `YOKED_SHUFFLE_REPLAY` must match the referenced `CAUSAL_SHUFFLE` packet. Same script is not enough.
 
 Minimum pass:
 
 - coupling matrix repeats within preregistered tolerance,
-- held-out readouts are predicted better than shuffled records,
+- held-out readouts are predicted better than surrogate records that preserve autocorrelation while breaking causal alignment,
 - signed contrast reverses between `ACTIVE_PLUS` and `ACTIVE_MINUS`,
-- `LIVE` reduces the declared mismatch more than `REPLAY` and `SHUFFLED_RECORD`,
+- `LIVE` reduces the declared mismatch more than `OPEN_LOOP_REPLAY` and `YOKED_SHUFFLE_REPLAY`,
 - dummy lacks the same signed contrast.
 
 ## Scorebook Lock
@@ -87,14 +89,16 @@ The scorebook must define:
 
 - formulas for record stability, predictive boundary coupling, and coherent mismatch reduction,
 - normalization ranges and pass thresholds,
-- how ports combine into `S_top` and `S_bottom`,
-- sign convention for `S_bottom - S_top`,
+- how ports combine into `S_hat_top` and `S_hat_bottom`,
+- sign convention for `S_hat_bottom - S_hat_top`,
 - handling of missing, saturated, or out-of-band ports,
 - stopping rule for a settled state,
 - prediction horizon,
-- shuffle or block-shuffle method,
+- surrogate generation method,
 - uncertainty propagation,
 - executable verifier and hash.
+
+The scorebook scalar is operational. It is `delta_S_hat`, not the canonical `delta_S_can` in the force law. `delta_S_hat` can classify a state and support an empirical coefficient `K_S_hat = F_residual / (q * delta_S_hat)`. It does not measure or bound canonical `chi_can` unless a public bridge `delta_S_can = kappa_S * delta_S_hat` is supplied.
 
 Discovery data may tune the scorebook. Confirmation data must use the frozen version.
 
@@ -119,7 +123,7 @@ Exploration:
 Confirmation:
 
 - lock operating point, scalar definition, run length, exclusions, and decision threshold,
-- randomize balanced blocks of `ACTIVE_PLUS`, `ACTIVE_MINUS`, `SHAM`, `LIVE`, `REPLAY`, and `SHUFFLED_RECORD`,
+- randomize balanced blocks of `ACTIVE_PLUS`, `ACTIVE_MINUS`, `SHAM`, `LIVE`, `OPEN_LOOP_REPLAY`, `CAUSAL_SHUFFLE`, and `YOKED_SHUFFLE_REPLAY`,
 - blind force-analysis labels when practical,
 - use measured Allan deviation to set run length and sensitivity,
 - correct for any search over frequency, gap, phase, surface, or geometry,
@@ -154,13 +158,13 @@ Use for the piezo-crystal plate when the declared force axis is horizontal.
 Direct camera force:
 
 ```text
-F = m * g * x / L
+F = m * g0 * x / L
 ```
 
 Laser mirror force:
 
 ```text
-F = m * g * s / (2 * D)
+F = m * g0 * s / (2 * D)
 ```
 
 where `x` is bob displacement, `s` is laser spot displacement, and `D` is mirror-to-screen distance.
@@ -196,18 +200,34 @@ SHAM_1, ACTIVE_MINUS_1, ACTIVE_MINUS_2, SHAM_2
 
 6. Discard the preregistered settling interval from every state.
 7. Save raw balance CSV, not only screenshots.
-8. Include randomized `LIVE`, `REPLAY`, and `SHUFFLED_RECORD` blocks during confirmation.
+8. Include randomized `LIVE`, `OPEN_LOOP_REPLAY`, `CAUSAL_SHUFFLE`, and `YOKED_SHUFFLE_REPLAY` blocks during confirmation.
 9. For the direct vertical OPH-style test, invert the complete article 180 degrees about a horizontal axis so top and bottom exchange places in the lab frame.
 10. Run both an electrical dummy and a mechanical active twin for confirmation.
+11. Run inert-shaker balance rectification calibration with the same measured acceleration spectrum, amplitude, frequency, modulation, duty cycle, and pan positions.
+12. Use a no-touch kinematic cradle or gimbal for inversion when feasible.
+13. Repeat candidate settings across two mounting topologies and two pan positions.
 
 ABBA estimator:
 
 ```text
 delta_m_X = mean(X_1, X_2) - mean(SHAM_1, SHAM_2)
-F_lift = -g * delta_m_X
+F_lift = -g0 * delta_m_X
 ```
 
 Use kg for `delta_m_X` when converting to newtons.
+
+Primary confirmation statistic:
+
+```text
+F_t = beta0
+    + K_live * L_t * q_t * delta_S_hat_t
+    + K_replay * (1 - L_t) * q_t * delta_S_hat_t
+    + gamma^T X_t
+    + block_effect
+    + epsilon_t
+```
+
+The preregistered contrast is `K_live - K_replay`. `X_t` includes temperature, `dT/dt`, terminal power, vibration, acoustic level, magnetic field, electrostatic potential if measured, battery state, and time drift. A candidate needs the correct sign, a nonzero `LIVE` interaction, no comparable replay interaction, no comparable dummy interaction, and size above the measured systematic floor.
 
 ## Acoustic Force Protocol
 
@@ -227,6 +247,7 @@ Use for the cymbal or dish rigs.
 12. For B0-net anomaly testing, put dish, reflector, frame, electronics, battery, enclosure, and internal wiring on one common weighed platform.
 13. Record slow average force with anti-alias filtering and synchronized high-bandwidth vibration diagnostics.
 14. Add external microphones or accelerometers and compare open versus closed enclosure when sound, airflow, or vibration can leave the weighed boundary.
+15. Treat B0 as a force-closure budget across dish, reflector, frame, contained air, and supports. Do not reduce it to a two-number subtraction.
 
 Conventional acoustic force should change with standoff, surface, resonance, and drive amplitude. A residual that ignores those variables needs extra scrutiny, then flip and dummy tests.
 
@@ -243,7 +264,7 @@ Conventional acoustic force should change with standoff, surface, resonance, and
 | Acoustic leakage | sound pushes air or nearby surfaces | enclosure, microphone/accelerometer log, standoff map |
 | Vibration | mechanical coupling into supports | anti-vibration table, accelerometer log, dummy |
 | Force-sensor rectification | kHz vibration aliases into a DC load-cell output | anti-alias filter, high-bandwidth accelerometer, inert vibration-source calibration |
-| Feedback waveform artifact | `LIVE` differs electrically from `REPLAY` | packet hashes, terminal voltage/current trace hashes, replay source links |
+| Feedback waveform artifact | `LIVE` differs electrically from `OPEN_LOOP_REPLAY` | packet hashes, terminal voltage/current trace hashes, replay source links |
 | RF/EMI | drive electronics affect sensors | shielding, dummy electronics, spectrum check if available |
 | Center of mass | moving parts or wires shift load | solid-state switching, no relays, pan-position test |
 | Human handling | order and expectation bias | preregistered schedule, blind labels where possible |
@@ -257,7 +278,7 @@ Development signal:
 Candidate residual:
 
 - signal tracks the measured self-read scalar,
-- `LIVE` separates from `REPLAY` and `SHUFFLED_RECORD`,
+- `LIVE` separates from `OPEN_LOOP_REPLAY` and `YOKED_SHUFFLE_REPLAY`,
 - `ACTIVE_MINUS` reverses sign,
 - horizontal-axis physical inversion reverses the direct vertical test in lab coordinates,
 - dummy, active twin, and sham reject the signal,

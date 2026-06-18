@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compute the frozen OPH-style self-read scalar table from packet logs."""
+"""Compute the frozen operational self-read proxy table from packet logs."""
 
 from __future__ import annotations
 
@@ -15,6 +15,8 @@ from typing import Any
 
 
 ACTIVE_ROWS = {"ACTIVE_PLUS", "ACTIVE_MINUS", "LIVE"}
+OPEN_LOOP_REPLAY_STATES = {"OPEN_LOOP_REPLAY"}
+SURROGATE_STATES = {"CAUSAL_SHUFFLE"}
 
 
 def safe_float(value: Any) -> float | None:
@@ -147,30 +149,32 @@ def record_stability(rows: list[dict[str, str]], epsilon: float) -> tuple[float,
 
 def prediction_coupling(rows: list[dict[str, str]], config: dict[str, Any]) -> tuple[float, list[str]]:
     epsilon = float(config.get("epsilon", 1e-9))
-    min_shuffle_error = float(config.get("minimum_shuffle_error", 0.0))
+    min_surrogate_error = float(config.get("minimum_surrogate_error", config.get("minimum_shuffle_error", 0.0)))
     min_improvement = float(config.get("minimum_absolute_improvement", 0.0))
 
     live_rows = [row for row in rows if (row.get("state") or "").strip() == "LIVE"]
     live_error = median([safe_float(row.get("prediction_error")) for row in live_rows])
-    shuffle_error = median([safe_float(row.get("shuffled_prediction_error")) for row in live_rows])
-    if shuffle_error is None:
-        shuffled_rows = [row for row in rows if (row.get("state") or "").strip() == "SHUFFLED_RECORD"]
-        shuffle_error = median([safe_float(row.get("prediction_error")) for row in shuffled_rows])
+    surrogate_error = median([safe_float(row.get("surrogate_prediction_error")) for row in live_rows])
+    if surrogate_error is None:
+        surrogate_error = median([safe_float(row.get("shuffled_prediction_error")) for row in live_rows])
+    if surrogate_error is None:
+        surrogate_rows = [row for row in rows if (row.get("state") or "").strip() in SURROGATE_STATES]
+        surrogate_error = median([safe_float(row.get("prediction_error")) for row in surrogate_rows])
 
     reasons = []
     if live_error is None:
         reasons.append("missing LIVE prediction_error")
-    if shuffle_error is None:
-        reasons.append("missing shuffled baseline error")
+    if surrogate_error is None:
+        reasons.append("missing surrogate baseline error")
     if reasons:
         return 0.0, reasons
-    if shuffle_error < min_shuffle_error:
-        return 0.0, ["shuffled baseline already excellent"]
+    if surrogate_error < min_surrogate_error:
+        return 0.0, ["surrogate baseline already excellent"]
 
-    improvement = shuffle_error - live_error
+    improvement = surrogate_error - live_error
     if improvement < min_improvement:
         return 0.0, ["prediction improvement below absolute minimum"]
-    return clip(improvement / max(shuffle_error, epsilon)), []
+    return clip(improvement / max(surrogate_error, epsilon)), []
 
 
 def mismatch_reduction(rows: list[dict[str, str]], config: dict[str, Any]) -> tuple[float, list[str]]:
@@ -179,10 +183,11 @@ def mismatch_reduction(rows: list[dict[str, str]], config: dict[str, Any]) -> tu
     min_live_improvement = float(config.get("minimum_live_absolute_improvement", 0.0))
 
     live_rows = [row for row in rows if (row.get("state") or "").strip() == "LIVE"]
-    replay_rows = [row for row in rows if (row.get("state") or "").strip() == "REPLAY"]
+    replay_rows = [row for row in rows if (row.get("state") or "").strip() in OPEN_LOOP_REPLAY_STATES]
 
     live_before = median([safe_float(row.get("mismatch_before")) for row in live_rows])
     live_after = median([safe_float(row.get("mismatch_after")) for row in live_rows])
+    replay_before = median([safe_float(row.get("mismatch_before")) for row in replay_rows])
     replay_after = median([safe_float(row.get("mismatch_after")) for row in replay_rows])
 
     reasons = []
@@ -190,19 +195,22 @@ def mismatch_reduction(rows: list[dict[str, str]], config: dict[str, Any]) -> tu
         reasons.append("missing LIVE mismatch_before")
     if live_after is None:
         reasons.append("missing LIVE mismatch_after")
+    if replay_before is None:
+        reasons.append("missing OPEN_LOOP_REPLAY mismatch_before")
     if replay_after is None:
-        reasons.append("missing REPLAY mismatch_after")
+        reasons.append("missing OPEN_LOOP_REPLAY mismatch_after")
     if reasons:
         return 0.0, reasons
-    if replay_after <= epsilon:
-        return 0.0, ["REPLAY mismatch denominator below epsilon"]
-    if live_before - live_after < min_live_improvement:
+    live_improvement = live_before - live_after
+    replay_improvement = replay_before - replay_after
+    if live_improvement < min_live_improvement:
         return 0.0, ["LIVE before-after improvement below absolute minimum"]
 
-    improvement = replay_after - live_after
+    improvement = live_improvement - replay_improvement
     if improvement < min_improvement:
-        return 0.0, ["LIVE versus REPLAY improvement below absolute minimum"]
-    return clip(improvement / max(replay_after, epsilon)), []
+        return 0.0, ["LIVE versus OPEN_LOOP_REPLAY improvement below absolute minimum"]
+    denominator = abs(live_improvement) + abs(replay_improvement) + epsilon
+    return clip(improvement / denominator), []
 
 
 def zone_result(zone: str, rows: list[dict[str, str]], scorebook: dict[str, Any]) -> dict[str, Any]:
@@ -242,9 +250,9 @@ def zone_result(zone: str, rows: list[dict[str, str]], scorebook: dict[str, Any]
 
     s_zone = float(self_read_gate) * r_u * p_u * c_u
     uncertainty_values = [
-        safe_float(row.get("delta_s_coh"))
+        safe_float(row.get("delta_S_hat"))
         for row in valid
-        if safe_float(row.get("delta_s_coh")) is not None
+        if safe_float(row.get("delta_S_hat")) is not None
     ]
     uncertainty = 0.0
     if len(uncertainty_values) > 1:
@@ -256,7 +264,7 @@ def zone_result(zone: str, rows: list[dict[str, str]], scorebook: dict[str, Any]
         "R_U": round(r_u, 6),
         "P_U": round(p_u, 6),
         "C_U": round(c_u, 6),
-        "S_zone": round(s_zone, 6),
+        "S_hat_zone": round(s_zone, 6),
         "uncertainty": round(uncertainty, 6),
         "pass": not reasons,
         "fail_reason": "; ".join(reasons),
@@ -273,24 +281,24 @@ def compute_table(rows: list[dict[str, str]], scorebook: dict[str, Any]) -> dict
 
     top = zone_result("top", by_zone["top"], scorebook)
     bottom = zone_result("bottom", by_zone["bottom"], scorebook)
-    delta = bottom["S_zone"] - top["S_zone"]
+    delta = bottom["S_hat_zone"] - top["S_hat_zone"]
 
-    delta_config = get_nested(scorebook, ["scalar_formula", "delta_s_coh"], {})
-    plus_threshold = float(delta_config.get("plus_threshold", 0.0))
-    minus_threshold = float(delta_config.get("minus_threshold", 0.0))
+    delta_config = get_nested(scorebook, ["scalar_formula", "delta_S_hat"], {})
+    plus_threshold = float(delta_config.get("plus_proxy_threshold", delta_config.get("plus_threshold", 0.0)))
+    minus_threshold = float(delta_config.get("minus_proxy_threshold", delta_config.get("minus_threshold", 0.0)))
     delta_pass = (delta > plus_threshold) or (delta < minus_threshold)
     delta_row = {
-        "zone": "delta_s_coh",
+        "zone": "delta_S_hat",
         "self_read_gate": min(top["self_read_gate"], bottom["self_read_gate"]),
         "R_U": None,
         "P_U": None,
         "C_U": None,
-        "S_zone": round(delta, 6),
+        "S_hat_zone": round(delta, 6),
         "uncertainty": round(math.sqrt(top["uncertainty"] ** 2 + bottom["uncertainty"] ** 2), 6),
         "pass": delta_pass and top["pass"] and bottom["pass"],
-        "fail_reason": "" if delta_pass else "delta_s_coh below signed threshold",
+        "fail_reason": "" if delta_pass else "delta_S_hat below signed classification threshold",
     }
-    return {"table": [top, bottom, delta_row], "delta_s_coh": round(delta, 6)}
+    return {"table": [top, bottom, delta_row], "delta_S_hat": round(delta, 6)}
 
 
 def main(argv: list[str] | None = None) -> int:

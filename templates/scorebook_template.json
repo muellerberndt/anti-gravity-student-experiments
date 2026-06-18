@@ -1,6 +1,17 @@
 {
-  "scorebook_id": "krit-antigravity-scorebook-v1",
+  "scorebook_id": "krit-antigravity-scorebook-v2",
   "locked_before_force_data": true,
+  "theory_branch_file": "theory_branch.yaml",
+  "theory_branch": "oph_chi_nu_canonical_linear_v1",
+  "canonical_scalar_claim": false,
+  "proxy_scalar": {
+    "symbol": "S_hat",
+    "delta_symbol": "delta_S_hat",
+    "definition": "operational self-read proxy score from bounded record-conditioned drive/read data",
+    "canonical_bridge_status": "absent",
+    "classification_margin_only": true,
+    "non_claim": "delta_S_hat is not delta_S_can and must not be inserted into the canonical force law"
+  },
   "geometry": {
     "mode": "balance",
     "force_axis": "lab_vertical",
@@ -8,7 +19,7 @@
     "zone_convention": {
       "top_zone": ["T1", "T2"],
       "bottom_zone": ["B1", "B2"],
-      "delta_s_coh": "S_bottom - S_top"
+      "delta_S_hat": "S_hat_bottom - S_hat_top"
     },
     "required_physical_inversion": {
       "axis": "horizontal",
@@ -45,35 +56,46 @@
       "epsilon": 1e-9
     },
     "predictive_boundary_coupling_P_U": {
-      "formula": "clip((shuffle_error - live_error) / max(shuffle_error, epsilon), 0, 1)",
-      "definition": "live_error is the median prediction_error for LIVE rows in the zone. shuffle_error is the median shuffled_prediction_error for the same rows, or the median prediction_error for SHUFFLED_RECORD rows if shuffled_prediction_error is absent.",
+      "formula": "clip((surrogate_error - live_error) / max(surrogate_error, epsilon), 0, 1)",
+      "definition": "live_error is the median prediction_error for LIVE rows in the zone. surrogate_error is the median surrogate_prediction_error for the same rows, or the median prediction_error for CAUSAL_SHUFFLE rows if surrogate_prediction_error is absent.",
+      "prediction_model": "locked_linear_autoregressive_port_feature_model_v1",
       "prediction_horizon_cycles": 3,
+      "surrogate_algorithm": "block_phase_randomized_surrogate_preserving_autocorrelation_v1",
       "threshold": 0.20,
       "range": [0.0, 1.0],
       "epsilon": 1e-9,
-      "minimum_shuffle_error": 0.001,
+      "minimum_surrogate_error": 0.001,
       "minimum_absolute_improvement": 0.001,
-      "fail_if_shuffle_baseline_is_already_excellent": true
+      "fail_if_surrogate_baseline_is_already_excellent": true
     },
     "coherent_mismatch_reduction_C_U": {
-      "formula": "clip((replay_mismatch_after - live_mismatch_after) / max(replay_mismatch_after, epsilon), 0, 1)",
-      "definition": "live_mismatch_after and replay_mismatch_after are medians over matched LIVE and REPLAY packets in the zone. The LIVE before-after improvement must also exceed minimum_live_absolute_improvement.",
+      "formula": "((Phi_before - Phi_after)_live - (Phi_before - Phi_after)_open_loop_replay) / (abs(DeltaPhi_live) + abs(DeltaPhi_open_loop_replay) + epsilon)",
+      "definition": "DeltaPhi is mismatch_before - mismatch_after. This tests whether live record-conditioned update lowers mismatch more than waveform-yoked open-loop replay.",
       "threshold": 0.20,
       "range": [0.0, 1.0],
       "epsilon": 1e-9,
-      "minimum_absolute_improvement": 0.001,
-      "minimum_live_absolute_improvement": 0.001
+      "minimum_live_absolute_improvement": 0.001,
+      "minimum_live_minus_replay_improvement": 0.001
     },
     "zone_score": {
+      "symbol": "S_hat_zone",
       "formula": "self_read_gate * R_U * P_U * C_U",
       "aggregation": "compute gates per zone, with port-level stability and zone-level prediction and mismatch terms"
     },
-    "delta_s_coh": {
-      "formula": "S_bottom - S_top",
-      "active_plus_requirement": "delta_s_coh > plus_threshold",
-      "active_minus_requirement": "delta_s_coh < minus_threshold",
-      "plus_threshold": 0.05,
-      "minus_threshold": -0.05
+    "delta_S_hat": {
+      "formula": "S_hat_bottom - S_hat_top",
+      "classification_only": true,
+      "active_plus_requirement": "delta_S_hat > plus_proxy_threshold",
+      "active_minus_requirement": "delta_S_hat < minus_proxy_threshold",
+      "plus_proxy_threshold": 0.05,
+      "minus_proxy_threshold": -0.05
+    },
+    "zone_separability": {
+      "leakage_formula": "(fro_norm_C_TB + fro_norm_C_BT) / max(fro_norm_C_TT + fro_norm_C_BB, epsilon)",
+      "max_cross_zone_leakage": 0.35,
+      "minimum_within_zone_repeatability": 0.80,
+      "requires_channel_swap_sign_stability": true,
+      "requires_piezo_polarity_reversal_sign_stability": true
     },
     "output_table": {
       "required_columns": [
@@ -82,43 +104,49 @@
         "R_U",
         "P_U",
         "C_U",
-        "S_zone",
+        "S_hat_zone",
         "uncertainty",
         "pass",
         "fail_reason"
       ],
-      "delta_row": "delta_s_coh"
+      "delta_row": "delta_S_hat"
     }
   },
-  "live_ablation": {
-    "states": ["LIVE", "REPLAY", "SHUFFLED_RECORD"],
-    "live_rule": "next_drive_packet_depends_on_latest_self_read_record",
-    "replay_rule": "use_identical_prerecorded_drive_packets_with_record_update_disabled",
-    "shuffled_record_rule": "preserve_power_timing_and_packet_order_but_feed_block_shuffled_records_to_controller",
-    "shuffle_method": {
-      "type": "balanced_block_shuffle",
+  "causal_controls": {
+    "states": ["LIVE", "OPEN_LOOP_REPLAY", "CAUSAL_SHUFFLE", "YOKED_SHUFFLE_REPLAY"],
+    "live_rule": "next_drive_packet_depends_on_latest self-read record",
+    "open_loop_replay_rule": "replay exact packet sequence, timestamps, amplitudes, phases, and measured terminal waveforms from a named LIVE run while ignoring current records",
+    "causal_shuffle_rule": "feed block-shuffled or time-shifted records into the live controller and permit a different packet sequence",
+    "yoked_shuffle_replay_rule": "replay the exact packet sequence generated during a named CAUSAL_SHUFFLE run",
+    "surrogate_method": {
+      "type": "block_phase_randomized_surrogate",
       "block_seconds": 30,
       "random_seed_field": "manifest.analysis.randomization_seed"
     },
-    "pass_rule": "LIVE mismatch reduction exceeds both REPLAY and SHUFFLED_RECORD by threshold_with_uncertainty"
+    "pass_rule": "LIVE mismatch reduction and force interaction exceed OPEN_LOOP_REPLAY and YOKED_SHUFFLE_REPLAY under the locked uncertainty method"
   },
   "force_decision": {
-    "primary_estimator": "ABBA_active_minus_sham_mass_shift",
+    "primary_estimator": "factorial_orientation_proxy_live_model_v1",
+    "model": "F_residual = beta0 + K_live * L * q * delta_S_hat + K_replay * (1-L) * q * delta_S_hat + gamma^T X + block_effect + epsilon",
+    "key_contrast": "K_live - K_replay",
     "minimum_blocks_per_state": 12,
     "settling_interval_seconds": 20,
-    "stable_window_seconds": 60,
+    "stable_window_seconds": "set_from_allan_deviation_and_scorebook_for_each_regime",
     "allan_deviation_file": "analysis/allan_deviation.csv",
     "candidate_threshold": {
-      "minimum_abs_force_n": null,
+      "minimum_abs_force_n": 1e-6,
       "minimum_sigma": 5.0,
-      "must_track_delta_s_coh": true,
+      "minimum_systematic_floor_multiplier": 3.0,
+      "must_track_delta_S_hat": true,
       "must_reverse_active_minus": true,
       "must_reverse_horizontal_axis_inversion": true,
       "must_reject_dummy": true,
+      "must_reject_active_twin": true,
       "must_reject_sham": true,
-      "must_reject_replay": true,
-      "must_reject_shuffled_record": true
-    }
+      "must_reject_open_loop_replay": true,
+      "must_reject_yoked_shuffle_replay": true
+    },
+    "quantitative_output_without_canonical_bridge": "K_S_hat = F_residual / (q * delta_S_hat)"
   },
   "exclusions": {
     "max_temperature_drift_c": 0.5,
@@ -127,14 +155,20 @@
     "minimum_adc_saturation_margin_pct": 5.0,
     "max_magnetometer_change_ut": 5.0,
     "max_accel_artifact_g": 0.02,
+    "max_sensor_clipping_rate": 0.001,
     "exclude_operator_contact": true,
-    "exclude_external_cables": true
+    "exclude_external_cables": true,
+    "exclude_modal_jump": true,
+    "exclude_plastic_deformation": true,
+    "exclude_unregistered_exclusion": true,
+    "exclude_early_blind_code_open": true
   },
   "uncertainty": {
-    "method": "block_bootstrap_with_allan_check",
+    "method": "block_bootstrap_with_allan_and_serial_correlation_check",
     "bootstrap_blocks": 10000,
     "report_confidence_interval": 0.95,
-    "search_correction": "confirmation_dataset_only_or_bonferroni_over_declared_scan_count"
+    "multiple_search_correction": "bonferroni_over_declared_scan_count_or_locked_confirmation_only",
+    "minimum_effect_size_source": "measured_systematic_floor"
   },
   "verifier": {
     "command": "python analysis/verify_scorebook.py --manifest manifest.yaml --scorebook scorebook.json --data raw/device_log.csv --confirmation",
@@ -142,10 +176,12 @@
     "analysis_environment_lockfile": "analysis/requirements.lock"
   },
   "allowed_claim": {
-    "strongest_allowed_claim": "this hardware shows a candidate residual under the frozen scorebook",
+    "strongest_allowed_claim": "this hardware reports K_S_hat under the frozen proxy scorebook",
     "explicit_non_claims": [
       "no proof of OPH",
       "no proof of local gravity control",
+      "no canonical chi_can measurement",
+      "no bound on chi_can without a proxy-to-canonical bridge",
       "no human-carrying hover claim",
       "no universal disproof from a null result"
     ]

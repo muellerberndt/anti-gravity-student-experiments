@@ -1,0 +1,30 @@
+{
+  "scorebook_id": "krit-b0-net-scorebook-v1",
+  "purpose": "closed-boundary whole-apparatus residual force test",
+  "not_for_chi_can_claims": true,
+  "required_weighed_boundary": [
+    "dish",
+    "reflector",
+    "frame",
+    "electronics",
+    "battery",
+    "enclosure",
+    "internal_wiring"
+  ],
+  "momentum_closure": {
+    "sealed_symmetric_enclosure": "preferred",
+    "or_measured_external_acoustic_momentum_flux": true,
+    "external_microphones": true,
+    "external_accelerometers": true,
+    "open_closed_enclosure_comparison": true
+  },
+  "force_closure_budget": [
+    "dish_force",
+    "reflector_force",
+    "frame_force",
+    "contained_air_coupling",
+    "support_force",
+    "external_leakage_bound"
+  ],
+  "candidate_residual_rule": "whole weighed article only; no B0 subtraction claim"
+}

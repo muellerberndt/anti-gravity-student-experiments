@@ -4,6 +4,8 @@
 
 Build a battery-powered, instrumented coherent vibration body, measure its ordinary acoustic forces, and place an upper bound on any sign-reversible residual force after controls.
 
+OPH's recovered core does not establish a coherent-matter force. The tested force law belongs to a conditional continuation branch, and existing internal program measurements are reported as null. These builds teach conventional force metrology and test an explicitly speculative continuation.
+
 ## Why It Is Expected To Work
 
 Piezoelectric transducers convert voltage into strain. If they are bonded or bolted to a plate, lid, or cymbal, they can drive mechanical eigenmodes with repeatable phase and amplitude. Those modes produce real forces by ordinary physics:
@@ -20,20 +22,22 @@ The novel step for this student package is to ask whether a small lab object can
 
 The OPH/chi_nu idea asks for a stricter object than a vibrating plate. **The object must be a bounded, self-reading test article: it drives a mode, reads the response through the same or co-located ports, records the response onboard, lets that record change later drive packets, predicts later boundary response better than shuffled controls, and creates a signed top/bottom coherence contrast.** The proposed residual force is then tested against that internally measured contrast.
 
-The exact candidate effect is a downstream dark-sector continuation, described in the [OPH dark matter paper](https://github.com/FloatingPragma/observer-patch-holography/blob/main/extra/oph_dark_matter_paper.tex) and the [chi_nu susceptibility bounds source](https://github.com/FloatingPragma/observer-patch-holography/blob/main/extra/chi_nu_susceptibility_bounds.tex). It says that a vertical coherence contrast in a bounded article may couple to the local gravitational support channel:
+The load-bearing theory branch for this package is versioned in [theory_branch.yaml](theory_branch.yaml). It uses the canonical linear top/bottom continuation described in the [OPH dark matter paper](https://github.com/FloatingPragma/observer-patch-holography/blob/main/extra/oph_dark_matter_paper.tex) and the [chi_nu susceptibility bounds source](https://github.com/FloatingPragma/observer-patch-holography/blob/main/extra/chi_nu_susceptibility_bounds.tex). It says that a canonical vertical coherence contrast in a bounded article may couple to the local gravitational support channel:
 
 ```text
-Delta S_coh = S_bottom - S_top
-F_chi = (g^2 / (4 * pi * G)) * A_perp * chi_nu * Delta S_coh
+delta_S_can = S_can_bottom - S_can_top
+F_chi = (g0^2 / (4 * pi * G)) * A_perp * chi_can * delta_S_can
 ```
+
+The scorebook does not measure `delta_S_can`. It measures `delta_S_hat`, an operational self-read proxy. The proxy threshold of about `0.05` is a state-classification margin only. Without a public bridge `delta_S_can = kappa_S * delta_S_hat`, the quantitative output is `K_S_hat = F_residual / (q * delta_S_hat)`, not `chi_can`.
 
 The mechanism is not one observer fooling another observer into thinking the object is lighter. In OPH language, the article is trying to become a small self-consistent patch. Its ports write and read a boundary record. The live controller repairs the next drive packet from that record. If the lower face and upper face settle into different record quality, the article has a vertical asymmetry in its own self-read consistency. The chi_nu continuation says that this asymmetry can load the local gravitational support channel. Bottom-more-coherent gives one sign of apparent support force. Top-more-coherent gives the opposite sign.
 
-That is the OPH-specific part. Ordinary acoustics cares about pressure, momentum flux, heat, vibration, charge, and magnetic fields. The proposed OPH term cares about a causal self-read receipt: the record must predict the boundary, the record must change the next drive packet, and the signed top/bottom score must survive the frozen scorebook. If the same voltage waveforms are replayed without live record repair, or if the records are shuffled, the OPH term should collapse while ordinary acoustic artifacts remain.
+That is the OPH-specific part. Ordinary acoustics cares about pressure, momentum flux, heat, vibration, charge, and magnetic fields. The proposed OPH term cares about a causal self-read receipt: the record must predict the boundary, the record must change the next drive packet, and the signed top/bottom proxy score must survive the frozen scorebook.
 
-`S_top` and `S_bottom` are scorebook values derived from the self-read records. Raw loudness, vibration amplitude, and acoustic pressure remain ordinary artifact channels. `A_perp` is the projected horizontal area, `g` is local gravitational acceleration, and `chi_nu` is the branch susceptibility discussed in the chi_nu bounds paper. The compact recovery stack that separates recovered OPH core claims from continuation claims is in the [compact technical source](https://github.com/FloatingPragma/observer-patch-holography/blob/main/paper/recovering_relativity_and_standard_model_structure_from_observer_overlap_consistency_compact.tex).
+`S_hat_top` and `S_hat_bottom` are scorebook proxy values derived from the self-read records. Raw loudness, vibration amplitude, and acoustic pressure remain ordinary artifact channels. `A_perp` is the projected horizontal area, `g0` is local gravitational acceleration, and `chi_can` is the branch susceptibility discussed in the chi_nu bounds paper. The compact recovery stack that separates recovered OPH core claims from continuation claims is in the [compact technical source](https://github.com/FloatingPragma/observer-patch-holography/blob/main/paper/recovering_relativity_and_standard_model_structure_from_observer_overlap_consistency_compact.tex). The hover-disk energy-gradient and UFO vertex-sharing formulas remain exploratory context for this package unless a separate bridge is supplied.
 
-In the lab, the students create the candidate effect by making the lower vertical zone settle into a higher self-read coherence score than the upper zone, then reversing that relation for `ACTIVE_MINUS`. The `LIVE` controller is important because the record changes the next drive packet. `REPLAY` and `SHUFFLED_RECORD` keep the same power and timing while breaking that causal record loop. The balance test asks whether a force tracks `Delta S_coh`, reverses under `ACTIVE_MINUS`, reverses when the article is inverted about a horizontal axis, and disappears in sham, dummy, replay, and shuffled-record controls.
+In the lab, the students create the candidate state by making the lower vertical zone settle into a higher self-read proxy score than the upper zone, then reversing that relation for `ACTIVE_MINUS`. The `LIVE` controller is important because the record changes the next drive packet. `OPEN_LOOP_REPLAY` repeats a prior live waveform while ignoring the new records. `CAUSAL_SHUFFLE` feeds shuffled records into the live controller and allows the waveform to change. `YOKED_SHUFFLE_REPLAY` replays that shuffled waveform open-loop. The balance test asks whether a force tracks `q * delta_S_hat`, reverses under `ACTIVE_MINUS`, reverses when the article is inverted about a horizontal axis, and disappears in sham, dummy, open-loop replay, and yoked-shuffle replay controls.
 
 No student build should assume the residual exists. A clean conventional force map plus an upper bound is the expected successful result.
 
@@ -67,7 +71,7 @@ The plate will show resonances, ringdown, cross-coupling, acoustic leakage, and 
 
 Claim condition:
 
-A candidate chi_nu residual requires a frozen scorebook, `LIVE` versus `REPLAY` separation, `SHUFFLED_RECORD` rejection, sign reversal, horizontal-axis physical inversion for top/bottom exchange, electrical dummy rejection, mechanical active twin rejection, matched-power sham rejection, and no explanatory correlation with temperature, electrostatics, magnetics, vibration leakage, or handling.
+A candidate residual requires a frozen scorebook, `LIVE` versus `OPEN_LOOP_REPLAY` separation, `CAUSAL_SHUFFLE` and `YOKED_SHUFFLE_REPLAY` controls, sign reversal, horizontal-axis physical inversion for top/bottom exchange, electrical dummy rejection, mechanical active twin rejection, matched-power sham rejection, and no explanatory correlation with temperature, electrostatics, magnetics, vibration leakage, or handling. It is not a canonical chi-nu measurement without a proxy-to-canonical bridge.
 
 ### Version 2: Acoustic Cymbal Bench Rig
 
@@ -95,8 +99,8 @@ The same residual criteria as Version 1 apply. The larger rig is valuable becaus
 ## Corrected Experiment Order
 
 1. Conventional characterization: modal maps, electrical transfer functions, acoustic maps, thermal maps, and force-sensor rectification tests.
-2. Valid OPH primitive: two physical vertical zones, reversible ports, live record-conditioned feedback, frozen scorebook, and a demonstrated signed `S_bottom - S_top`.
-3. Causal self-read ablation: `LIVE` feedback versus waveform-identical `REPLAY` and `SHUFFLED_RECORD` controls.
+2. Valid OPH primitive: two physical vertical zones, reversible ports, live record-conditioned feedback, frozen scorebook, and a demonstrated signed `S_hat_bottom - S_hat_top`.
+3. Causal self-read ablation: `LIVE` feedback versus `OPEN_LOOP_REPLAY`, `CAUSAL_SHUFFLE`, and `YOKED_SHUFFLE_REPLAY` controls.
 4. Verifier lock: scorebook hash, manifest hash, firmware hash, waveform hash, packet log schema, analysis lockfile, and executable verifier hash.
 5. Vertical force test: whole self-contained article on a balance, randomized blinded blocks, true top/bottom inversion, and no external cables.
 6. Artifact escalation: pressure sweep, enclosure-geometry sweep, electromagnetic and thermal perturbations, electrical dummy, and mechanical active twin.

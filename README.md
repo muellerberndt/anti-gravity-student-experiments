@@ -13,19 +13,22 @@ Start with the small plate. Move to the acoustic bench rig after the measurement
 1. [Project Brief](project-brief.md)
    Short explanation of the idea, claim boundaries, student goals, and expected deliverables.
 
-2. [Build 01: Piezo-Crystal Plate Balance And Pendulum](build-01-piezo-plate-balance-and-pendulum.md)
+2. [Theory Branch](theory_branch.yaml)
+   Versioned source of truth for the conditional force law used by this package. It separates the operational proxy `delta_S_hat` from the canonical scalar `delta_S_can`.
+
+3. [Build 01: Piezo-Crystal Plate Balance And Pendulum](build-01-piezo-plate-balance-and-pendulum.md)
    Cheap, safe at low voltage, quick to instrument, and the best place to learn the control protocol. The analytical balance is the primary vertical support-force readout. The pendulum is a horizontal calibration and artifact-mapping readout.
 
-3. [Build 02: Acoustic Cymbal Bench Rig](build-02-acoustic-cymbal-bench-rig.md)
+4. [Build 02: Acoustic Cymbal Bench Rig](build-02-acoustic-cymbal-bench-rig.md)
    Bench-scale cymbal, pot-lid, or bowl rig. The required entry stage is a single-dish calibration station. The four-dish platform comes after force curves, resonance maps, standoff maps, and safety checks are complete.
 
-4. [Controls And Data Protocol](controls-and-data-protocol.md)
+5. [Controls And Data Protocol](controls-and-data-protocol.md)
    Sham runs, dummy runs, sign reversal, physical flips, thermal controls, artifact rejection, and data columns.
 
-5. [Templates](templates/)
-   `run_manifest_template.yaml`, `scorebook_template.json`, and `data_columns.csv` give students a fixed logging format.
+6. [Templates](templates/)
+   `run_manifest_template.yaml`, `scorebook_template.json`, `scorebook_b0_nfal_template.json`, `scorebook_b0_net_template.json`, and `data_columns.csv` give students fixed logging and scoring formats.
 
-6. [Analysis verifier](analysis/)
+7. [Analysis verifier](analysis/)
    Executable scorebook verifier, schemas, ABBA balance helper, Allan deviation helper, and synthetic test runs.
 
 Read the root `.md` files directly in GitHub. PDF files appear under `reference/` as source papers and background material.
@@ -34,7 +37,7 @@ Read the root `.md` files directly in GitHub. PDF files appear under `reference/
 
 The experiments drive resonant plates or dishes in controlled phase patterns, read back their vibrational state, and compare active states against sham, dummy, sign-reversed, replay, record-shuffled, and physically flipped controls.
 
-The direct OPH-style force test is vertical. It requires separately measured upper and lower zones, a frozen scalar for `S_bottom - S_top`, live record-conditioned feedback, and a physical inversion around a horizontal axis. Horizontal pendulum measurements remain useful for acoustic recoil, torque, and artifact mapping.
+The direct OPH-style force test is vertical. It requires separately measured upper and lower zones, a frozen proxy scalar for `S_hat_bottom - S_hat_top`, live record-conditioned feedback, and a physical inversion around a horizontal axis. Horizontal pendulum measurements remain useful for acoustic recoil, torque, and artifact mapping.
 
 Ordinary acoustic and vibration effects are expected. A positive new-force result is not expected from these student builds. The useful result is either a conventional force map with clean controls or an upper bound on any residual that tracks the self-read coherent state and reverses sign under the planned controls.
 
