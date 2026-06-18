@@ -37,6 +37,16 @@ Read the root `.md` files directly in GitHub. PDF files appear under `reference/
 
 The experiments drive resonant plates or dishes in controlled phase patterns, read back their vibrational state, and compare active states against sham, dummy, sign-reversed, replay, record-shuffled, and physically flipped controls.
 
+Plain-language map:
+
+- A piezo is an electrical part that bends a little when voltage is applied.
+- A plate, lid, bowl, or cymbal has natural vibration patterns called modes.
+- A coherent state means the ports are driven with controlled timing, like a small orchestra staying in phase.
+- A self-read record means the same device also listens to its own vibration after each drive packet.
+- Live feedback means the device uses that record to choose the next packet.
+- The top/bottom score asks whether the lower side is more predictably self-reading than the upper side, or the other way around.
+- The force test asks whether a balance reading follows that signed score after ordinary acoustic, thermal, electrical, and mechanical effects are removed.
+
 The direct OPH-style force test is vertical. It requires separately measured upper and lower zones, a frozen proxy scalar for `S_hat_bottom - S_hat_top`, live record-conditioned feedback, and a physical inversion around a horizontal axis. Horizontal pendulum measurements remain useful for acoustic recoil, torque, and artifact mapping.
 
 Ordinary acoustic and vibration effects are expected. A positive new-force result is not expected from these student builds. The useful result is either a conventional force map with clean controls or an upper bound on any residual that tracks the self-read coherent state and reverses sign under the planned controls.

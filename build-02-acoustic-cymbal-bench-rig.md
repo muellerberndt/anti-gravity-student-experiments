@@ -14,6 +14,14 @@ The included cymbal hoverboard source is useful for geometry and first-light dri
 
 The three-transducer dish layout is a useful acoustic radiator. By itself, it is not a vertical OPH proxy scalar. Any OPH-style stage needs separately instrumented upper and lower zones, independent `S_hat_top` and `S_hat_bottom` estimates, and live record-conditioned feedback.
 
+Student model:
+
+- A dish or cymbal acts like a loud mechanical speaker.
+- Close to a reflector, it can push on air in the gap and create ordinary measurable force.
+- In B0, the dish and reflector are measured separately so students can learn the ordinary acoustic force.
+- In B0-net, the dish, reflector, frame, electronics, battery, and enclosure sit on one common force sensor. Ordinary internal push-pull forces should cancel in that whole-object reading.
+- Any OPH-style test starts only after the rig has top and bottom self-read zones and passes the same live, replay, dummy, and flip controls as the small plate.
+
 ## Build Stages
 
 ### Stage B0: Conventional Single-Dish Calibration Station

@@ -21,6 +21,15 @@ Geometry declaration:
 - Acoustic bench B0-net mode: dish, reflector, frame, electronics, battery, and enclosure sit on one common weighed platform. Internal acoustic forces should cancel.
 - Acoustic B0 subtraction is not an anomaly estimate. A residual claim belongs in B0-net.
 
+Student translation:
+
+- A geometry declaration tells the reader which direction the experiment is testing.
+- A self-read receipt proves that the device drove itself, listened to itself, stored the record, and used that record in the live controller.
+- A sham keeps power and heat similar while removing the coherent self-read pattern.
+- A dummy keeps mass, electronics, heat, and handling similar while removing the valid mechanical branch.
+- A replay asks whether the same electrical waveform produces the same force when live record use is removed.
+- A physical flip asks whether the sign follows the device's internal top/bottom direction rather than the room, the balance pan, or a cable path.
+
 ## Required States
 
 | State | Role |
@@ -99,6 +108,8 @@ The scorebook must define:
 - executable verifier and hash.
 
 The scorebook scalar is operational. It is `delta_S_hat`, not the canonical `delta_S_can` in the force law. `delta_S_hat` can classify a state and support an empirical coefficient `K_S_hat = F_residual / (q * delta_S_hat)`. It does not measure or bound canonical `chi_can` unless a public bridge `delta_S_can = kappa_S * delta_S_hat` is supplied.
+
+For students: treat `delta_S_hat` like a lab score, not a fundamental constant. It says how strongly the logged device looks bottom-dominant or top-dominant under the frozen rules. A balance signal only becomes interesting if it follows that score and fails the ordinary-artifact checks.
 
 Discovery data may tune the scorebook. Confirmation data must use the frozen version.
 

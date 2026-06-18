@@ -12,6 +12,16 @@ Map ordinary vibration and acoustic forces, then test whether a sign-reversible 
 
 The analytical balance is the primary readout for a vertical support-force test, because the Hacking PDF defines the first PoC as a self-contained active object with a top/bottom coherence contrast on a balance. The pendulum is useful for horizontal force calibration, acoustic recoil, torque, and artifact mapping. Do not treat a single-sided horizontal pendulum as the vertical support-force experiment.
 
+Student model:
+
+- Think of the plate as a small instrument with several speakers and microphones attached to it.
+- During a drive window, the piezos push on the plate.
+- During a read window, the piezos or pickup sensors listen to how the plate rings.
+- The controller compares the expected ringdown to the measured ringdown.
+- In `LIVE`, that comparison changes the next drive packet.
+- In replay controls, the device receives a recorded packet sequence while its new records are ignored.
+- The balance checks vertical support force. The pendulum checks horizontal recoil and artifacts.
+
 ## Target Specification
 
 | Item | First build target |
