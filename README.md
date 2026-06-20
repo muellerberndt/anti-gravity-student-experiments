@@ -41,6 +41,12 @@ Read the root `.md` files directly in GitHub. PDF files appear under `reference/
 
 The experiments drive resonant plates or dishes in controlled phase patterns, read back their vibrational state, and compare active states against sham, dummy, sign-reversed, replay, record-shuffled, and physically flipped controls.
 
+The ordinary physics is simple. A piezo bends when voltage is applied. A plate
+or dish has favorite vibration shapes. Near one of those shapes, a small drive
+can make a much larger motion. That motion pushes on air, heats parts, shakes
+supports, and can move a balance or pendulum through familiar mechanisms. The
+first job is to map those familiar mechanisms clearly.
+
 The first OPH task is a self-reading object. The device drives itself, reads its
 own response, records that response, uses the record in live feedback, and
 passes the frozen scorebook against replay and shuffled controls.
@@ -93,6 +99,13 @@ Use the root build guides as the lab manuals. Use [reference/](reference/) for s
 - [Antigravity Devices survey](reference/build-source/antigravity_devices.html)
 - [DIY cymbal source](reference/build-source/diy-hoverbike-four-cymbals.pdf)
 - [Supplemental theory papers](reference/supplemental-theory/)
+
+Core OPH papers for supervisors and motivated students:
+
+- [Observers Are All You Need](https://github.com/FloatingPragma/observer-patch-holography/blob/main/paper/observers_are_all_you_need.pdf)
+- [Reality as Consensus Protocol](https://github.com/FloatingPragma/observer-patch-holography/blob/main/paper/reality_as_consensus_protocol.pdf)
+- [Screen Microphysics And Observer Synchronization](https://github.com/FloatingPragma/observer-patch-holography/blob/main/paper/screen_microphysics_and_observer_synchronization.pdf)
+- [Compact OPH Recovery Paper](https://github.com/FloatingPragma/observer-patch-holography/blob/main/paper/recovering_relativity_and_standard_model_structure_from_observer_overlap_consistency_compact.pdf)
 
 Public links:
 

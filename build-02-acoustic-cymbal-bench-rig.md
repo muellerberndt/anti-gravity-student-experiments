@@ -72,6 +72,15 @@ Student model:
 - In B0-net, the dish, reflector, frame, electronics, battery, and enclosure sit on one common force sensor. Ordinary internal push-pull forces should cancel in that whole-object reading.
 - Any OPH-style test starts only after the rig has top and bottom self-read zones and passes the same live, replay, dummy, and flip controls as the small plate.
 
+Physics intuition:
+
+A dish works like a shallow bell. The center, rim, and transducer ring move with
+different phases depending on frequency. Close to a reflector, the air gap acts
+like a spring and pump. Small changes in gap can create large changes in force,
+especially below one millimeter. This is useful because it gives students a
+strong conventional signal to calibrate. It is also why B0-net weighs the whole
+bounded article when looking for a residual.
+
 ## Build Stages
 
 ### Stage B0: Conventional Single-Dish Calibration Station
@@ -141,6 +150,16 @@ Expected conventional force:
 - possibly larger sub-newton force only with a well-coupled squeeze-film geometry and suitable actuators,
 - expected range stays far below human-scale lift.
 
+Build tips:
+
+- Make a paper or cardboard circle with the P-coded ring radius before drilling.
+- Mark the center, active radius, P-coded ring, detuned ring, and port IDs.
+- Start with removable tape or light clamps for mode-finding when the dish allows it.
+- Measure the bare dish modes before adding transducers.
+- Measure modes again after bolting or bonding. Added mass moves resonances.
+- Keep the first standoff scans slow. Gap drift and heating can move the force curve.
+- Photograph the ring radius measurement with a ruler in frame.
+
 ## Bill Of Materials
 
 Single-dish calibration:
@@ -183,7 +202,7 @@ Four-dish platform:
 7. Add a pickup piezo or accelerometer to each dish. Add vertically separated or face-separated sensors if the run claims `S_hat_top` and `S_hat_bottom`.
 8. Put a temperature sensor near at least one transducer per dish.
 9. Build the standoff fixture so the gap to the reflector plate can be set repeatably. The squeeze-film scan needs sub-millimeter control.
-10. Measure dish mode shape before permanent transducer placement. Keep the 60 percent radius placement removable until a nodal map confirms it is useful for the chosen mode.
+10. Measure dish mode shape before permanent transducer placement. Keep the P-coded ring placement removable until a nodal map confirms it is useful for the chosen mode.
 11. Add tilt and parallelism monitoring for the dish and reflector.
 12. Add a transparent shield before high-amplitude sweeps.
 13. Log bolt torque, preload, adhesive batch, adhesive mass, cure time, adhesive thickness, piezo capacitance before testing, and piezo capacitance after testing.

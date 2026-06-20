@@ -17,7 +17,12 @@ dummy, and flip controls.
 
 ## Why It Is Expected To Work
 
-Piezoelectric transducers convert voltage into strain. If they are bonded or bolted to a plate, lid, or cymbal, they can drive mechanical eigenmodes with repeatable phase and amplitude. Those modes produce real forces by ordinary physics:
+Piezoelectric transducers convert voltage into strain. Bond one to a plate, lid,
+or cymbal, and the part becomes a small driven instrument. Some frequencies
+ring cleanly because the object has natural modes. Near those modes, a small
+electrical signal can create a larger mechanical motion.
+
+That motion produces ordinary forces by ordinary physics:
 
 - acoustic radiation pressure in air,
 - squeeze-film pressure close to a nearby surface,
@@ -25,7 +30,11 @@ Piezoelectric transducers convert voltage into strain. If they are bonded or bol
 - thermal convection and buoyancy,
 - electrostatic and magnetic coupling.
 
-The OPH theory behind the lab is simple in words. OPH starts from finite observers with finite access. Each observer has a local patch, keeps records, compares only the boundary data exposed on overlaps, repairs mismatches, and settles into the public fixed point that survives those comparisons. That is the basic observer-overlap picture in the [OPH repository](https://github.com/FloatingPragma/observer-patch-holography), the [Observers Are All You Need source](https://github.com/FloatingPragma/observer-patch-holography/blob/main/paper/observers_are_all_you_need.tex), and [Reality as Consensus Protocol](https://github.com/FloatingPragma/observer-patch-holography/blob/main/paper/reality_as_consensus_protocol.tex).
+Students should expect to see those effects first. A good first week in the lab
+is a resonance map, a temperature log, and a force curve that changes with
+frequency, standoff, and drive amplitude.
+
+The OPH theory behind the lab is simple in words. OPH starts from finite observers with finite access. Each observer has a local patch, keeps records, compares only the boundary data exposed on overlaps, repairs mismatches, and settles into the public fixed point that survives those comparisons. That is the basic observer-overlap picture in the [OPH repository](https://github.com/FloatingPragma/observer-patch-holography), [Observers Are All You Need](https://github.com/FloatingPragma/observer-patch-holography/blob/main/paper/observers_are_all_you_need.pdf), and [Reality as Consensus Protocol](https://github.com/FloatingPragma/observer-patch-holography/blob/main/paper/reality_as_consensus_protocol.pdf).
 
 For this project, an observer is a physical system with limited information,
 local records, and boundaries where information can be compared. A lab object
@@ -42,7 +51,12 @@ The undergraduate picture is this:
 6. Separate top and bottom zones are scored independently.
 7. The balance asks whether any remaining force follows the signed top/bottom score.
 
-The novel step for this student package is to ask whether a small lab object can implement the same primitive in hardware. The object has ports, internal modes, onboard records, and a repair loop. In OPH language, it is a tiny bounded patch carrier. The hardware discipline comes from [Federated Echosahedral Screen Microphysics](https://github.com/FloatingPragma/observer-patch-holography/blob/main/paper/screen_microphysics_and_observer_synchronization.tex), which treats ports, records, repair interfaces, checkpoints, and public evidence bundles as the relevant engineering surface.
+The useful mental model is a musical instrument with a notebook. The drive
+packet is the tap. The ringdown is the sound. The controller writes down what
+happened and chooses the next tap. The scorebook checks whether the notebook
+actually helps predict the instrument.
+
+The novel step for this student package is to ask whether a small lab object can implement the same primitive in hardware. The object has ports, internal modes, onboard records, and a repair loop. In OPH language, it is a tiny bounded patch carrier. The hardware discipline comes from [Screen Microphysics And Observer Synchronization](https://github.com/FloatingPragma/observer-patch-holography/blob/main/paper/screen_microphysics_and_observer_synchronization.pdf), which treats ports, records, repair interfaces, checkpoints, and public evidence bundles as the relevant engineering surface.
 
 The OPH/chi_nu idea needs a bounded, self-reading test article. The object
 drives a mode, reads the response through the same or co-located ports, records
@@ -79,7 +93,7 @@ geometry, replay, shuffled-record, dummy, and physical flip controls. The
 background number `exp(-P/12) ~= 0.873` is a theoretical coupling ceiling inside
 the continuation branch. Student balance results use measured force data.
 
-The load-bearing theory branch for this package is versioned in [theory_branch.yaml](theory_branch.yaml). It uses the canonical linear top/bottom continuation described in the [OPH dark matter paper](https://github.com/FloatingPragma/observer-patch-holography/blob/main/extra/oph_dark_matter_paper.tex) and the [chi_nu susceptibility bounds source](https://github.com/FloatingPragma/observer-patch-holography/blob/main/extra/chi_nu_susceptibility_bounds.tex). It says that a canonical vertical coherence contrast in a bounded article may couple to the local gravitational support channel:
+The load-bearing theory branch for this package is versioned in [theory_branch.yaml](theory_branch.yaml). It uses the canonical linear top/bottom continuation described in the [OPH dark matter paper](https://github.com/FloatingPragma/observer-patch-holography/blob/main/extra/oph_dark_matter_paper.pdf) and the [chi_nu susceptibility bounds paper](https://github.com/FloatingPragma/observer-patch-holography/blob/main/extra/chi_nu_susceptibility_bounds.pdf). It says that a canonical vertical coherence contrast in a bounded article may couple to the local gravitational support channel:
 
 ```text
 delta_S_can = S_can_bottom - S_can_top

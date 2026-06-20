@@ -31,6 +31,14 @@ Student model:
 - In replay controls, the device receives a recorded packet sequence while its new records are ignored.
 - The balance checks vertical support force. The pendulum checks horizontal recoil and artifacts.
 
+Physics intuition:
+
+The plate behaves like a springy drum skin. At most frequencies it barely moves.
+Near a mode, it stores energy and rings for several cycles. The ringdown tells
+you which mode was excited and how strongly the plate couples one port to
+another. A useful OPH run starts with that ordinary mode map, then asks whether
+the live record helps the plate settle into a more predictable self-read state.
+
 ## Target Specification
 
 | Item | First build target |
@@ -88,6 +96,16 @@ That gives 66.67 mm P-port centroid separation on a 100 mm plate. The detuned
 ratio must be at least 5 percent away from `P`; ratio `1.50` is about 8 percent
 away. Record the P-coded and detuned geometry drawings or photo markups before
 viewing force data.
+
+Build tips:
+
+- Print the P-coded and detuned layouts at full size before bonding.
+- Mark the center line, P-port centroids, port IDs, and force axis on painter's tape.
+- Measure every bonded port position from the same two fiducials.
+- Put port labels on the plate and in the wiring map before soldering.
+- Keep the first build low power. A clean ringdown beats a loud clipped signal.
+- Run the dummy on the same day as the active plate, with the same battery and
+  logging schedule.
 
 ## Bill Of Materials
 

@@ -28,11 +28,19 @@ control-surviving receipts.
 
 ## Supplemental Theory
 
-These papers are useful for faculty discussion and motivated students. They are not required before the first lab run.
+These papers are useful for faculty discussion and motivated students after the
+root build guides are clear.
 
 - [OPH dark matter paper](supplemental-theory/oph_dark_matter_paper.pdf)
 - [Compact OPH paper](supplemental-theory/recovering_relativity_and_standard_model_structure_from_observer_overlap_consistency_compact.pdf)
 - [chi_nu susceptibility bounds](supplemental-theory/chi_nu_susceptibility_bounds.pdf)
+
+Core OPH source links:
+
+- [Observers Are All You Need](https://github.com/FloatingPragma/observer-patch-holography/blob/main/paper/observers_are_all_you_need.pdf)
+- [Reality as Consensus Protocol](https://github.com/FloatingPragma/observer-patch-holography/blob/main/paper/reality_as_consensus_protocol.pdf)
+- [Screen Microphysics And Observer Synchronization](https://github.com/FloatingPragma/observer-patch-holography/blob/main/paper/screen_microphysics_and_observer_synchronization.pdf)
+- [Compact OPH Recovery Paper](https://github.com/FloatingPragma/observer-patch-holography/blob/main/paper/recovering_relativity_and_standard_model_structure_from_observer_overlap_consistency_compact.pdf)
 
 ## Public Links
 

@@ -52,6 +52,15 @@ Student translation:
 - A replay asks whether the same electrical waveform produces the same force when live record use is removed.
 - A physical flip asks whether the sign follows the device's internal top/bottom direction across room orientation, balance pan position, and cable path.
 
+Control intuition:
+
+The lab has two jobs. First, make the ordinary forces visible: heat, air motion,
+vibration, charge, magnetic coupling, and load-cell rectification. Second, ask
+whether a remaining force follows the self-read score. `LIVE` tests the feedback
+loop. `OPEN_LOOP_REPLAY` keeps the waveform while removing live record use.
+`CAUSAL_SHUFFLE` keeps the controller active while scrambling the record order.
+The physical flip checks whether the sign belongs to the article or to the room.
+
 ## Required States
 
 | State | Role |
