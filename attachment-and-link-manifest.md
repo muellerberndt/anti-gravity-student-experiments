@@ -31,23 +31,20 @@ controls.
 - [analysis/](analysis/)
   Executable verifier, scalar computation, ABBA balance helper, Allan deviation helper, schemas, and synthetic verifier tests.
 
-Read the root `.md` files directly in GitHub. PDF files appear under `reference/` as source papers and background material.
+Read the root `.md` files directly in GitHub. Reference material and external source links appear under `reference/`.
 
 ## Included Build Background
 
-- [Hacking the Simulation PDF](reference/build-source/hacking-the-simulation-anti-gravity-exploit.pdf)
+- [Hacking the Simulation](https://github.com/FloatingPragma/observer-patch-holography/blob/main/extra/hacking-the-simulation-anti-gravity-exploit.pdf)
   Self-reading PoC logic, plate build, balance protocol, dummy design, and artifact controls.
 
 - [Antigravity Devices HTML](reference/build-source/antigravity_devices.html)
   Claim boundaries across conventional acoustic lift, ion-wind lift, refuted claims, and the open `chi_nu` hypothesis.
 
-- [DIY Cymbal Source PDF](reference/build-source/diy-hoverbike-four-cymbals.pdf)
-  Cymbal geometry and pot-lid precursor: four dishes, three transducers per dish, 60 percent radius placement, and phase-locked drive. The lab plan uses it as bench-rig background.
-
 - [Hover Disk HTML](reference/build-source/hover_disk.html)
   Materials and coherent-substrate background.
 
-- [How To Build A UFO HTML](reference/build-source/how_to_build_a_ufo.html) and [controlled-motion PDF](reference/build-source/how-to-build-a-ufo-controlled-motion.pdf)
+- [How To Build A UFO HTML](reference/build-source/how_to_build_a_ufo.html)
   Broad architecture and motivation. Use as background after the lab plan.
 
 ## Included Supplemental Theory

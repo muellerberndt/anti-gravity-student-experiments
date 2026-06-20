@@ -31,7 +31,7 @@ Start with the small plate. Move to the acoustic bench rig after the measurement
 7. [Analysis verifier](analysis/)
    Executable scorebook verifier, schemas, ABBA balance helper, Allan deviation helper, and synthetic test runs.
 
-Read the root `.md` files directly in GitHub. PDF files appear under `reference/` as source papers and background material.
+Read the root `.md` files directly in GitHub. Reference material and external source links appear under `reference/`.
 
 ## Basic Idea
 
@@ -91,9 +91,8 @@ planned controls.
 Use the root build guides as the lab manuals. Use [reference/](reference/) for source material and context.
 
 - [Reference guide](reference/README.md)
-- [Hacking the Simulation: Anti-Gravity Exploit PDF](reference/build-source/hacking-the-simulation-anti-gravity-exploit.pdf)
+- [Hacking the Simulation: Anti-Gravity Exploit](https://github.com/FloatingPragma/observer-patch-holography/blob/main/extra/hacking-the-simulation-anti-gravity-exploit.pdf)
 - [Antigravity Devices survey](reference/build-source/antigravity_devices.html)
-- [DIY cymbal source](reference/build-source/diy-hoverbike-four-cymbals.pdf)
 - [Main OPH paper PDFs](https://github.com/FloatingPragma/observer-patch-holography/tree/main/paper)
 - [Supplemental OPH PDF papers](https://github.com/FloatingPragma/observer-patch-holography/tree/main/extra)
 
