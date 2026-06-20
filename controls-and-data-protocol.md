@@ -4,6 +4,11 @@
 
 A force reading is not interpretable until the test article has produced a self-read receipt. The order is:
 
+This is the OPH-specific rule. The article must first instantiate an
+observer-like self-reading system: bounded geometry, drive/read ports, local
+records, live feedback, and a verifier-facing receipt. Force data taken before
+that receipt are ordinary vibration or acoustic data, not an OPH-style test.
+
 1. declare the measurement geometry,
 2. prove the active device has repeatable drive/read behavior,
 3. freeze a machine-readable scorebook,

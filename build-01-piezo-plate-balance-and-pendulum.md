@@ -6,6 +6,11 @@ This is the first build to give students. It is cheap, measurable, and hard to f
 
 The device is a small plate with piezoelectric ports. It drives its own resonant modes, reads ringdown and cross-coupling through the same or co-located ports, logs the state onboard, and then goes onto a force readout.
 
+The OPH purpose is to instantiate a small observer-like self-reading system.
+The plate must be bounded, ported, driven, read back, recorded, and run with
+live feedback before any balance signal is interpreted as an OPH-style force
+test.
+
 Primary goal:
 
 Map ordinary vibration and acoustic forces, then test whether a sign-reversible vertical coherent state produces any residual force after sham, dummy, replay, record-shuffled, phase-flip, and physical-flip controls.

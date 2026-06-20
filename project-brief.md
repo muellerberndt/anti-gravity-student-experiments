@@ -6,6 +6,12 @@ Build a battery-powered, instrumented coherent vibration body, measure its ordin
 
 OPH's recovered core does not establish a coherent-matter force. The tested force law belongs to a conditional continuation branch, and existing internal program measurements are reported as null. These builds teach conventional force metrology and test an explicitly speculative continuation.
 
+The OPH differentiator in this package is the instantiation of an
+observer-like self-reading system. The test article must be bounded, drive and
+read its own boundary response, store records, use those records in live
+feedback, and expose a receipt that can be checked against replay, shuffled,
+dummy, and flip controls.
+
 ## Why It Is Expected To Work
 
 Piezoelectric transducers convert voltage into strain. If they are bonded or bolted to a plate, lid, or cymbal, they can drive mechanical eigenmodes with repeatable phase and amplitude. Those modes produce real forces by ordinary physics:

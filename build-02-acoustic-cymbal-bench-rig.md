@@ -6,6 +6,11 @@ This is the larger student build. It should be run as a bench force platform, wi
 
 The rig uses cymbals, pot lids, stainless bowls, or similar thin metal dishes as resonant acoustic radiators. Piezo or Langevin transducers drive the dishes. The students map conventional near-field acoustic force first, then use the same apparatus as a larger coherent-body test article.
 
+The OPH purpose is the same as the small plate: instantiate an observer-like
+self-reading article. The rig needs bounded geometry, top and bottom read
+zones, records, live feedback, and scorebook receipts before any residual-force
+discussion is OPH-style rather than conventional acoustics.
+
 Primary goal:
 
 Measure force versus frequency, phase, drive amplitude, and standoff distance, then test whether a sign-reversible coherent state produces any residual in a closed weighed article.

@@ -6,6 +6,12 @@ Audience: Krit's student project group at Chiang Mai University
 
 This repository gives students two concrete lab builds for testing small force effects from coherent vibration systems. The Markdown files in the root directory are the working instructions. The `reference/` folder contains background papers, source articles, and supplemental theory material.
 
+What makes the package OPH-specific is not "anti-gravity" branding or ordinary
+vibration. The OPH move is to instantiate an observer-like self-reading system:
+a bounded test article with ports, local readback, records, live feedback, and a
+public receipt showing whether its own boundary records predict later boundary
+response.
+
 ## Build Path
 
 Start with the small plate. Move to the acoustic bench rig after the measurement and control discipline is solid.
@@ -36,6 +42,12 @@ Read the root `.md` files directly in GitHub. PDF files appear under `reference/
 ## Basic Idea
 
 The experiments drive resonant plates or dishes in controlled phase patterns, read back their vibrational state, and compare active states against sham, dummy, sign-reversed, replay, record-shuffled, and physically flipped controls.
+
+The OPH-specific question is whether the article can become an observer-like
+self-reading object before any force claim is considered. If the device does
+not drive itself, read itself, record that response, use the record in live
+feedback, and pass the frozen scorebook against replay and shuffled controls,
+there is no OPH-style result to discuss.
 
 Plain-language map:
 

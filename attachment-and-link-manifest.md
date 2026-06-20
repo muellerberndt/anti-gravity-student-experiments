@@ -2,6 +2,12 @@
 
 This manifest maps the repository contents. The concrete experiment designs are the root Markdown documents. The source papers and articles live under `reference/`.
 
+The OPH-specific throughline for every linked lab document is the same:
+instantiate an observer-like self-reading system before discussing any force
+claim. A useful run has a bounded article, drive/read ports, local records, live
+feedback, and a receipt that survives replay, shuffled-record, dummy, and flip
+controls.
+
 ## Lab Instructions
 
 - [project-brief.md](project-brief.md)

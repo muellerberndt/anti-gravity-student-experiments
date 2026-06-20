@@ -4,6 +4,11 @@ These files support the two build guides in the repository root. Use the root bu
 
 For runs, use the templates in the repository root path `templates/`. The scorebook template is the required starting point for a locked force-analysis definition.
 
+Read all reference material through the same OPH lens: the experiment is only
+OPH-specific after the hardware instantiates an observer-like self-reading
+system with bounded geometry, drive/read ports, records, live feedback, and
+control-surviving receipts.
+
 ## Build-Source References
 
 - [hacking-the-simulation-anti-gravity-exploit.pdf](build-source/hacking-the-simulation-anti-gravity-exploit.pdf)
