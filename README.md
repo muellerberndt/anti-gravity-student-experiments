@@ -49,13 +49,12 @@ not drive itself, read itself, record that response, use the record in live
 feedback, and pass the frozen scorebook against replay and shuffled controls,
 there is no OPH-style result to discuss.
 
-The package also treats `P ~= 1.6309682` as an explicit geometry/readback
-target, not as a force coefficient. A run that wants OPH-style status must say
-which dimensionless ratio in the article is tuned to `P`, which measured files
-bind that ratio to the built device, and which detuned geometry or null control
-would make a P-dependent story fail. A conventional vibration run can leave
-that status as `conventional_only`, but then it cannot make a P-dependent
-claim.
+The package also treats `P ~= 1.6309682` as a mandatory geometry/readback
+target, not as a force coefficient. Every build must say which dimensionless
+ratio in the article is tuned to `P`, which measured files bind that ratio to
+the built device, and which detuned geometry or null control would make a
+P-dependent story fail. Conventional vibration maps are still useful, but the
+student hardware spec itself does not have a no-P branch.
 
 Plain-language map:
 

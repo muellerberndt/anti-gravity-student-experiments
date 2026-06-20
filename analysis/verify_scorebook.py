@@ -142,24 +142,24 @@ def check_confirmation_fields(manifest: dict[str, Any]) -> list[str]:
     ]:
         if get_path(manifest, dotted) is not True:
             errors.append(f"confirmation boolean must be true: {dotted}")
+    if get_path(manifest, "geometry.p_target_status") != "p_integrated":
+        errors.append("student confirmation runs require geometry.p_target_status: p_integrated")
+    try:
+        p_value = float(get_path(manifest, "geometry.p_target_value"))
+        if abs(p_value - P_TARGET) > 1e-6:
+            errors.append("geometry.p_target_value must match 1.6309682")
+    except (TypeError, ValueError):
+        errors.append("geometry.p_target_value must be numeric")
+    for dotted in (
+        "geometry.p_geometry_ratio",
+        "geometry.p_geometry_elements",
+        "geometry.p_detuned_control_id",
+    ):
+        if is_blank(get_path(manifest, dotted)):
+            errors.append(f"student confirmation runs require {dotted}")
     if get_path(manifest, "geometry.oph_vertical_scalar_claim") is True:
         if get_path(manifest, "geometry.zone_definition") != "top_bottom":
             errors.append("OPH vertical scalar claim requires geometry.zone_definition: top_bottom")
-        if get_path(manifest, "geometry.p_target_status") != "p_integrated":
-            errors.append("OPH vertical scalar claim requires geometry.p_target_status: p_integrated")
-        try:
-            p_value = float(get_path(manifest, "geometry.p_target_value"))
-            if abs(p_value - P_TARGET) > 1e-6:
-                errors.append("geometry.p_target_value must match 1.6309682 for a P-integrated claim")
-        except (TypeError, ValueError):
-            errors.append("geometry.p_target_value must be numeric for a P-integrated claim")
-        for dotted in (
-            "geometry.p_geometry_ratio",
-            "geometry.p_geometry_elements",
-            "geometry.p_detuned_control_id",
-        ):
-            if is_blank(get_path(manifest, dotted)):
-                errors.append(f"OPH vertical scalar claim requires {dotted}")
     if get_path(manifest, "measurement.blind_code_opened_after_lock") is not False:
         errors.append("blind code must remain closed until after analysis lock")
     if get_path(manifest, "analysis.canonical_scalar_claim") is not False:

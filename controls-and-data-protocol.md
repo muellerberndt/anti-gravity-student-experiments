@@ -25,11 +25,11 @@ Geometry declaration:
 - Acoustic bench B0 mode: dish and reflector forces are measured as reaction pairs. A closed fixture should sum close to zero for ordinary acoustic interaction.
 - Acoustic bench B0-net mode: dish, reflector, frame, electronics, battery, and enclosure sit on one common weighed platform. Internal acoustic forces should cancel.
 - Acoustic B0 subtraction is not an anomaly estimate. A residual claim belongs in B0-net.
-- P status: an OPH-style run must declare `p_target_status: p_integrated`,
+- P status: every student run must declare `p_target_status: p_integrated`,
   `p_target_value: 1.6309682`, the exact dimensionless ratio that encodes the
   target, the geometry/readout elements used to measure it, and the detuned
-  control geometry. A run with `conventional_only` or `exploratory_no_p` status
-  can still be useful, but it cannot make a P-dependent claim.
+  control geometry. Conventional mapping can remain the strongest allowed
+  claim, but the build still carries a P-coded geometry/readback target.
 
 Student translation:
 

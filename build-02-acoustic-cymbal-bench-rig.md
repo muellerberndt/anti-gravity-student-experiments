@@ -24,8 +24,8 @@ coefficient for the cymbal rig. It is a geometry/readback tuning target: the
 students must state which dimensionless dish, standoff, port-spacing,
 top/bottom-zone, or `K_port` coupling ratio is held near `P`, how it is
 measured, and which detuned geometry tests the same mass and power path without
-that ratio. Without that declaration, the rig is a conventional acoustic force
-map or exploratory self-read test, not a P-dependent OPH residual-force test.
+that ratio. Without that declaration, the rig is not inside the student
+hardware spec.
 
 Student model:
 
@@ -165,13 +165,17 @@ geometry:
   mode: acoustic_B0
   zone_definition: none
   oph_vertical_scalar_claim: false
-  p_target_status: conventional_only
+  p_target_status: p_integrated
+  p_target_value: 1.6309682
+  p_geometry_ratio: dish_port_ring_radius_mm / dish_active_radius_mm
+  p_detuned_control_id: dish_port_ring_detuned_control
 ```
 
 Change `oph_vertical_scalar_claim` to `true` only after the article has real upper/lower instrumented zones and an accepted scorebook.
-Change `p_target_status` to `p_integrated` only after the P-coded ratio,
-measured value, tolerance, geometry file, and detuned control are declared in
-the manifest before force data are viewed.
+Keep `p_target_status: p_integrated` for B0 and B0-net. A B0 run may still be
+conventional-only in its strongest claim, but the device geometry must already
+declare the P-coded ratio, measured value, tolerance, geometry file, and detuned
+control before force data are viewed.
 
 Drive states:
 
