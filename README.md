@@ -1,9 +1,5 @@
 # Anti-Gravity Student Experiments
 
-Status: student lab package, research draft
-Prepared: 2026-06-18
-Audience: Krit's student project group at Chiang Mai University
-
 This repository gives students two concrete lab builds for testing small force effects from coherent vibration systems. The Markdown files in the root directory are the working instructions. The `reference/` folder contains background papers, source articles, and supplemental theory material.
 
 The OPH part is the observer-like self-reading system: a bounded test article

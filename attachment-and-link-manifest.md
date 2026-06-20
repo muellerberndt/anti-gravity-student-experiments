@@ -42,7 +42,7 @@ Read the root `.md` files directly in GitHub. PDF files appear under `reference/
   Claim boundaries across conventional acoustic lift, ion-wind lift, refuted claims, and the open `chi_nu` hypothesis.
 
 - [DIY Cymbal Source PDF](reference/build-source/diy-hoverbike-four-cymbals.pdf)
-  Cymbal geometry and pot-lid precursor: four dishes, three transducers per dish, 60 percent radius placement, and phase-locked drive. The human-carrying lift claim is background only and is not adopted by the lab plan.
+  Cymbal geometry and pot-lid precursor: four dishes, three transducers per dish, 60 percent radius placement, and phase-locked drive. The lab plan uses it as bench-rig background.
 
 - [Hover Disk HTML](reference/build-source/hover_disk.html)
   Materials and coherent-substrate background.

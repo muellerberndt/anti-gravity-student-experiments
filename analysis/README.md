@@ -16,4 +16,4 @@ Useful helpers:
 - `factorial_force_model.py`: estimates the locked `K_live - K_replay` interaction from `q * delta_S_hat`.
 - `run_synthetic_tests.py`: checks one valid synthetic run and two failing synthetic runs.
 
-The verifier fails confirmation runs when required manifest fields are blank, `OPEN_LOOP_REPLAY` is not waveform-identical to the referenced `LIVE` packet, `YOKED_SHUFFLE_REPLAY` is not waveform-identical to the referenced `CAUSAL_SHUFFLE` packet, the proxy scalar table fails, exploration and confirmation data share a path, or ordinary artifact limits are exceeded.
+The verifier fails confirmation runs when required manifest fields are blank, `OPEN_LOOP_REPLAY` differs from the referenced `LIVE` packet, `YOKED_SHUFFLE_REPLAY` differs from the referenced `CAUSAL_SHUFFLE` packet, the proxy scalar table fails, exploration and confirmation data share a path, or ordinary artifact limits are exceeded.
