@@ -6,11 +6,9 @@ Audience: Krit's student project group at Chiang Mai University
 
 This repository gives students two concrete lab builds for testing small force effects from coherent vibration systems. The Markdown files in the root directory are the working instructions. The `reference/` folder contains background papers, source articles, and supplemental theory material.
 
-What makes the package OPH-specific is not "anti-gravity" branding or ordinary
-vibration. The OPH move is to instantiate an observer-like self-reading system:
-a bounded test article with ports, local readback, records, live feedback, and a
-public receipt showing whether its own boundary records predict later boundary
-response.
+The OPH part is the observer-like self-reading system: a bounded test article
+with ports, local readback, records, live feedback, and a public receipt showing
+whether its own boundary records predict subsequent boundary response.
 
 ## Build Path
 
@@ -43,18 +41,15 @@ Read the root `.md` files directly in GitHub. PDF files appear under `reference/
 
 The experiments drive resonant plates or dishes in controlled phase patterns, read back their vibrational state, and compare active states against sham, dummy, sign-reversed, replay, record-shuffled, and physically flipped controls.
 
-The OPH-specific question is whether the article can become an observer-like
-self-reading object before any force claim is considered. If the device does
-not drive itself, read itself, record that response, use the record in live
-feedback, and pass the frozen scorebook against replay and shuffled controls,
-there is no OPH-style result to discuss.
+The first OPH task is a self-reading object. The device drives itself, reads its
+own response, records that response, uses the record in live feedback, and
+passes the frozen scorebook against replay and shuffled controls.
 
-The package also treats `P ~= 1.6309682` as a mandatory geometry/readback
-target, not as a force coefficient. Every build must say which dimensionless
-ratio in the article is tuned to `P`, which measured files bind that ratio to
-the built device, and which detuned geometry or null control would make a
-P-dependent story fail. Conventional vibration maps are still useful, but the
-student hardware spec itself does not have a no-P branch.
+`P ~= 1.6309682` is mandatory because it gives every build the same OPH
+geometry ruler. The ratio goes into the port layout or dish layout, then the
+students measure it after assembly. The detuned twin uses the same mass, power,
+and logging with the P ratio shifted. If the OPH geometry matters, the P-coded
+article should produce a cleaner self-read receipt than the detuned twin.
 
 Default encodings are fixed in the build guides. For the plate, set the active
 body span divided by the in-plane P-port centroid separation to `P` on the top
@@ -74,15 +69,19 @@ Plain-language map:
 
 The direct OPH-style force test is vertical. It requires separately measured upper and lower zones, a frozen proxy scalar for `S_hat_bottom - S_hat_top`, live record-conditioned feedback, and a physical inversion around a horizontal axis. Horizontal pendulum measurements remain useful for acoustic recoil, torque, and artifact mapping.
 
-Ordinary acoustic and vibration effects are expected. A positive new-force result is not expected from these student builds. The useful result is either a conventional force map with clean controls or an upper bound on any residual that tracks the self-read coherent state and reverses sign under the planned controls.
+Ordinary acoustic and vibration effects are expected. A useful student result
+is a conventional force map with clean controls or an upper bound on any
+residual that tracks the self-read coherent state and reverses sign under the
+planned controls.
 
 ## Claim Boundaries
 
 - Conventional acoustic force is expected and useful. Piezo plates, pot lids, bowls, cymbals, and ultrasonic arrays can produce measurable radiation pressure, squeeze-film forces, vibration coupling, heat, and electrostatic artifacts.
 - The OPH `chi_nu` effect is a hypothesis under test. This package makes no positive force claim.
-- `P` is a design and readback calibration target. It is not a measured lift
-  multiplier, not `chi_nu`, and not a substitute for the live self-read receipt.
-- The package tests a downstream OPH `chi_nu` hypothesis. It does not prove OPH or local gravity manipulation.
+- `P` sets the design and readback calibration. Balance data, live/replay
+  separation, and artifact controls decide the force result.
+- The package tests a downstream OPH `chi_nu` hypothesis. OPH and local gravity
+  manipulation require separate evidence.
 - Human-carrying acoustic hover is outside the student scope. The included antigravity survey marks human-scale free-air acoustic hover as excluded by acoustic intensity, wavelength, and safety limits. The cymbal build is a bench force platform and coherence-body test article.
 
 ## Background References
@@ -101,4 +100,5 @@ Public links:
 - [Public overview](https://omega.floatingpragma.io/antigravity)
 - [NotebookLM for questions](https://notebooklm.google.com/notebook/d5249760-6ce8-44a0-927b-ccf90402711a)
 
-Legacy filenames redirect to the corrected build guides. Do not use old pendulum-first or hoverboard-framed instructions.
+Legacy filenames redirect to the corrected build guides. Use the root build
+guides as the lab manuals.

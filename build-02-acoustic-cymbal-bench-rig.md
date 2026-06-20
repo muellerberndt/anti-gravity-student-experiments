@@ -4,28 +4,32 @@
 
 This is the larger student build. It should be run as a bench force platform, with no rider and no free-flight claim.
 
-The rig uses cymbals, pot lids, stainless bowls, or similar thin metal dishes as resonant acoustic radiators. Piezo or Langevin transducers drive the dishes. The students map conventional near-field acoustic force first, then use the same apparatus as a larger coherent-body test article.
+The rig uses cymbals, pot lids, stainless bowls, or similar thin metal dishes
+as resonant acoustic radiators. Piezo or Langevin transducers drive the dishes.
+The students map conventional near-field acoustic force first, then use the same
+apparatus as a larger coherent-body test article.
 
-The OPH purpose is the same as the small plate: instantiate an observer-like
-self-reading article. The rig needs bounded geometry, top and bottom read
-zones, records, live feedback, and scorebook receipts before any residual-force
-discussion is OPH-style rather than conventional acoustics.
+The OPH purpose is the same as the small plate: build an observer-like
+self-reading article. The rig needs bounded geometry, top and bottom read zones,
+records, live feedback, and scorebook receipts before residual-force discussion
+uses OPH language.
 
 Primary goal:
 
 Measure force versus frequency, phase, drive amplitude, and standoff distance, then test whether a sign-reversible coherent state produces any residual in a closed weighed article.
 
-The included cymbal hoverboard source is useful for geometry and first-light drive ideas, but its human-carrying lift claim is not adopted here. The included antigravity survey corrects that claim and treats the pot-lid result as small bench-scale conventional acoustic force.
+The included cymbal hoverboard source is useful for geometry and first-light
+drive ideas. The included antigravity survey treats the pot-lid result as small
+bench-scale conventional acoustic force.
 
-The three-transducer dish layout is a useful acoustic radiator. By itself, it is not a vertical OPH proxy scalar. Any OPH-style stage needs separately instrumented upper and lower zones, independent `S_hat_top` and `S_hat_bottom` estimates, and live record-conditioned feedback.
+The three-transducer dish layout is a useful acoustic radiator. The OPH stage
+adds separately instrumented upper and lower zones, independent `S_hat_top` and
+`S_hat_bottom` estimates, and live record-conditioned feedback.
 
-It also needs a declared P integration. `P ~= 1.6309682` is not a force
-coefficient for the cymbal rig. It is a geometry/readback tuning target: the
-students must state which dimensionless dish, standoff, port-spacing,
-top/bottom-zone, or `K_port` coupling ratio is held near `P`, how it is
-measured, and which detuned geometry tests the same mass and power path without
-that ratio. Without that declaration, the rig is not inside the student
-hardware spec.
+`P ~= 1.6309682` gives the cymbal rig its OPH geometry ruler. Students record
+which dimensionless dish, standoff, port-spacing, top/bottom-zone, or `K_port`
+coupling ratio is held near `P`, how it is measured, and which detuned geometry
+tests the same mass and power path with the ratio shifted.
 
 Use this default encoding unless the supervisor approves a written replacement:
 
@@ -88,7 +92,8 @@ Correct measurement geometry:
 
 - The driven dish is supported by an overhead force gauge, a dish-side load cell, or a frame independent of the reflector plate.
 - The reflector plate sits on its own support or on a separate load cell if the equal-and-opposite reaction is also being measured.
-- Do not put both dish and reflector plate on the same scale for B0 conventional calibration. Internal action and reaction forces cancel in that reading.
+- Support the dish and reflector on separate force readouts for B0 conventional
+  calibration. Internal action and reaction forces cancel on one common scale.
 - Report dish-side force and reflector-side force separately. Their sum should be close to zero for ordinary acoustic interaction inside one closed bench fixture.
 
 ### Stage B0-net: Closed-System Force Test
@@ -103,9 +108,13 @@ Use this geometry after B0 characterizes the ordinary acoustic interaction.
 | Readout | slow average balance or load-cell channel plus synchronized acceleration monitoring |
 | Purpose | test whether the complete bounded article has a net external force |
 
-Ordinary acoustic forces between dish and reflector should cancel inside the weighed boundary. A residual claim belongs in B0-net, not in the subtraction of two large B0 conventional forces.
+Ordinary acoustic forces between dish and reflector should cancel inside the
+weighed boundary. A residual claim belongs in B0-net.
 
-Keep this rule absolute. Subtracting two large conventional acoustic force readings can create a small difference through sensor phase lag, alignment, gap drift, thermal drift, or calibration mismatch. A real net external force should be visible on the whole bounded article.
+Keep this rule absolute. Subtracting two large conventional acoustic force
+readings can create a small difference through sensor phase lag, alignment, gap
+drift, thermal drift, or calibration mismatch. A real net external force should
+be visible on the whole bounded article.
 
 B0-net also needs a sealed or well-characterized acoustic boundary. If sound, airflow, or vibration leaves the fixture and pushes on the room, the room becomes the reaction mass. Log external microphones or accelerometers and run an open/closed enclosure comparison.
 
@@ -116,7 +125,7 @@ Build this after B0 is stable.
 | Item | First build target |
 | --- | --- |
 | Dishes | 4 x 200 to 300 mm stainless bowls or pot lids |
-| Optional larger dishes | 4 x 400 to 510 mm cymbals for later bench work |
+| Optional larger dishes | 4 x 400 to 510 mm cymbals for expanded bench work |
 | Transducers | 3 per dish, 12 total |
 | Placement | 120 degrees apart on `dish_active_radius / P`, about 61.31 percent radius |
 | Orientation | Bell or convex focus downward, aimed at reflector plate |
@@ -130,7 +139,7 @@ Expected conventional force:
 
 - milligram-force to gram-force class for a first student pot-lid or bowl fixture,
 - possibly larger sub-newton force only with a well-coupled squeeze-film geometry and suitable actuators,
-- no expectation of human-scale lift.
+- expected range stays far below human-scale lift.
 
 ## Bill Of Materials
 
@@ -158,14 +167,14 @@ Four-dish platform:
 - 12 drive channels, current-limited.
 - MCU with phase-locked waveform generation.
 - Per-dish pickup sensor or accelerometer.
-- Battery pack for later self-contained runs.
+- Battery pack for self-contained runs.
 - Temperature sensors on transducers and dishes.
 - Load cells at support points or a separate reflector reaction measurement.
 - Shielding, remote kill switch, and acoustic enclosure if available.
 
 ## Mechanical Build
 
-1. Mark each dish at 60 percent radius.
+1. Mark each dish at `dish_active_radius / P`, about 61.31 percent radius.
 2. Place three transducers 120 degrees apart on each dish.
 3. Avoid the rim and exact center. The rim is fragile and the center is a poor first location for many modes.
 4. If drilling thin metal, use a center punch and step drill. Clamp the dish gently to avoid deformation.
@@ -191,7 +200,8 @@ Minimum:
 - frequency sweep and resonance-lock mode,
 - fixed state schedules written to the log.
 
-One pickup sensor per dish is conventional-only. It is fine for resonance locking and acoustic mapping. It is not enough for an OPH top/bottom scalar. In the manifest, use:
+One pickup sensor per dish supports resonance locking and acoustic mapping. An
+OPH top/bottom scalar needs upper and lower read zones. In the manifest, use:
 
 ```yaml
 geometry:
@@ -210,11 +220,10 @@ geometry:
   p_detuned_control_geometry_file: geometry/dish-detuned-ring-measurement.md
 ```
 
-Change `oph_vertical_scalar_claim` to `true` only after the article has real upper/lower instrumented zones and an accepted scorebook.
-Keep `p_target_status: p_integrated` for B0 and B0-net. A B0 run may still be
-conventional-only in its strongest claim, but the device geometry must already
-declare the P-coded ratio, measured value, tolerance, geometry file, and detuned
-control before force data are viewed.
+Set `oph_vertical_scalar_claim: true` after the article has upper and lower
+instrumented zones and an accepted scorebook. Keep `p_target_status:
+p_integrated` for B0 and B0-net. A B0 run can still report conventional force
+mapping as its strongest claim while carrying the P-coded geometry.
 
 Drive states:
 
@@ -263,8 +272,8 @@ For each dish:
 7. Record dish acceleration, transducer temperature, load-cell force, supply voltage, current, and acoustic level if available.
 8. Repeat on different surfaces: glass, aluminum, polished concrete, and a lossy surface such as foam or carpet.
 9. For quantitative squeeze-film claims, record LDV, scanning vibrometry, or a calibrated displacement-sensor trace, three-point gap measurement, pre/post modal fingerprint, cool-down period, gap uncertainty, tilt uncertainty, displacement uncertainty, force-versus-pressure scaling, and force-versus-gap scaling.
-10. Use shorter force windows and declared cool-down periods when fine-gap heating moves resonance or load-cell zero during a block. Do not use a universal 60-second stable window for high-power fine-gap work.
-11. Invalidate later runs after a modal jump, plastic deformation, solder failure, or permanent center displacement.
+10. Use shorter force windows and declared cool-down periods when fine-gap heating moves resonance or load-cell zero during a block.
+11. Start a new run series after a modal jump, plastic deformation, solder failure, or permanent center displacement.
 
 Expected conventional signatures:
 
@@ -294,14 +303,17 @@ Use this only after the conventional maps are reproducible.
 3. Demonstrate a signed `S_hat_bottom - S_hat_top` that reverses between `ACTIVE_PLUS` and `ACTIVE_MINUS`.
 4. Run `LIVE`, `OPEN_LOOP_REPLAY`, `CAUSAL_SHUFFLE`, and `YOKED_SHUFFLE_REPLAY` at matched power and timing where the replay states point to named source runs.
 5. Move to B0-net only after the scalar and live ablation pass.
-6. Do not use B0 subtraction as an anomaly estimate. The candidate force test is the whole B0-net article on one weighed platform.
+6. Use the whole B0-net article on one weighed platform for the candidate force test.
 7. Use separate scorebooks for conventional B0/NFAL mapping, B0-net residual testing, and optional OPH self-read force testing.
 
 ## Claim Boundary
 
 This rig can demonstrate conventional near-field acoustic force. That measurement is a valid student result.
 
-A human-carrying hoverboard is outside scope. The source material itself contains a correction: human-scale free-air acoustic hover is blocked by acoustic intensity, wavelength, and safety limits, and the realistic cymbal/pot-lid first-light result is small bench-scale deflection. The bench should not be presented as a scaled-down working hoverboard.
+Human-carrying hover is outside scope. The source material itself contains a
+correction: human-scale free-air acoustic hover is blocked by acoustic intensity,
+wavelength, and safety limits. The realistic cymbal/pot-lid first-light result
+is small bench-scale deflection.
 
 Treat any residual force claim as provisional until:
 
@@ -316,7 +328,8 @@ Treat any residual force claim as provisional until:
 
 Expected result:
 
-The expected student result is a resonance map, a conventional acoustic force or upper bound, and a clear artifact ledger. A positive residual is not expected.
+The expected student result is a resonance map, a conventional acoustic force
+or upper bound, and a clear artifact ledger.
 
 ## Safety
 
@@ -327,10 +340,11 @@ The expected student result is a resonance map, a conventional acoustic force or
 - Shield the rig. Cymbals, bowls, and piezos can crack under overdrive.
 - Never sand, drill, grind, or cut PZT. Discard cracked piezo parts in a sealed labeled container.
 - Wash hands after handling PZT. Keep food and drink away from the bench.
-- Clean ceramic fragments with wet methods or a suitable HEPA procedure. Do not use compressed air.
+- Clean ceramic fragments with wet methods or a suitable HEPA procedure. Keep
+  compressed air away from PZT fragments.
 - Stop if any transducer reaches 60 C.
 - Use current-limited supplies.
-- Do not run high-amplitude tests near loose objects, dust, paper, or uncovered sensors.
+- Keep loose objects, dust, paper, and uncovered sensors away from high-amplitude tests.
 - Treat sub-millimeter gaps as pinch and fracture hazards.
 - Log every crack, deformation, desoldered joint, or temperature excursion.
 

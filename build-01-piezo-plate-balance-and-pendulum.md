@@ -15,7 +15,11 @@ Primary goal:
 
 Map ordinary vibration and acoustic forces, then test whether a sign-reversible vertical coherent state produces any residual force after sham, dummy, replay, record-shuffled, phase-flip, and physical-flip controls.
 
-The analytical balance is the primary readout for a vertical support-force test, because the Hacking PDF defines the first PoC as a self-contained active object with a top/bottom coherence contrast on a balance. The pendulum is useful for horizontal force calibration, acoustic recoil, torque, and artifact mapping. Do not treat a single-sided horizontal pendulum as the vertical support-force experiment.
+The analytical balance is the primary readout for a vertical support-force
+test, because the Hacking PDF defines the first PoC as a self-contained active
+object with a top/bottom coherence contrast on a balance. The pendulum is useful
+for horizontal force calibration, acoustic recoil, torque, and artifact mapping.
+A vertical support-force result uses the balance protocol.
 
 Student model:
 
@@ -122,12 +126,12 @@ The mechanical active twin matters because a resistor-only dummy may fail to mat
 
 1. Declare the measurement geometry before bonding ports. Balance mode uses top and bottom zones relative to gravity. Pendulum mode uses left/right or A/B zones along the horizontal force axis.
 2. Declare the P status before bonding ports. Mark the active-body span, the P-port centroid separation on each instrumented face, `R_P`, tolerance, and the detuned-control geometry on the drawing.
-3. For balance mode, place matched ports or matched port groups on both faces, or use a laminate that gives separately measured top and bottom readouts. A single-sided plate can train the electronics, but it does not supply a true top/bottom scalar.
+3. For balance mode, place matched ports or matched port groups on both faces, or use a laminate that gives separately measured top and bottom readouts. A true top/bottom scalar needs separate top and bottom readouts.
 4. For pendulum mode, bond piezos in symmetric pairs across the horizontal axis. A four-port layout uses two ports on one side of the axis and two on the other. An eight-port or twelve-port layout gives better mode control.
 5. Keep the center of mass on the balance contact point or suspension line. Add nonmagnetic trim mass if needed.
 6. Route wires tightly against the plate. No dangling loops. During force measurements the plate must run from onboard power and logging.
 7. Add a small mirror or optical fiducial near the center of mass for pendulum mode. If using a laser mirror, keep it light and centered.
-8. Put the battery and logger on the moving test article, not on the bench.
+8. Put the battery and logger on the moving test article.
 9. Build the dummy with the same outside geometry and mass.
 
 ## Electronics
@@ -143,20 +147,24 @@ Minimum same-port circuit:
 - voltage-rated bidirectional solid-state disconnect before ADC read,
 - voltage-mode or charge-amplifier input with high impedance,
 - mid-supply ADC bias so bipolar piezo ringdown swings around `VCC / 2`,
-- input protection that does not rail-clip the signal during normal ringdown,
+- input protection that preserves the full ringdown waveform during normal operation,
 - defined discharge path and bandpass,
 - firmware dead time between drive and read windows.
 
-Do not use mechanical relays during force runs. Relay motion, magnetic fields, and contact bounce create center-of-mass and EMI artifacts.
+Use solid-state switching during force runs. Mechanical relays add motion,
+magnetic fields, contact bounce, center-of-mass shifts, and EMI artifacts.
 
-Do not feed a bipolar piezo ringdown into a microcontroller ADC through only a divider and rail clamps. That clips the negative half-cycle and corrupts phase, Q, and cross-coupling. Keep the divider-plus-clamp approach for rough bench abuse tests only.
+Feed bipolar piezo ringdown through a protected high-impedance front end with
+mid-supply bias. Divider-plus-rail-clamp tests clip the negative half-cycle and
+corrupt phase, Q, and cross-coupling. Keep that rough circuit for bench abuse
+tests.
 
 Drive calibration:
 
 - measure terminal voltage and current at each port,
 - measure each piezo capacitance after bonding,
 - keep driver current below the capacitive estimate `I_rms ~= 2 * pi * f * C * V_rms`,
-- calibrate electrical phase at the transducer terminals, not only at the MCU pins,
+- calibrate electrical phase at the transducer terminals,
 - use filtered sine drive or record the full voltage, current, acceleration, and acoustic spectra for confirmation,
 - make `SHAM` match RMS voltage, RMS current, real power, reactive power, harmonics, battery waveform, temperature, RF/logging activity, acoustic spectrum, and momentum direction as closely as the hardware allows.
 
@@ -187,7 +195,11 @@ A practical `ACTIVE_PLUS` pattern:
 
 `ACTIVE_MINUS` reverses the phase gradient, handedness, or zone assignment. The power envelope must remain matched.
 
-For a direct vertical test, compute `S_hat_top` and `S_hat_bottom` independently from the frozen scorebook. `ACTIVE_PLUS` means bottom-over-top by the declared proxy sign convention. `ACTIVE_MINUS` means top-over-bottom. A yaw rotation around the vertical suspension axis does not exchange top and bottom relative to gravity.
+For a direct vertical test, compute `S_hat_top` and `S_hat_bottom`
+independently from the frozen scorebook. `ACTIVE_PLUS` means bottom-over-top by
+the declared proxy sign convention. `ACTIVE_MINUS` means top-over-bottom. A yaw
+rotation around the vertical suspension axis leaves top and bottom unchanged
+relative to gravity.
 
 Closed-loop repair sequence:
 
@@ -201,22 +213,22 @@ Force runs must include `LIVE`, `OPEN_LOOP_REPLAY`, `CAUSAL_SHUFFLE`, and `YOKED
 
 ## Pre-Force Checkout
 
-Do not put the device on a force readout for a claim until it has a self-read receipt.
+Put the device on a force readout for a claim after it has a self-read receipt.
 
 Required checks:
 
 1. Frequency sweep: identify stable plate modes from 100 Hz to 40 kHz.
 2. Coupling matrix: drive each port, read all ports, and save amplitude, phase, and ringdown features.
 3. Repeatability: repeat each state at least 20 times.
-4. Prediction test: use records from cycle `t` to predict held-out readouts from later cycles. Compare against surrogate records that preserve autocorrelation while breaking causal alignment.
+4. Prediction test: use records from cycle `t` to predict held-out readouts from subsequent cycles. Compare against surrogate records that preserve autocorrelation while breaking causal alignment.
 5. Sign test: show that `ACTIVE_PLUS` and `ACTIVE_MINUS` produce opposite signed feature contrast along the declared measurement axis.
-6. Dummy rejection: dummy logs should not produce the same signed self-read scalar.
+6. Dummy rejection: dummy logs fail the signed self-read scalar.
 7. P-status check: verify the measured P-coded ratio, the tolerance, and the detuned-control ID before force data are viewed.
 8. Scorebook lock: freeze `templates/scorebook_template.json` or a run-specific derived `scorebook.json` before looking at force data.
 9. Live ablation: prove `LIVE` reduces the declared mismatch relative to `OPEN_LOOP_REPLAY` and `YOKED_SHUFFLE_REPLAY`, with `CAUSAL_SHUFFLE` showing the temporal-record dependence.
 10. Zone independence: show `top_drive -> top_read` is stronger than `top_drive -> bottom_read` by the declared margin, or supply the coupled-mode model that explains both.
 11. Reverse zone independence: show `bottom_drive -> bottom_read` is stronger than `bottom_drive -> top_read` by the declared margin, or supply the coupled-mode model that explains both.
-12. Support-loading test: prove the balance pan, pad, or cradle does not erase or invert the pre-balance scalar.
+12. Support-loading test: prove the balance pan, pad, or cradle preserves the pre-balance scalar.
 13. Port identity under inversion: prove horizontal-axis inversion exchanges lab top/bottom while preserving internal port identity.
 14. Zone separability receipt: report `C_TT`, `C_TB`, `C_BT`, `C_BB`, cross-zone leakage, channel-swap sign stability, piezo-polarity sign stability, and mirrored-article sign stability if available.
 15. Balance rectification calibration: drive an inert dummy with the same measured acceleration spectrum and measure any DC balance offset across frequency, amplitude, modulation, duty cycle, and pan position.
@@ -234,8 +246,9 @@ Setup:
 - Keep USB, power, and ground cables disconnected during force blocks.
 - Let the active plate, dummy, and balance thermally settle before recording.
 - Use a soft pad, three-point fixture, or symmetric cradle if the balance pan mechanically loads the bottom zone.
-- Save pre-balance and on-balance self-read scalar files. A support-loaded scalar is not a confirmation scalar unless the loading is modeled and preregistered.
-- Use a kinematic cradle or gimbal that rotates the article without changing pan contact points.
+- Save pre-balance and on-balance self-read scalar files. Use a support-loaded
+  scalar for confirmation only when the loading model is preregistered.
+- Use a kinematic cradle or gimbal that preserves pan contact points while rotating the article.
 - Record physical orientation as `q = +1` or `q = -1`.
 - Repeat at two mounting topologies and two pan positions before treating a residual as a candidate.
 - Run a post-flip coupling matrix and modal check after every inversion.
@@ -267,7 +280,8 @@ Setup:
 - Let the system thermally settle before recording.
 - Use a bifilar suspension, a torsion balance, or camera tracking of at least two separated fiducials. A single laser mirror can turn yaw torque into apparent translation.
 - Track center-of-mass displacement with a camera, or track reflected laser spot displacement from a small mirror only after yaw has been calibrated.
-- Use this mode for horizontal force calibration, acoustic recoil, and artifact mapping. It is not a substitute for the balance support-force test unless the theory axis and lab axis are deliberately declared as horizontal.
+- Use this mode for horizontal force calibration, acoustic recoil, and artifact
+  mapping. Use the balance protocol for the vertical support-force test.
 
 Direct camera formula:
 
@@ -331,7 +345,8 @@ Candidate residual threshold:
 - absent or much smaller in dummy and sham,
 - absent or much smaller in the mechanical active twin,
 - absent or much smaller in `OPEN_LOOP_REPLAY` and `YOKED_SHUFFLE_REPLAY`,
-- not explained by temperature, battery voltage, vibration leakage, magnetometer changes, electrostatics, or operator timing.
+- ordinary artifact checks for temperature, battery voltage, vibration leakage,
+  magnetometer changes, electrostatics, and operator timing.
 
 Expected result:
 
@@ -346,7 +361,8 @@ The expected student result is no residual after controls. A useful report gives
 - Never sand, drill, grind, or cut PZT. Commercial PZT contains lead zirconate titanate.
 - Discard cracked piezo discs in a sealed labeled container.
 - Wash hands after handling PZT. Keep food and drink away from the bench.
-- Clean ceramic fragments with wet methods or a suitable HEPA procedure. Do not use compressed air.
-- Do not use a power or USB cable during force measurements.
+- Clean ceramic fragments with wet methods or a suitable HEPA procedure. Keep
+  compressed air away from PZT fragments.
+- Use onboard power and onboard logging during force measurements.
 - Let piezos cool. Stop if any port exceeds 60 C.
 - Treat a positive-looking result as an artifact until the dummy, flip, sham, and thermal controls are complete.

@@ -2,12 +2,13 @@
 
 ## Rule
 
-A force reading is not interpretable until the test article has produced a self-read receipt. The order is:
+A force reading belongs after the test article has produced a self-read
+receipt. The order is:
 
 This is the OPH-specific rule. The article must first instantiate an
 observer-like self-reading system: bounded geometry, drive/read ports, local
 records, live feedback, and a verifier-facing receipt. Force data taken before
-that receipt are ordinary vibration or acoustic data, not an OPH-style test.
+that receipt are ordinary vibration or acoustic data.
 
 1. declare the measurement geometry,
 2. prove the active device has repeatable drive/read behavior,
@@ -24,7 +25,8 @@ Geometry declaration:
 - Pendulum mode: left/right or A/B zones define a horizontal force axis. Use this for acoustic recoil, artifact mapping, and pot-lid first-light measurements.
 - Acoustic bench B0 mode: dish and reflector forces are measured as reaction pairs. A closed fixture should sum close to zero for ordinary acoustic interaction.
 - Acoustic bench B0-net mode: dish, reflector, frame, electronics, battery, and enclosure sit on one common weighed platform. Internal acoustic forces should cancel.
-- Acoustic B0 subtraction is not an anomaly estimate. A residual claim belongs in B0-net.
+- Acoustic B0 subtraction is a conventional reaction-force check. A residual
+  claim belongs in B0-net.
 - P status: every student run must declare `p_target_status: p_integrated`,
   `p_target_value: 1.6309682`, the exact dimensionless ratio that encodes the
   target, the geometry/readout elements used to measure it, and the detuned
@@ -48,14 +50,14 @@ Student translation:
 - A sham keeps power and heat similar while removing the coherent self-read pattern.
 - A dummy keeps mass, electronics, heat, and handling similar while removing the valid mechanical branch.
 - A replay asks whether the same electrical waveform produces the same force when live record use is removed.
-- A physical flip asks whether the sign follows the device's internal top/bottom direction rather than the room, the balance pan, or a cable path.
+- A physical flip asks whether the sign follows the device's internal top/bottom direction across room orientation, balance pan position, and cable path.
 
 ## Required States
 
 | State | Role |
 | --- | --- |
 | `OFF` | Baseline drift and environmental record. |
-| `SHAM` | Same average power, heat, RF envelope, and timing as active mode, without the coherent self-read branch. |
+| `SHAM` | Same average power, heat, RF envelope, and timing as active mode, with the coherent self-read branch removed. |
 | `ACTIVE_PLUS` | Coherent state with predicted positive sign along the declared force axis. |
 | `ACTIVE_MINUS` | Same power and timing, reversed sign along the declared force axis. |
 | `LIVE` | Next drive packet computed from the latest self-read record. |
@@ -63,8 +65,8 @@ Student translation:
 | `CAUSAL_SHUFFLE` | Block-shuffled or time-shifted records feed the controller, so the generated packet sequence may change. |
 | `YOKED_SHUFFLE_REPLAY` | Exact packet sequence from a named `CAUSAL_SHUFFLE` run, replayed open-loop. |
 | `FLIP` | Same physical device rotated or inverted so the internal command faces the opposite lab direction. |
-| `DUMMY` | Matched artifact witness without a valid coherent self-read branch. |
-| `HEATER_ONLY` | Same thermal envelope without resonant drive. |
+| `DUMMY` | Matched artifact witness with the coherent self-read branch broken. |
+| `HEATER_ONLY` | Same thermal envelope with resonant drive removed. |
 
 ## Self-Read Receipt
 
@@ -102,7 +104,9 @@ Packet-level evidence:
 - `shuffle_seed`.
 - `timing_hash`.
 
-`OPEN_LOOP_REPLAY` must match the referenced `LIVE` packet at the electrical terminals. `YOKED_SHUFFLE_REPLAY` must match the referenced `CAUSAL_SHUFFLE` packet. Same script is not enough.
+`OPEN_LOOP_REPLAY` must match the referenced `LIVE` packet at the electrical
+terminals. `YOKED_SHUFFLE_REPLAY` must match the referenced `CAUSAL_SHUFFLE`
+packet. Prove the match with terminal voltage and current traces.
 
 Minimum pass:
 
@@ -129,9 +133,15 @@ The scorebook must define:
 - uncertainty propagation,
 - executable verifier and hash.
 
-The scorebook scalar is operational. It is `delta_S_hat`, not the canonical `delta_S_can` in the force law. `delta_S_hat` can classify a state and support an empirical coefficient `K_S_hat = F_residual / (q * delta_S_hat)`. It does not measure or bound canonical `chi_can` unless a public bridge `delta_S_can = kappa_S * delta_S_hat` is supplied.
+The scorebook scalar is operational. It is `delta_S_hat`, the lab proxy built
+from logs. `delta_S_hat` can classify a state and support an empirical
+coefficient `K_S_hat = F_residual / (q * delta_S_hat)`. A canonical `chi_can`
+claim requires a public bridge `delta_S_can = kappa_S * delta_S_hat`.
 
-For students: treat `delta_S_hat` like a lab score, not a fundamental constant. It says how strongly the logged device looks bottom-dominant or top-dominant under the frozen rules. A balance signal only becomes interesting if it follows that score and fails the ordinary-artifact checks.
+For students: treat `delta_S_hat` like a lab score. It says how strongly the
+logged device looks bottom-dominant or top-dominant under the frozen rules. A
+balance signal becomes interesting when it follows that score and fails the
+ordinary-artifact checks.
 
 Discovery data may tune the scorebook. Confirmation data must use the frozen version.
 
@@ -141,7 +151,9 @@ Run the verifier:
 python analysis/verify_scorebook.py --manifest manifest.yaml --scorebook scorebook.json --data raw/device_log.csv --confirmation
 ```
 
-The verifier must fail if confirmation-critical manifest fields are blank, if packet hashes do not prove waveform identity, if the scalar table cannot be recomputed from raw logs, or if ordinary artifact limits are exceeded.
+The verifier fails when confirmation-critical manifest fields are blank, packet
+hashes fail to prove waveform identity, the scalar table fails to recompute from
+raw logs, or ordinary artifact limits are exceeded.
 
 ## Exploration And Confirmation
 
@@ -151,7 +163,7 @@ Exploration:
 
 - find resonances, safe power levels, artifact regions, gap regimes, and useful sensor ranges,
 - revise hardware and analysis as needed,
-- do not use exploration force maxima as a confirmation claim.
+- keep exploration force maxima out of confirmation claims.
 
 Confirmation:
 
@@ -203,9 +215,13 @@ F = m * g0 * s / (2 * D)
 
 where `x` is bob displacement, `s` is laser spot displacement, and `D` is mirror-to-screen distance.
 
-Do not use this as the primary vertical support-force test. Use the balance protocol for the top/bottom PoC described in the Hacking PDF.
+Use the balance protocol for the primary vertical support-force test described
+in the Hacking PDF. Treat pendulum-only signals as artifact leads or
+development signals.
 
-A positive pendulum-only result is labeled development signal or conventional artifact lead. It is not a candidate OPH residual unless all pendulum confirmation requirements below pass.
+A pendulum-only signal is labeled development signal or conventional artifact
+lead. Candidate OPH residual status requires all pendulum confirmation
+requirements below.
 
 Pendulum confirmation requirements:
 
@@ -233,7 +249,7 @@ SHAM_1, ACTIVE_MINUS_1, ACTIVE_MINUS_2, SHAM_2
 ```
 
 6. Discard the preregistered settling interval from every state.
-7. Save raw balance CSV, not only screenshots.
+7. Save raw balance CSV. Screenshots are secondary notes.
 8. Include randomized `LIVE`, `OPEN_LOOP_REPLAY`, `CAUSAL_SHUFFLE`, and `YOKED_SHUFFLE_REPLAY` blocks during confirmation.
 9. For the direct vertical OPH-style test, invert the complete article 180 degrees about a horizontal axis so top and bottom exchange places in the lab frame.
 10. Run both an electrical dummy and a mechanical active twin for confirmation.
@@ -281,7 +297,7 @@ Use for the cymbal or dish rigs.
 12. For B0-net anomaly testing, put dish, reflector, frame, electronics, battery, enclosure, and internal wiring on one common weighed platform.
 13. Record slow average force with anti-alias filtering and synchronized high-bandwidth vibration diagnostics.
 14. Add external microphones or accelerometers and compare open versus closed enclosure when sound, airflow, or vibration can leave the weighed boundary.
-15. Treat B0 as a force-closure budget across dish, reflector, frame, contained air, and supports. Do not reduce it to a two-number subtraction.
+15. Treat B0 as a force-closure budget across dish, reflector, frame, contained air, and supports. Keep the full budget.
 
 Conventional acoustic force should change with standoff, surface, resonance, and drive amplitude. A residual that ignores those variables needs extra scrutiny, then flip and dummy tests.
 
@@ -316,14 +332,14 @@ Candidate residual:
 - `ACTIVE_MINUS` reverses sign,
 - horizontal-axis physical inversion reverses the direct vertical test in lab coordinates,
 - dummy, active twin, and sham reject the signal,
-- temperature, battery, acoustic leakage, vibration, electrostatic, and magnetic logs do not explain it.
+- temperature, battery, acoustic leakage, vibration, electrostatic, and magnetic logs fail to explain it.
 
 Publishable upper bound:
 
 - no candidate residual,
 - force sensitivity and artifact controls are documented,
 - raw logs and analysis scripts are included,
-- the null is stated as a bound for that hardware, not as a universal disproof.
+- the null is stated as a bound for that hardware.
 
 ## Evidence Bundle
 
@@ -352,4 +368,4 @@ run_id/
   hashes.txt
 ```
 
-The result lives in the bundle. A video without the bundle is outreach, not evidence.
+The result lives in the bundle. A video by itself is outreach.
