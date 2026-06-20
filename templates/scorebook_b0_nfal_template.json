@@ -1,7 +1,7 @@
 {
   "scorebook_id": "krit-b0-nfal-scorebook-v1",
   "purpose": "conventional near-field acoustic and squeeze-film force mapping",
-  "not_for_oph_proxy_claims": true,
+  "claim_scope": "conventional near-field acoustic and squeeze-film force mapping",
   "required_measurements": [
     "dish_force",
     "reflector_force",

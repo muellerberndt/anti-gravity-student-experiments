@@ -10,7 +10,7 @@
     "definition": "operational self-read proxy score from bounded record-conditioned drive/read data",
     "canonical_bridge_status": "absent",
     "classification_margin_only": true,
-    "non_claim": "delta_S_hat is not delta_S_can and must not be inserted into the canonical force law"
+    "non_claim": "delta_S_hat is a proxy scalar; canonical force-law use requires a declared bridge to delta_S_can"
   },
   "geometry": {
     "mode": "balance",
@@ -178,12 +178,12 @@
   "allowed_claim": {
     "strongest_allowed_claim": "this hardware reports K_S_hat under the frozen proxy scorebook",
     "explicit_non_claims": [
-      "no proof of OPH",
-      "no proof of local gravity control",
-      "no canonical chi_can measurement",
-      "no bound on chi_can without a proxy-to-canonical bridge",
-      "no human-carrying hover claim",
-      "no universal disproof from a null result"
+      "scope: frozen proxy scorebook and measured force data",
+      "scope: local gravity control requires separate evidence",
+      "scope: canonical chi_can measurement requires proxy-to-canonical bridge",
+      "scope: chi_can bound requires proxy-to-canonical bridge",
+      "scope: bench test article only",
+      "scope: null result applies to the tested hardware and protocol"
     ]
   }
 }

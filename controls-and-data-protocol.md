@@ -31,7 +31,7 @@ Geometry declaration:
   `p_target_value: 1.6309682`, the exact dimensionless ratio that encodes the
   target, the geometry/readout elements used to measure it, and the detuned
   control geometry. Conventional mapping can remain the strongest allowed
-  claim, but the build still carries a P-coded geometry/readback target.
+  claim. The build carries a P-coded geometry/readback target.
 
 Mandatory P fields:
 

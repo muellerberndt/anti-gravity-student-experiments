@@ -241,8 +241,8 @@ geometry:
 
 Set `oph_vertical_scalar_claim: true` after the article has upper and lower
 instrumented zones and an accepted scorebook. Keep `p_target_status:
-p_integrated` for B0 and B0-net. A B0 run can still report conventional force
-mapping as its strongest claim while carrying the P-coded geometry.
+p_integrated` for B0 and B0-net. A B0 run can report conventional force mapping
+as its strongest claim while carrying the P-coded geometry.
 
 Drive states:
 

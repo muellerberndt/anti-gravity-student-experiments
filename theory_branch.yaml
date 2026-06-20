@@ -9,10 +9,15 @@ force_law:
     A_perp: projected horizontal area of the bounded article
     chi_can: canonical coherent-matter susceptibility on the selected continuation branch
     delta_S_can: signed canonical bottom-minus-top scalar
+canonical_susceptibility:
+  theorem_grade_band: 0.9343006394893864 <= chi_can <= 1
+  uniform_branch: chi_can = exp(-P/24) = 0.9343006394893864
+  engineering_chart: chi_eng = chi_can / N_coh
+  student_status: measured force and K_S_hat; chi_can requires a proxy-to-canonical bridge
 operational_proxy:
   symbol: delta_S_hat
   definition: bottom-minus-top proxy score computed from self-read records
-  canonical_status: not canonical
+  canonical_status: proxy_only
   bridge_to_canonical:
     status: absent
     form_if_supplied_later: delta_S_can = kappa_S * delta_S_hat
@@ -23,7 +28,7 @@ operational_proxy:
 allowed_quantitative_output_without_bridge:
   coefficient: K_S_hat = F_residual / (q * delta_S_hat)
   meaning: empirical force per operational proxy scalar
-  non_claim: this is not chi_can
+  non_claim: proxy coefficient only; canonical susceptibility requires the bridge above
 non_load_bearing_sources:
   - id: hover_disk_energy_gradient_v0
     reason: energy-gradient continuation with different variables and dimensions

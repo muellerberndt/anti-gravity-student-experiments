@@ -90,8 +90,11 @@ dish.
 Any P-dependent residual claim has to pass an extra check: the force residual
 tracks the P-coded self-read contrast and weakens or vanishes in the detuned
 geometry, replay, shuffled-record, dummy, and physical flip controls. The
-background number `exp(-P/12) ~= 0.873` is a theoretical coupling ceiling inside
-the continuation branch. Student balance results use measured force data.
+chi_nu bounds paper gives `chi_can = exp(-P/24) ~= 0.934300639` on the uniform
+branch, with `0.934300639 <= chi_can <= 1` on the theorem-grade branch.
+Engineering charts divide that canonical coefficient by the effective coherent
+channel count. Student balance results use measured force data and the proxy
+coefficient. A canonical susceptibility claim requires a calibration bridge.
 
 The load-bearing theory branch for this package is versioned in [theory_branch.yaml](theory_branch.yaml). It uses the canonical linear top/bottom continuation described in the [OPH dark matter paper](https://github.com/FloatingPragma/observer-patch-holography/blob/main/extra/oph_dark_matter_paper.pdf) and the [chi_nu susceptibility bounds paper](https://github.com/FloatingPragma/observer-patch-holography/blob/main/extra/chi_nu_susceptibility_bounds.pdf). It says that a canonical vertical coherence contrast in a bounded article may couple to the local gravitational support channel:
 

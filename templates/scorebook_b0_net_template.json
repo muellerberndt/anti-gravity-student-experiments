@@ -1,7 +1,7 @@
 {
   "scorebook_id": "krit-b0-net-scorebook-v1",
   "purpose": "closed-boundary whole-apparatus residual force test",
-  "not_for_chi_can_claims": true,
+  "claim_scope": "closed-boundary whole-apparatus residual force accounting; canonical chi_can requires a vertical scalar scorebook and proxy bridge",
   "required_weighed_boundary": [
     "dish",
     "reflector",
@@ -26,5 +26,5 @@
     "support_force",
     "external_leakage_bound"
   ],
-  "candidate_residual_rule": "whole weighed article only; no B0 subtraction claim"
+  "candidate_residual_rule": "use the whole weighed article; B0 subtraction is conventional mapping"
 }

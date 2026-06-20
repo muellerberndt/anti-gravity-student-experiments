@@ -35,7 +35,7 @@ root build guides are clear.
 - [Compact OPH paper](supplemental-theory/recovering_relativity_and_standard_model_structure_from_observer_overlap_consistency_compact.pdf)
 - [chi_nu susceptibility bounds](supplemental-theory/chi_nu_susceptibility_bounds.pdf)
 
-Core OPH source links:
+Core OPH PDF links:
 
 - [Observers Are All You Need](https://github.com/FloatingPragma/observer-patch-holography/blob/main/paper/observers_are_all_you_need.pdf)
 - [Reality as Consensus Protocol](https://github.com/FloatingPragma/observer-patch-holography/blob/main/paper/reality_as_consensus_protocol.pdf)

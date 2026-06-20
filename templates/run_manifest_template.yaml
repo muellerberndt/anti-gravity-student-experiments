@@ -66,7 +66,7 @@ geometry:
   p_detuned_control_id: p-detuned-ratio-1p50
   p_detuned_control_ratio: 1.50
   p_detuned_control_geometry_file: geometry/detuned-layout-measurement.md
-  p_claim_limit: P is a geometry/readback target, not a force coefficient
+  p_claim_limit: P sets the geometry/readback ratio used for the port or dish layout
   physical_flip_axis:
   reflector_plate: false
   single_pickup_per_dish_is_conventional_only: true
@@ -220,7 +220,7 @@ analysis:
 claims:
   strongest_allowed_claim: conventional_force_map_or_upper_bound
   explicit_non_claims:
-    - no proof of OPH
-    - no human-carrying hover claim
-    - no universal disproof from a null result
+    - "scope: frozen proxy scorebook and measured force data"
+    - "scope: bench test article only"
+    - "scope: null result applies to the tested hardware and protocol"
 notes:
