@@ -94,7 +94,8 @@ Use the root build guides as the lab manuals. Use [reference/](reference/) for s
 - [Hacking the Simulation: Anti-Gravity Exploit PDF](reference/build-source/hacking-the-simulation-anti-gravity-exploit.pdf)
 - [Antigravity Devices survey](reference/build-source/antigravity_devices.html)
 - [DIY cymbal source](reference/build-source/diy-hoverbike-four-cymbals.pdf)
-- [Supplemental theory papers](reference/supplemental-theory/)
+- [Main OPH paper PDFs](https://github.com/FloatingPragma/observer-patch-holography/tree/main/paper)
+- [Supplemental OPH PDF papers](https://github.com/FloatingPragma/observer-patch-holography/tree/main/extra)
 
 Core OPH papers for supervisors and motivated students:
 

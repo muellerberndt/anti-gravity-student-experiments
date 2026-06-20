@@ -31,9 +31,11 @@ control-surviving receipts.
 These papers are useful for faculty discussion and motivated students after the
 root build guides are clear.
 
-- [OPH dark matter paper](supplemental-theory/oph_dark_matter_paper.pdf)
-- [Compact OPH paper](supplemental-theory/recovering_relativity_and_standard_model_structure_from_observer_overlap_consistency_compact.pdf)
-- [chi_nu susceptibility bounds](supplemental-theory/chi_nu_susceptibility_bounds.pdf)
+- [Main OPH paper PDFs](https://github.com/FloatingPragma/observer-patch-holography/tree/main/paper)
+- [Supplemental OPH PDF papers](https://github.com/FloatingPragma/observer-patch-holography/tree/main/extra)
+- [OPH dark matter paper](https://github.com/FloatingPragma/observer-patch-holography/blob/main/extra/oph_dark_matter_paper.pdf)
+- [Compact OPH paper](https://github.com/FloatingPragma/observer-patch-holography/blob/main/paper/recovering_relativity_and_standard_model_structure_from_observer_overlap_consistency_compact.pdf)
+- [chi_nu susceptibility bounds](https://github.com/FloatingPragma/observer-patch-holography/blob/main/extra/chi_nu_susceptibility_bounds.pdf)
 
 Core OPH PDF links:
 

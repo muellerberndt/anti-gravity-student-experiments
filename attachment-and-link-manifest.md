@@ -52,9 +52,11 @@ Read the root `.md` files directly in GitHub. PDF files appear under `reference/
 
 ## Included Supplemental Theory
 
-- [OPH dark matter paper](reference/supplemental-theory/oph_dark_matter_paper.pdf)
-- [Compact OPH paper](reference/supplemental-theory/recovering_relativity_and_standard_model_structure_from_observer_overlap_consistency_compact.pdf)
-- [chi_nu susceptibility bounds paper](reference/supplemental-theory/chi_nu_susceptibility_bounds.pdf)
+- [Main OPH paper PDFs](https://github.com/FloatingPragma/observer-patch-holography/tree/main/paper)
+- [Supplemental OPH PDF papers](https://github.com/FloatingPragma/observer-patch-holography/tree/main/extra)
+- [OPH dark matter paper](https://github.com/FloatingPragma/observer-patch-holography/blob/main/extra/oph_dark_matter_paper.pdf)
+- [Compact OPH paper](https://github.com/FloatingPragma/observer-patch-holography/blob/main/paper/recovering_relativity_and_standard_model_structure_from_observer_overlap_consistency_compact.pdf)
+- [chi_nu susceptibility bounds paper](https://github.com/FloatingPragma/observer-patch-holography/blob/main/extra/chi_nu_susceptibility_bounds.pdf)
 
 ## Public Links
 
