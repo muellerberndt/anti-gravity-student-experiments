@@ -56,6 +56,17 @@ geometry:
   force_axis: lab_vertical
   zone_definition: top_bottom
   oph_vertical_scalar_claim: true
+  p_target_status: p_integrated
+  p_target_value: 1.6309682
+  p_geometry_ratio: port_spacing_mm / active_zone_span_mm
+  p_geometry_ratio_measured:
+  p_geometry_ratio_tolerance_pct:
+  p_geometry_elements: port layout, active-zone span, body geometry file, K_port coupling notes
+  p_geometry_file:
+  p_detuned_control_id:
+  p_detuned_control_ratio:
+  p_detuned_control_geometry_file:
+  p_claim_limit: P is a geometry/readback target, not a force coefficient
   physical_flip_axis:
   reflector_plate: false
   single_pickup_per_dish_is_conventional_only: true

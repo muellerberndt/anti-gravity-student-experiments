@@ -45,6 +45,18 @@ Student model:
 | Suspension | 1.5 to 2.0 m nonconductive line |
 | Force readout | 0.1 mg or 1 mg balance for vertical support force. Camera, laser spot, or optical position sensor for horizontal pendulum force |
 
+P integration rule:
+
+`P ~= 1.6309682` is the plate's declared geometry/readback tuning target for an
+OPH-style run. Before bonding ports, choose one dimensionless ratio that the
+build will hold near `P`, such as port spacing divided by active-zone span,
+collar or spacer gap divided by plate thickness, top-zone scale divided by
+bottom-zone scale, or a frozen `K_port` coupling/readback ratio. Record the
+definition, intended value, measured value, tolerance, and geometry files in the
+manifest. Build or identify a detuned control with the same mass, power path,
+and handling but with that ratio shifted. If this is not done, label the run
+`conventional_only` or `exploratory_no_p`.
+
 ## Bill Of Materials
 
 Minimum active plate:
@@ -81,13 +93,14 @@ The mechanical active twin matters because a resistor-only dummy may fail to mat
 ## Mechanical Build
 
 1. Declare the measurement geometry before bonding ports. Balance mode uses top and bottom zones relative to gravity. Pendulum mode uses left/right or A/B zones along the horizontal force axis.
-2. For balance mode, place matched ports or matched port groups on both faces, or use a laminate that gives separately measured top and bottom readouts. A single-sided plate can train the electronics, but it does not supply a true top/bottom scalar.
-3. For pendulum mode, bond piezos in symmetric pairs across the horizontal axis. A four-port layout uses two ports on one side of the axis and two on the other. An eight-port or twelve-port layout gives better mode control.
-4. Keep the center of mass on the balance contact point or suspension line. Add nonmagnetic trim mass if needed.
-5. Route wires tightly against the plate. No dangling loops. During force measurements the plate must run from onboard power and logging.
-6. Add a small mirror or optical fiducial near the center of mass for pendulum mode. If using a laser mirror, keep it light and centered.
-7. Put the battery and logger on the moving test article, not on the bench.
-8. Build the dummy with the same outside geometry and mass.
+2. Declare the P status before bonding ports. If the run is OPH-style, mark the P-coded ratio on the drawing and specify the detuned control geometry. If not, mark the run as conventional-only.
+3. For balance mode, place matched ports or matched port groups on both faces, or use a laminate that gives separately measured top and bottom readouts. A single-sided plate can train the electronics, but it does not supply a true top/bottom scalar.
+4. For pendulum mode, bond piezos in symmetric pairs across the horizontal axis. A four-port layout uses two ports on one side of the axis and two on the other. An eight-port or twelve-port layout gives better mode control.
+5. Keep the center of mass on the balance contact point or suspension line. Add nonmagnetic trim mass if needed.
+6. Route wires tightly against the plate. No dangling loops. During force measurements the plate must run from onboard power and logging.
+7. Add a small mirror or optical fiducial near the center of mass for pendulum mode. If using a laser mirror, keep it light and centered.
+8. Put the battery and logger on the moving test article, not on the bench.
+9. Build the dummy with the same outside geometry and mass.
 
 ## Electronics
 
@@ -170,14 +183,15 @@ Required checks:
 4. Prediction test: use records from cycle `t` to predict held-out readouts from later cycles. Compare against surrogate records that preserve autocorrelation while breaking causal alignment.
 5. Sign test: show that `ACTIVE_PLUS` and `ACTIVE_MINUS` produce opposite signed feature contrast along the declared measurement axis.
 6. Dummy rejection: dummy logs should not produce the same signed self-read scalar.
-7. Scorebook lock: freeze `templates/scorebook_template.json` or a run-specific derived `scorebook.json` before looking at force data.
-8. Live ablation: prove `LIVE` reduces the declared mismatch relative to `OPEN_LOOP_REPLAY` and `YOKED_SHUFFLE_REPLAY`, with `CAUSAL_SHUFFLE` showing the temporal-record dependence.
-9. Zone independence: show `top_drive -> top_read` is stronger than `top_drive -> bottom_read` by the declared margin, or supply the coupled-mode model that explains both.
-10. Reverse zone independence: show `bottom_drive -> bottom_read` is stronger than `bottom_drive -> top_read` by the declared margin, or supply the coupled-mode model that explains both.
-11. Support-loading test: prove the balance pan, pad, or cradle does not erase or invert the pre-balance scalar.
-12. Port identity under inversion: prove horizontal-axis inversion exchanges lab top/bottom while preserving internal port identity.
-13. Zone separability receipt: report `C_TT`, `C_TB`, `C_BT`, `C_BB`, cross-zone leakage, channel-swap sign stability, piezo-polarity sign stability, and mirrored-article sign stability if available.
-14. Balance rectification calibration: drive an inert dummy with the same measured acceleration spectrum and measure any DC balance offset across frequency, amplitude, modulation, duty cycle, and pan position.
+7. P-status check: for an OPH-style run, verify the measured P-coded ratio, the tolerance, and the detuned-control ID before force data are viewed.
+8. Scorebook lock: freeze `templates/scorebook_template.json` or a run-specific derived `scorebook.json` before looking at force data.
+9. Live ablation: prove `LIVE` reduces the declared mismatch relative to `OPEN_LOOP_REPLAY` and `YOKED_SHUFFLE_REPLAY`, with `CAUSAL_SHUFFLE` showing the temporal-record dependence.
+10. Zone independence: show `top_drive -> top_read` is stronger than `top_drive -> bottom_read` by the declared margin, or supply the coupled-mode model that explains both.
+11. Reverse zone independence: show `bottom_drive -> bottom_read` is stronger than `bottom_drive -> top_read` by the declared margin, or supply the coupled-mode model that explains both.
+12. Support-loading test: prove the balance pan, pad, or cradle does not erase or invert the pre-balance scalar.
+13. Port identity under inversion: prove horizontal-axis inversion exchanges lab top/bottom while preserving internal port identity.
+14. Zone separability receipt: report `C_TT`, `C_TB`, `C_BT`, `C_BB`, cross-zone leakage, channel-swap sign stability, piezo-polarity sign stability, and mirrored-article sign stability if available.
+15. Balance rectification calibration: drive an inert dummy with the same measured acceleration spectrum and measure any DC balance offset across frequency, amplitude, modulation, duty cycle, and pan position.
 
 ## Balance Measurement
 

@@ -64,12 +64,34 @@
     },
     "geometry": {
       "type": "object",
-      "required": ["mode", "force_axis", "zone_definition", "oph_vertical_scalar_claim", "physical_flip_axis"],
+      "required": [
+        "mode",
+        "force_axis",
+        "zone_definition",
+        "oph_vertical_scalar_claim",
+        "p_target_status",
+        "p_target_value",
+        "p_geometry_ratio",
+        "p_geometry_elements",
+        "p_detuned_control_id",
+        "physical_flip_axis"
+      ],
       "properties": {
         "mode": { "type": ["string", "null"] },
         "force_axis": { "type": ["string", "null"] },
         "zone_definition": { "type": ["string", "null"] },
         "oph_vertical_scalar_claim": { "type": ["boolean", "null"] },
+        "p_target_status": { "type": ["string", "null"] },
+        "p_target_value": { "type": ["number", "string", "null"] },
+        "p_geometry_ratio": { "type": ["string", "null"] },
+        "p_geometry_ratio_measured": { "type": ["number", "string", "null"] },
+        "p_geometry_ratio_tolerance_pct": { "type": ["number", "string", "null"] },
+        "p_geometry_elements": { "type": ["string", "null"] },
+        "p_geometry_file": { "type": ["string", "null"] },
+        "p_detuned_control_id": { "type": ["string", "null"] },
+        "p_detuned_control_ratio": { "type": ["number", "string", "null"] },
+        "p_detuned_control_geometry_file": { "type": ["string", "null"] },
+        "p_claim_limit": { "type": ["string", "null"] },
         "physical_flip_axis": { "type": ["string", "null"] }
       }
     },

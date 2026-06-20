@@ -49,6 +49,14 @@ not drive itself, read itself, record that response, use the record in live
 feedback, and pass the frozen scorebook against replay and shuffled controls,
 there is no OPH-style result to discuss.
 
+The package also treats `P ~= 1.6309682` as an explicit geometry/readback
+target, not as a force coefficient. A run that wants OPH-style status must say
+which dimensionless ratio in the article is tuned to `P`, which measured files
+bind that ratio to the built device, and which detuned geometry or null control
+would make a P-dependent story fail. A conventional vibration run can leave
+that status as `conventional_only`, but then it cannot make a P-dependent
+claim.
+
 Plain-language map:
 
 - A piezo is an electrical part that bends a little when voltage is applied.
@@ -67,6 +75,8 @@ Ordinary acoustic and vibration effects are expected. A positive new-force resul
 
 - Conventional acoustic force is expected and useful. Piezo plates, pot lids, bowls, cymbals, and ultrasonic arrays can produce measurable radiation pressure, squeeze-film forces, vibration coupling, heat, and electrostatic artifacts.
 - The OPH `chi_nu` effect is a hypothesis under test. This package makes no positive force claim.
+- `P` is a design and readback calibration target. It is not a measured lift
+  multiplier, not `chi_nu`, and not a substitute for the live self-read receipt.
 - The package tests a downstream OPH `chi_nu` hypothesis. It does not prove OPH or local gravity manipulation.
 - Human-carrying acoustic hover is outside the student scope. The included antigravity survey marks human-scale free-air acoustic hover as excluded by acoustic intensity, wavelength, and safety limits. The cymbal build is a bench force platform and coherence-body test article.
 

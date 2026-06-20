@@ -20,6 +20,7 @@ import compute_self_read_scalar
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 SCHEMA_DIR = SCRIPT_DIR / "schemas"
+P_TARGET = 1.6309682
 
 CONFIRMATION_FIELDS = [
     "repository.package_commit_hash",
@@ -33,6 +34,11 @@ CONFIRMATION_FIELDS = [
     "theory.theory_branch_file",
     "analysis.randomization_seed",
     "geometry.physical_flip_axis",
+    "geometry.p_target_status",
+    "geometry.p_target_value",
+    "geometry.p_geometry_ratio",
+    "geometry.p_geometry_elements",
+    "geometry.p_detuned_control_id",
     "controls.horizontal_axis_inversion",
     "controls.dummy_run",
     "controls.live_replay_ablation",
@@ -139,6 +145,21 @@ def check_confirmation_fields(manifest: dict[str, Any]) -> list[str]:
     if get_path(manifest, "geometry.oph_vertical_scalar_claim") is True:
         if get_path(manifest, "geometry.zone_definition") != "top_bottom":
             errors.append("OPH vertical scalar claim requires geometry.zone_definition: top_bottom")
+        if get_path(manifest, "geometry.p_target_status") != "p_integrated":
+            errors.append("OPH vertical scalar claim requires geometry.p_target_status: p_integrated")
+        try:
+            p_value = float(get_path(manifest, "geometry.p_target_value"))
+            if abs(p_value - P_TARGET) > 1e-6:
+                errors.append("geometry.p_target_value must match 1.6309682 for a P-integrated claim")
+        except (TypeError, ValueError):
+            errors.append("geometry.p_target_value must be numeric for a P-integrated claim")
+        for dotted in (
+            "geometry.p_geometry_ratio",
+            "geometry.p_geometry_elements",
+            "geometry.p_detuned_control_id",
+        ):
+            if is_blank(get_path(manifest, dotted)):
+                errors.append(f"OPH vertical scalar claim requires {dotted}")
     if get_path(manifest, "measurement.blind_code_opened_after_lock") is not False:
         errors.append("blind code must remain closed until after analysis lock")
     if get_path(manifest, "analysis.canonical_scalar_claim") is not False:

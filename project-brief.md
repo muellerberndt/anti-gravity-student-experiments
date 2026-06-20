@@ -40,6 +40,25 @@ The novel step for this student package is to ask whether a small lab object can
 
 The OPH/chi_nu idea asks for a stricter object than a vibrating plate. **The object must be a bounded, self-reading test article: it drives a mode, reads the response through the same or co-located ports, records the response onboard, lets that record change later drive packets, predicts later boundary response better than shuffled controls, and creates a signed top/bottom coherence contrast.** The proposed residual force is then tested against that internally measured contrast.
 
+`P ~= 1.6309682` enters this package as a design/readback tuning target. It is
+not a force coefficient and does not by itself predict lift. A student design
+that claims OPH-style status must declare one or more dimensionless P-coded
+ratios before force data are viewed: for example port spacing divided by active
+zone span, top/bottom sensor-zone scale ratio, collar or gap spacing divided by
+plate thickness, or a measured coupling/readback ratio in the frozen `K_port`
+model. The manifest must state `p_target_status: p_integrated`, the exact ratio
+definition, the measured value and tolerance, the files that bind it to the
+built article, and a detuned control geometry. If the build does not encode
+`P`, label it `conventional_only` or `exploratory_no_p` and do not make a
+P-dependent interpretation.
+
+Any P-dependent residual story has to pass an extra falsification test: the
+force residual must track the P-coded self-read contrast and must weaken or
+vanish in the detuned-geometry, replay, shuffled-record, dummy, and physical
+flip controls. The common background number `exp(-P/12) ~= 0.873` is, at most,
+a theoretical coupling ceiling inside the continuation branch. It is not an
+expected force fraction and must not be used to scale a student balance result.
+
 The load-bearing theory branch for this package is versioned in [theory_branch.yaml](theory_branch.yaml). It uses the canonical linear top/bottom continuation described in the [OPH dark matter paper](https://github.com/FloatingPragma/observer-patch-holography/blob/main/extra/oph_dark_matter_paper.tex) and the [chi_nu susceptibility bounds source](https://github.com/FloatingPragma/observer-patch-holography/blob/main/extra/chi_nu_susceptibility_bounds.tex). It says that a canonical vertical coherence contrast in a bounded article may couple to the local gravitational support channel:
 
 ```text
@@ -94,6 +113,8 @@ Main deliverables:
 
 - active plate with four to twelve piezo drive/read ports,
 - declared geometry: top/bottom zones for balance mode, or left/right zones for pendulum mode,
+- declared P status: P-coded ratio plus detuned control for OPH-style runs, or
+  `conventional_only` for ordinary force mapping,
 - onboard battery and logger,
 - resonance and coupling matrix,
 - packet-level drive, record, and terminal voltage/current hashes,
@@ -120,6 +141,8 @@ Main deliverables:
 - four-dish bench platform with no rider and no free-flight claim,
 - twelve phase-locked drive channels,
 - independent top and bottom self-read zones for any OPH-style force test,
+- declared P-coded geometry/readback ratio and detuned control before any
+  OPH-style residual-force claim,
 - conventional B0 acoustic force geometry and closed-system B0-net geometry,
 - force versus standoff, frequency, phase, and amplitude curves,
 - temperature and accelerometer logs,

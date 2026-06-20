@@ -25,6 +25,11 @@ Geometry declaration:
 - Acoustic bench B0 mode: dish and reflector forces are measured as reaction pairs. A closed fixture should sum close to zero for ordinary acoustic interaction.
 - Acoustic bench B0-net mode: dish, reflector, frame, electronics, battery, and enclosure sit on one common weighed platform. Internal acoustic forces should cancel.
 - Acoustic B0 subtraction is not an anomaly estimate. A residual claim belongs in B0-net.
+- P status: an OPH-style run must declare `p_target_status: p_integrated`,
+  `p_target_value: 1.6309682`, the exact dimensionless ratio that encodes the
+  target, the geometry/readout elements used to measure it, and the detuned
+  control geometry. A run with `conventional_only` or `exploratory_no_p` status
+  can still be useful, but it cannot make a P-dependent claim.
 
 Student translation:
 
@@ -59,6 +64,8 @@ Before any force claim, save:
 - firmware hash,
 - state schedule,
 - declared geometry and force axis,
+- declared P status, ratio definition, measured ratio, tolerance, geometry
+  hash, and detuned-control ID,
 - frozen `scorebook.json` hash,
 - executable verifier hash,
 - frequency sweep,
@@ -143,6 +150,7 @@ Confirmation:
 - blind force-analysis labels when practical,
 - use measured Allan deviation to set run length and sensitivity,
 - correct for any search over frequency, gap, phase, surface, or geometry,
+- correct for any search over P detuning or P-ratio choice,
 - base the candidate claim on an untouched dataset.
 
 Keep the file paths separate:

@@ -19,6 +19,14 @@ The included cymbal hoverboard source is useful for geometry and first-light dri
 
 The three-transducer dish layout is a useful acoustic radiator. By itself, it is not a vertical OPH proxy scalar. Any OPH-style stage needs separately instrumented upper and lower zones, independent `S_hat_top` and `S_hat_bottom` estimates, and live record-conditioned feedback.
 
+It also needs a declared P integration. `P ~= 1.6309682` is not a force
+coefficient for the cymbal rig. It is a geometry/readback tuning target: the
+students must state which dimensionless dish, standoff, port-spacing,
+top/bottom-zone, or `K_port` coupling ratio is held near `P`, how it is
+measured, and which detuned geometry tests the same mass and power path without
+that ratio. Without that declaration, the rig is a conventional acoustic force
+map or exploratory self-read test, not a P-dependent OPH residual-force test.
+
 Student model:
 
 - A dish or cymbal acts like a loud mechanical speaker.
@@ -157,9 +165,13 @@ geometry:
   mode: acoustic_B0
   zone_definition: none
   oph_vertical_scalar_claim: false
+  p_target_status: conventional_only
 ```
 
 Change `oph_vertical_scalar_claim` to `true` only after the article has real upper/lower instrumented zones and an accepted scorebook.
+Change `p_target_status` to `p_integrated` only after the P-coded ratio,
+measured value, tolerance, geometry file, and detuned control are declared in
+the manifest before force data are viewed.
 
 Drive states:
 
