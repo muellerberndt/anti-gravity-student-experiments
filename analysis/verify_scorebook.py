@@ -37,8 +37,13 @@ CONFIRMATION_FIELDS = [
     "geometry.p_target_status",
     "geometry.p_target_value",
     "geometry.p_geometry_ratio",
+    "geometry.p_geometry_ratio_measured",
+    "geometry.p_geometry_ratio_tolerance_pct",
     "geometry.p_geometry_elements",
+    "geometry.p_geometry_file",
     "geometry.p_detuned_control_id",
+    "geometry.p_detuned_control_ratio",
+    "geometry.p_detuned_control_geometry_file",
     "controls.horizontal_axis_inversion",
     "controls.dummy_run",
     "controls.live_replay_ablation",
@@ -150,10 +155,29 @@ def check_confirmation_fields(manifest: dict[str, Any]) -> list[str]:
             errors.append("geometry.p_target_value must match 1.6309682")
     except (TypeError, ValueError):
         errors.append("geometry.p_target_value must be numeric")
+    try:
+        p_measured = float(get_path(manifest, "geometry.p_geometry_ratio_measured"))
+        p_tolerance_pct = float(get_path(manifest, "geometry.p_geometry_ratio_tolerance_pct"))
+        p_error_pct = abs(p_measured - P_TARGET) / P_TARGET * 100.0
+        if p_tolerance_pct <= 0 or p_tolerance_pct > 1.0:
+            errors.append("geometry.p_geometry_ratio_tolerance_pct must be > 0 and <= 1.0")
+        if p_error_pct > p_tolerance_pct:
+            errors.append("geometry.p_geometry_ratio_measured is outside declared P tolerance")
+    except (TypeError, ValueError):
+        errors.append("geometry.p_geometry_ratio_measured and tolerance must be numeric")
+    try:
+        p_detuned_ratio = float(get_path(manifest, "geometry.p_detuned_control_ratio"))
+        p_detuned_error_pct = abs(p_detuned_ratio - P_TARGET) / P_TARGET * 100.0
+        if p_detuned_error_pct < 5.0:
+            errors.append("geometry.p_detuned_control_ratio must be at least 5 percent away from P")
+    except (TypeError, ValueError):
+        errors.append("geometry.p_detuned_control_ratio must be numeric")
     for dotted in (
         "geometry.p_geometry_ratio",
         "geometry.p_geometry_elements",
+        "geometry.p_geometry_file",
         "geometry.p_detuned_control_id",
+        "geometry.p_detuned_control_geometry_file",
     ):
         if is_blank(get_path(manifest, dotted)):
             errors.append(f"student confirmation runs require {dotted}")

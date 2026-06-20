@@ -35,9 +35,14 @@ geometry:
   oph_vertical_scalar_claim: true
   p_target_status: p_integrated
   p_target_value: 1.6309682
-  p_geometry_ratio: synthetic_port_spacing_mm / synthetic_active_zone_span_mm
-  p_geometry_elements: synthetic top/bottom port geometry and K_port fixture
+  p_geometry_ratio: synthetic_active_body_long_span_mm / synthetic_p_port_centroid_separation_mm
+  p_geometry_ratio_measured: 1.6309682
+  p_geometry_ratio_tolerance_pct: 1.0
+  p_geometry_elements: synthetic active body span, P-port centroids, and K_port fixture
+  p_geometry_file: geometry/synthetic-p-coded-layout.md
   p_detuned_control_id: synthetic-detuned-control
+  p_detuned_control_ratio: 1.50
+  p_detuned_control_geometry_file: geometry/synthetic-detuned-layout.md
   physical_flip_axis: horizontal
   single_pickup_per_dish_is_conventional_only: true
 measurement:

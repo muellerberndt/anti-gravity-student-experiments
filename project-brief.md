@@ -50,6 +50,21 @@ The manifest must state `p_target_status: p_integrated`, the exact ratio
 definition, the measured value and tolerance, the files that bind it to the
 built article, and a detuned control geometry.
 
+Use these defaults unless the supervisor approves a different written P ratio:
+
+- Plate: `active_body_long_span_mm / p_port_centroid_separation_mm = P`.
+  On a 100 mm long plate, put the in-plane P-port centroids 61.31 mm apart on
+  each instrumented face. On an 80 mm long plate, put them 49.05 mm apart.
+- Cymbal or dish: `dish_active_radius_mm / transducer_ring_radius_mm = P`.
+  On a 200 mm diameter dish with 100 mm usable radius, place the transducer ring
+  at 61.31 mm radius.
+
+The detuned control must move the same ratio at least 5 percent away from `P`
+while keeping mass, drive electronics, power, handling, and logging as similar
+as practical. A simple default is ratio `1.50`, which gives 66.67 mm P-port
+centroid separation for a 100 mm plate and 66.67 mm ring radius for a 200 mm
+dish.
+
 Any P-dependent residual story has to pass an extra falsification test: the
 force residual must track the P-coded self-read contrast and must weaken or
 vanish in the detuned-geometry, replay, shuffled-record, dummy, and physical

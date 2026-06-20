@@ -27,6 +27,39 @@ measured, and which detuned geometry tests the same mass and power path without
 that ratio. Without that declaration, the rig is not inside the student
 hardware spec.
 
+Use this default encoding unless the supervisor approves a written replacement:
+
+```text
+R_P = dish_active_radius_mm / transducer_ring_radius_mm
+target: R_P = 1.6309682
+confirmation tolerance: <= 1.0 percent
+```
+
+Measure `dish_active_radius_mm` from the dish center to the usable driven
+radius or marked acoustic boundary. Place the transducer ring at:
+
+```text
+transducer_ring_radius_mm = dish_active_radius_mm / 1.6309682
+```
+
+Examples:
+
+| Dish active diameter | Active radius | P-coded transducer ring radius |
+| --- | --- | --- |
+| 200.00 mm | 100.00 mm | 61.31 mm |
+| 240.00 mm | 120.00 mm | 73.58 mm |
+| 300.00 mm | 150.00 mm | 91.97 mm |
+
+For the default detuned control, keep the same dish type, transducers,
+electronics, power envelope, and logging, but use:
+
+```text
+R_detuned = dish_active_radius_mm / transducer_ring_radius_mm = 1.50
+```
+
+On a 200 mm active dish, that puts the detuned ring at 66.67 mm radius. The
+detuned ratio must be at least 5 percent away from `P`.
+
 Student model:
 
 - A dish or cymbal acts like a loud mechanical speaker.
@@ -45,7 +78,7 @@ Build this before the four-dish platform.
 | --- | --- |
 | Dish | 200 mm aluminum pot lid, stainless bowl, or small cymbal |
 | Transducers | 3 to 12 piezo discs or bolt-on transducers |
-| Layout | Ring at about 60 percent radius |
+| Layout | Ring at `dish_active_radius / P`, about 61.31 percent radius |
 | Drive | Phase-locked channels from one MCU |
 | Measurement | Driven dish on its own load cell or overhead force gauge, above an independent reflector |
 | Standoff | 0.05 to 5 mm for broad scans. 0.02 to 0.2 mm for true squeeze-film studies only with fine-gap metrology |
@@ -85,7 +118,7 @@ Build this after B0 is stable.
 | Dishes | 4 x 200 to 300 mm stainless bowls or pot lids |
 | Optional larger dishes | 4 x 400 to 510 mm cymbals for later bench work |
 | Transducers | 3 per dish, 12 total |
-| Placement | 120 degrees apart, about 60 percent radius |
+| Placement | 120 degrees apart on `dish_active_radius / P`, about 61.31 percent radius |
 | Orientation | Bell or convex focus downward, aimed at reflector plate |
 | Frame | Square frame, 600 to 800 mm side length for large dishes, smaller for bowls |
 | Tilt | 0 degrees for pure vertical force maps. Optional 10 to 15 degrees outward for steering studies |
@@ -167,8 +200,14 @@ geometry:
   oph_vertical_scalar_claim: false
   p_target_status: p_integrated
   p_target_value: 1.6309682
-  p_geometry_ratio: dish_port_ring_radius_mm / dish_active_radius_mm
+  p_geometry_ratio: dish_active_radius_mm / transducer_ring_radius_mm
+  p_geometry_ratio_measured: 1.6309682
+  p_geometry_ratio_tolerance_pct: 1.0
+  p_geometry_elements: dish active radius, transducer ring radius, port angular positions
+  p_geometry_file: geometry/dish-p-coded-ring-measurement.md
   p_detuned_control_id: dish_port_ring_detuned_control
+  p_detuned_control_ratio: 1.50
+  p_detuned_control_geometry_file: geometry/dish-detuned-ring-measurement.md
 ```
 
 Change `oph_vertical_scalar_claim` to `true` only after the article has real upper/lower instrumented zones and an accepted scorebook.

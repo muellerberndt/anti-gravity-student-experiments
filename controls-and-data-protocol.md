@@ -31,6 +31,16 @@ Geometry declaration:
   control geometry. Conventional mapping can remain the strongest allowed
   claim, but the build still carries a P-coded geometry/readback target.
 
+Mandatory P fields:
+
+| Field | Required content |
+| --- | --- |
+| `p_geometry_ratio` | exact formula, for example `active_body_long_span_mm / p_port_centroid_separation_mm` or `dish_active_radius_mm / transducer_ring_radius_mm` |
+| `p_geometry_ratio_measured` | measured ratio after assembly; confirmation target is within 1 percent of `1.6309682` |
+| `p_geometry_file` | drawing, CAD, photo markup, or measurement sheet showing the numerator and denominator |
+| `p_detuned_control_ratio` | measured detuned ratio, at least 5 percent away from `P` |
+| `p_detuned_control_geometry_file` | drawing, CAD, photo markup, or measurement sheet for the detuned article |
+
 Student translation:
 
 - A geometry declaration tells the reader which direction the experiment is testing.

@@ -47,14 +47,43 @@ Student model:
 
 P integration rule:
 
-`P ~= 1.6309682` is the plate's declared geometry/readback tuning target for an
-student run. Before bonding ports, choose one dimensionless ratio that the build
-will hold near `P`, such as port spacing divided by active-zone span, collar or
-spacer gap divided by plate thickness, top-zone scale divided by bottom-zone
-scale, or a frozen `K_port` coupling/readback ratio. Record the definition,
-intended value, measured value, tolerance, and geometry files in the manifest.
-Build or identify a detuned control with the same mass, power path, and
-handling but with that ratio shifted.
+`P ~= 1.6309682` is the plate's declared geometry/readback tuning target for
+the student run. Use this default encoding unless the supervisor approves a
+written replacement:
+
+```text
+R_P = active_body_long_span_mm / p_port_centroid_separation_mm
+target: R_P = 1.6309682
+confirmation tolerance: <= 1.0 percent
+```
+
+Measure `active_body_long_span_mm` along the declared force axis between the
+two outer fiducials or the usable plate edges. Put the in-plane P-port
+centroids at the same separation on each instrumented face:
+
+```text
+p_port_centroid_separation_mm = active_body_long_span_mm / 1.6309682
+```
+
+Examples:
+
+| Active long span | P-coded P-port centroid separation |
+| --- | --- |
+| 100.00 mm | 61.31 mm |
+| 90.00 mm | 55.18 mm |
+| 80.00 mm | 49.05 mm |
+
+For the default detuned control, use the same plate outline, mass target, power
+path, and logging, but set:
+
+```text
+R_detuned = active_body_long_span_mm / p_port_centroid_separation_mm = 1.50
+```
+
+That gives 66.67 mm P-port centroid separation on a 100 mm plate. The detuned
+ratio must be at least 5 percent away from `P`; ratio `1.50` is about 8 percent
+away. Record the P-coded and detuned geometry drawings or photo markups before
+viewing force data.
 
 ## Bill Of Materials
 
@@ -92,7 +121,7 @@ The mechanical active twin matters because a resistor-only dummy may fail to mat
 ## Mechanical Build
 
 1. Declare the measurement geometry before bonding ports. Balance mode uses top and bottom zones relative to gravity. Pendulum mode uses left/right or A/B zones along the horizontal force axis.
-2. Declare the P status before bonding ports. Mark the P-coded ratio on the drawing and specify the detuned control geometry.
+2. Declare the P status before bonding ports. Mark the active-body span, the P-port centroid separation on each instrumented face, `R_P`, tolerance, and the detuned-control geometry on the drawing.
 3. For balance mode, place matched ports or matched port groups on both faces, or use a laminate that gives separately measured top and bottom readouts. A single-sided plate can train the electronics, but it does not supply a true top/bottom scalar.
 4. For pendulum mode, bond piezos in symmetric pairs across the horizontal axis. A four-port layout uses two ports on one side of the axis and two on the other. An eight-port or twelve-port layout gives better mode control.
 5. Keep the center of mass on the balance contact point or suspension line. Add nonmagnetic trim mass if needed.

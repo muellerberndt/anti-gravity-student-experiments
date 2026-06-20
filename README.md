@@ -56,6 +56,12 @@ the built device, and which detuned geometry or null control would make a
 P-dependent story fail. Conventional vibration maps are still useful, but the
 student hardware spec itself does not have a no-P branch.
 
+Default encodings are fixed in the build guides. For the plate, set the active
+body span divided by the in-plane P-port centroid separation to `P` on the top
+and bottom faces. For the cymbal or dish, set the usable dish radius divided by
+the transducer ring radius to `P`. Record the measured ratio and a detuned
+control before force data are viewed.
+
 Plain-language map:
 
 - A piezo is an electrical part that bends a little when voltage is applied.

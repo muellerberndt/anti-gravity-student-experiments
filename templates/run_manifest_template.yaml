@@ -58,14 +58,14 @@ geometry:
   oph_vertical_scalar_claim: true
   p_target_status: p_integrated
   p_target_value: 1.6309682
-  p_geometry_ratio: port_spacing_mm / active_zone_span_mm
-  p_geometry_ratio_measured:
-  p_geometry_ratio_tolerance_pct:
-  p_geometry_elements: port layout, active-zone span, body geometry file, K_port coupling notes
-  p_geometry_file:
-  p_detuned_control_id:
-  p_detuned_control_ratio:
-  p_detuned_control_geometry_file:
+  p_geometry_ratio: active_body_long_span_mm / p_port_centroid_separation_mm
+  p_geometry_ratio_measured: 1.6309682
+  p_geometry_ratio_tolerance_pct: 1.0
+  p_geometry_elements: active body span, P-port centroids on each instrumented face, port layout, K_port coupling notes
+  p_geometry_file: geometry/p-coded-layout-measurement.md
+  p_detuned_control_id: p-detuned-ratio-1p50
+  p_detuned_control_ratio: 1.50
+  p_detuned_control_geometry_file: geometry/detuned-layout-measurement.md
   p_claim_limit: P is a geometry/readback target, not a force coefficient
   physical_flip_axis:
   reflector_plate: false
